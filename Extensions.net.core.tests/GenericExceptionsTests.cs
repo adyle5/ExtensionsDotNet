@@ -349,8 +349,6 @@ namespace Extensions.net.core.tests
 
         #region "Private Methods"
 
-        #endregion
-
         private long ConvertInt32DotNet(string str1)
         {
             Stopwatch sw = Stopwatch.StartNew();
@@ -571,5 +569,7 @@ namespace Extensions.net.core.tests
             sw.Stop();
             return sw.ElapsedTicks;
         }
+
+        #endregion
     }
 }
