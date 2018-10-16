@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Extensions.net
 {
-    public static class GenericExceptions
+    public static class GenericExtensions
     {
         /// <summary>
         /// Maps to Convert.ToInt32

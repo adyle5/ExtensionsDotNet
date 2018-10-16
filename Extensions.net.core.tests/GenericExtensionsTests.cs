@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Extensions.net.core.tests
 {
-    public class GenericExceptionsTests
+    public class GenericExtensionsTests
     {
         [Fact]
         public void ToInt32()
