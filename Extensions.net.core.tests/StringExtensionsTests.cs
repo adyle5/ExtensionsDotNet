@@ -1,6 +1,4 @@
-﻿using Extensions.net.strings;
-using System;
-using System.Diagnostics;
+﻿using System;
 using Xunit;
 
 namespace Extensions.net.core.tests.strings
@@ -163,42 +161,6 @@ namespace Extensions.net.core.tests.strings
         }
 
         [Fact]
-        public void ToBoolean()
-        {
-            string t = "true";
-
-            Assert.True(t.ToBooleanExt());
-            Assert.Equal(Convert.ToBoolean(t), t.ToBooleanExt());
-
-
-            string t2 = "is true";
-            FormatException formatEx = Assert.Throws<FormatException>(() => t2.ToBooleanExt());
-            Assert.Equal("String was not recognized as a valid Boolean.", formatEx.Message);
-        }
-
-        [Fact]
-        public void ToByte()
-        {
-            string b = "1";
-            Assert.Equal(Convert.ToByte(b), b.ToByteExt());
-
-            string b2 = "test";
-            FormatException formatEx = Assert.Throws<FormatException>(() => b2.ToByteExt());
-            Assert.Equal("Input string was not in a correct format.", formatEx.Message);
-        }
-
-        [Fact]
-        public void ToChar()
-        {
-            string c = "c";
-            Assert.Equal(Convert.ToChar(c), c.ToCharExt());
-
-            string c2 = "cc";
-            FormatException formatEx = Assert.Throws<FormatException>(() => c2.ToCharExt());
-            Assert.Equal("String must be exactly one character long.", formatEx.Message);
-        }
-
-        [Fact]
         public void ToDateTime()
         {
             string date = "01/01/2018";
@@ -210,26 +172,6 @@ namespace Extensions.net.core.tests.strings
 
             string date4 = "This is not a date";
             Assert.Throws<FormatException>(() => date4.ToDateTimeExt());
-        }
-
-        [Fact]
-        public void ToDecimal()
-        {
-            string d = "1.25";
-            Assert.Equal(Convert.ToDecimal(d), d.ToDecimalExt());
-
-            string d2 = "one point two five";
-            Assert.Throws<FormatException>(() => d2.ToDecimalExt());
-        }
-
-        [Fact]
-        public void ToSByte()
-        {
-            string sb = "100";
-            Assert.Equal(Convert.ToSByte(sb), sb.ToSByteExt());
-
-            string sb2 = "1000";
-            Assert.Throws<OverflowException>(() => sb2.ToSByteExt());
         }
 
         [Fact]

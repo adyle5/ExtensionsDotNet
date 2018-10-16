@@ -1,6 +1,4 @@
-﻿using Extensions.net.numbers;
-using System;
-using Xunit;
+﻿using Xunit;
 
 namespace Extensions.net.core.tests
 {
@@ -18,24 +16,6 @@ namespace Extensions.net.core.tests
             output = 0;
             output.TryParseExt(input2);
             Assert.Equal(0, output);
-        }
-
-        [Fact]
-        public void ToDoubleExt()
-        {
-            int num = 1;
-            int denominator = 2;
-
-            Assert.Equal(0.5, num.ToDoubleExt() / denominator);
-        }
-
-        [Fact]
-        public void ToSingleExt()
-        {
-            int num = 1;
-            int denominator = 2;
-
-            Assert.Equal(0.5, num.ToSingleExt() / denominator);
         }
     }
 }

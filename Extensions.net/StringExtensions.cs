@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Extensions.net.strings
+namespace Extensions.net
 {
     /// <summary>
     /// String extensions.
@@ -169,46 +169,11 @@ namespace Extensions.net.strings
         public static bool ReferenceEqualsExt(this string text, string compareTo) => ReferenceEquals(text, compareTo);
 
         /// <summary>
-        /// Maps to Convert.ToBoolean
-        /// </summary>
-        /// <returns><c>true</c>, if boolean ext was toed, <c>false</c> otherwise.</returns>
-        /// <param name="text">Text.</param>
-        public static bool ToBooleanExt(this string text) => Convert.ToBoolean(text);
-
-        /// <summary>
-        /// Maps to Convert.ToByte
-        /// </summary>
-        /// <returns>The byte ext.</returns>
-        /// <param name="text">Text.</param>
-        public static byte ToByteExt(this string text) => Convert.ToByte(text);
-
-        /// <summary>
-        /// Maps to Convert.ToChar
-        /// </summary>
-        /// <returns>The char ext.</returns>
-        /// <param name="text">Text.</param>
-        public static char ToCharExt(this string text) => Convert.ToChar(text);
-
-        /// <summary>
         /// Maps to Convert.ToDateTime;
         /// </summary>
         /// <returns>The date time ext.</returns>
         /// <param name="text">Text.</param>
         public static DateTime ToDateTimeExt(this string text) => Convert.ToDateTime(text);
-
-        /// <summary>
-        /// Maps to Convert.ToDecimal
-        /// </summary>
-        /// <returns>The decimal ext.</returns>
-        /// <param name="text">Text.</param>
-        public static decimal ToDecimalExt(this string text) => Convert.ToDecimal(text);
-
-        /// <summary>
-        /// Maps to Convert.ToSByte.
-        /// </summary>
-        /// <returns>The SB yte ext.</returns>
-        /// <param name="text">Text.</param>
-        public static SByte ToSByteExt(this string text) => Convert.ToSByte(text);
 
         /// <summary>
         /// Maps to Convert.ToBase64String
@@ -327,6 +292,41 @@ namespace Extensions.net.strings
         //        throw new FormatException("Input string was not in a correct format.");
         //    }
         //}
+
+        ///// <summary>
+        ///// Maps to Convert.ToBoolean
+        ///// </summary>
+        ///// <returns><c>true</c>, if boolean ext was toed, <c>false</c> otherwise.</returns>
+        ///// <param name="text">Text.</param>
+        //public static bool ToBooleanExt(this string text) => Convert.ToBoolean(text);
+
+        ///// <summary>
+        ///// Maps to Convert.ToByte
+        ///// </summary>
+        ///// <returns>The byte ext.</returns>
+        ///// <param name="text">Text.</param>
+        //public static byte ToByteExt(this string text) => Convert.ToByte(text);
+
+        ///// <summary>
+        ///// Maps to Convert.ToChar
+        ///// </summary>
+        ///// <returns>The char ext.</returns>
+        ///// <param name="text">Text.</param>
+        //public static char ToCharExt(this string text) => Convert.ToChar(text);
+
+        ///// <summary>
+        ///// Maps to Convert.ToDecimal
+        ///// </summary>
+        ///// <returns>The decimal ext.</returns>
+        ///// <param name="text">Text.</param>
+        //public static decimal ToDecimalExt(this string text) => Convert.ToDecimal(text);
+
+        ///// <summary>
+        ///// Maps to Convert.ToSByte.
+        ///// </summary>
+        ///// <returns>The SB yte ext.</returns>
+        ///// <param name="text">Text.</param>
+        //public static SByte ToSByteExt(this string text) => Convert.ToSByte(text);
         #endregion
     }
 }

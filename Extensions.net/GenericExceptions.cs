@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Extensions.net.generic
+namespace Extensions.net
 {
     public static class GenericExceptions
     {
@@ -114,5 +114,40 @@ namespace Extensions.net.generic
                 throw new FormatException("Input was not in a correct format.");
             }
         }
+
+        /// <summary>
+        /// Maps to Convert.ToBoolean
+        /// </summary>
+        /// <returns><c>true</c>, if boolean ext was toed, <c>false</c> otherwise.</returns>
+        /// <param name="text">Text.</param>
+        public static bool ToBooleanExt<T>(this T obj) where T : IConvertible => Convert.ToBoolean(obj);
+
+        /// <summary>
+        /// Maps to Convert.ToByte
+        /// </summary>
+        /// <returns>The byte ext.</returns>
+        /// <param name="text">Text.</param>
+        public static byte ToByteExt<T>(this T obj) where T : IConvertible => Convert.ToByte(obj);
+
+        /// <summary>
+        /// Maps to Convert.ToChar
+        /// </summary>
+        /// <returns>The char ext.</returns>
+        /// <param name="text">Text.</param>
+        public static char ToCharExt<T>(this T obj) where T : IConvertible => Convert.ToChar(obj);
+
+        /// <summary>
+        /// Maps to Convert.ToDecimal
+        /// </summary>
+        /// <returns>The decimal ext.</returns>
+        /// <param name="text">Text.</param>
+        public static decimal ToDecimalExt<T>(this T obj) where T : IConvertible => Convert.ToDecimal(obj);
+
+        /// <summary>
+        /// Maps to Convert.ToSByte.
+        /// </summary>
+        /// <returns>The SB yte ext.</returns>
+        /// <param name="text">Text.</param>
+        public static SByte ToSByteExt<T>(this T obj) where T : IConvertible => Convert.ToSByte(obj);
     }
 }

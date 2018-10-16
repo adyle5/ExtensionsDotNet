@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using Xunit;
-using Extensions.net.generic;
 using System.Threading.Tasks;
 
 namespace Extensions.net.core.tests
@@ -196,6 +195,114 @@ namespace Extensions.net.core.tests
         }
 
         [Fact]
+        public void ToBoolean()
+        {
+            string t = "true";
+
+            Assert.True(t.ToBooleanExt());
+            Assert.Equal(Convert.ToBoolean(t), t.ToBooleanExt());
+
+            string t2 = "is true";
+            FormatException formatEx = Assert.Throws<FormatException>(() => t2.ToBooleanExt());
+            Assert.Equal("String was not recognized as a valid Boolean.", formatEx.Message);
+
+            int i = 1;
+            Assert.Equal(Convert.ToBoolean(i), i.ToBooleanExt());
+
+            float f = 1.0f;
+            Assert.Equal(Convert.ToBoolean(f), f.ToBooleanExt());
+
+            byte b = 1;
+            Assert.Equal(Convert.ToBoolean(b), b.ToBooleanExt());
+
+            DateTime d1 = DateTime.Now;
+            InvalidCastException invalidCastEx = Assert.Throws<InvalidCastException>(() => d1.ToBooleanExt());
+            Assert.Equal("Invalid cast from 'DateTime' to 'Boolean'.", invalidCastEx.Message);
+
+            long expectedElapsed = 0;
+            long actualElapsed = 0;
+            Parallel.Invoke(() => expectedElapsed = ConvertBooleanDotNet(t), () => actualElapsed = ConvertBooleanExt(t));
+
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < 1000); //1,000 ticks equals one tenth of a millisecond. Make sure we are inside of it.
+        }
+
+        [Fact]
+        public void ToByte()
+        {
+            string b = "1";
+            Assert.Equal(Convert.ToByte(b), b.ToByteExt());
+
+            string b2 = "test";
+            FormatException formatEx = Assert.Throws<FormatException>(() => b2.ToByteExt());
+            Assert.Equal("Input string was not in a correct format.", formatEx.Message);
+
+            long expectedElapsed = 0;
+            long actualElapsed = 0;
+            Parallel.Invoke(() => expectedElapsed = ConvertByteDotNet(b), () => actualElapsed = ConvertByteExt(b));
+
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < 1000); //1,000 ticks equals one tenth of a millisecond. Make sure we are inside of it.
+        }
+
+        [Fact]
+        public void ToChar()
+        {
+            string c = "c";
+            Assert.Equal(Convert.ToChar(c), c.ToCharExt());
+
+            string c2 = "cc";
+            FormatException formatEx = Assert.Throws<FormatException>(() => c2.ToCharExt());
+            Assert.Equal("String must be exactly one character long.", formatEx.Message);
+
+            int i = 5;
+            Assert.Equal(Convert.ToChar(i), i.ToCharExt());
+
+            long expectedElapsed = 0;
+            long actualElapsed = 0;
+            Parallel.Invoke(() => expectedElapsed = ConvertCharDotNet(c), () => actualElapsed = ConvertCharExt(c));
+
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < 1000); //1,000 ticks equals one tenth of a millisecond. Make sure we are inside of it.
+        }
+
+        [Fact]
+        public void ToDecimal()
+        {
+            string d = "1.25";
+            Assert.Equal(Convert.ToDecimal(d), d.ToDecimalExt());
+
+            string d2 = "one point two five";
+            Assert.Throws<FormatException>(() => d2.ToDecimalExt());
+
+            float f = 1.4F;
+            Assert.Equal(Convert.ToDecimal(f), f.ToDecimalExt());
+
+            string maxcDec = decimal.MaxValue.ToString();
+            //First call might skew results, so let's get it out of the way.
+            Convert.ToDecimal(maxcDec);
+
+            long expectedElapsed = 0;
+            long actualElapsed = 0;
+            Parallel.Invoke(() => expectedElapsed = ConvertDecimalDotNet(maxcDec), () => actualElapsed = ConvertDecimalExt(maxcDec));
+
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < 1000); //1,000 ticks equals one tenth of a millisecond. Make sure we are inside of it.
+        }
+
+        [Fact]
+        public void ToSByte()
+        {
+            string sb = "100";
+            Assert.Equal(Convert.ToSByte(sb), sb.ToSByteExt());
+
+            string sb2 = "1000";
+            Assert.Throws<OverflowException>(() => sb2.ToSByteExt());
+
+            long expectedElapsed = 0;
+            long actualElapsed = 0;
+            Parallel.Invoke(() => expectedElapsed = ConvertSByteDotNet(sb), () => actualElapsed = ConvertSByteExt(sb));
+
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < 1000); //1,000 ticks equals one tenth of a millisecond. Make sure we are inside of it.
+        }
+
+        [Fact]
         public void ToFloat()
         {
             string one = "1.4";
@@ -376,6 +483,91 @@ namespace Extensions.net.core.tests
             Stopwatch sw = Stopwatch.StartNew();
             sw.Start();
             var tc2 = str1.ToSingleExt();
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private long ConvertBooleanDotNet(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            var tc1 = Convert.ToBoolean(str1);
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private long ConvertBooleanExt(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            sw.Start();
+            var tc2 = str1.ToBooleanExt();
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private long ConvertByteDotNet(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            var tc1 = Convert.ToByte(str1);
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private long ConvertByteExt(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            sw.Start();
+            var tc2 = str1.ToByteExt();
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private long ConvertCharDotNet(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            var tc1 = Convert.ToChar(str1);
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private long ConvertCharExt(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            sw.Start();
+            var tc2 = str1.ToCharExt();
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private long ConvertDecimalDotNet(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            var tc1 = Convert.ToDecimal(str1);
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private long ConvertDecimalExt(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            sw.Start();
+            var tc2 = str1.ToDecimalExt();
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private long ConvertSByteDotNet(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            var tc1 = Convert.ToSByte(str1);
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private long ConvertSByteExt(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            sw.Start();
+            var tc2 = str1.ToSByteExt();
             sw.Stop();
             return sw.ElapsedTicks;
         }
