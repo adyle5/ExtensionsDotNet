@@ -52,7 +52,7 @@ namespace Extensions.net
         /// </summary>
         /// <returns>The double ext.</returns>
         /// <param name="text">Text.</param>
-        public static double ToDoubleExt<T>(this T obj) => Convert.ToDouble(obj);
+        public static double ToDoubleExt<T>(this T obj) where T : IConvertible => Convert.ToDouble(obj);
 
         /// <summary>
         /// Maps to Convert.ToSingle

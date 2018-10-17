@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Globalization;
+using System.Threading.Tasks;
 using Xunit;
 
-namespace Extensions.net.core.tests.strings
+namespace Extensions.net.core.tests
 {
     public class StringExtensionsTests
     {
@@ -181,6 +184,83 @@ namespace Extensions.net.core.tests.strings
             byte[] b64 = Convert.FromBase64String(str1);               
 
             Assert.Equal(b64, str1.FromBase64StringExt());
+
+            long expectedElapsed = 0;
+            long actualElapsed = 0;
+            Parallel.Invoke(() => expectedElapsed = Base64DotNet(str1), () => actualElapsed = Base64Ext(str1));
+
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < 1000); //1,000 ticks equals one tenth of a millisecond. Make sure we are inside of it.
         }
+
+        [Fact]
+        public void ToTitleCase()
+        {
+            string str1 = "fubar";
+            Assert.Equal("Fubar", str1.ToTitleCaseExt());
+
+            string longText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam orci orci, consequat nec dui eu, porta volutpat augue. Nulla vel vehicula lectus, eget facilisis lectus. Sed sed ipsum a nibh aliquet facilisis id quis dui. Mauris interdum urna urna, et euismod tortor luctus quis. Etiam consequat quam vitae lectus egestas finibus. Aliquam id nisi nec ligula semper tempus sed a leo. Pellentesque nec aliquam justo. Nunc non erat bibendum, feugiat urna id, imperdiet metus. Nulla imperdiet mauris vitae justo tincidunt consectetur. Suspendisse interdum lacus sit amet aliquam tincidunt. Aliquam blandit pulvinar vestibulum. Quisque rhoncus tincidunt sem, vitae mollis diam rutrum non.";
+            long expectedElapsed = 0;
+            long actualElapsed = 0;
+            Parallel.Invoke(() => expectedElapsed = TileCaseDotNet(longText), () => actualElapsed = TitleCaseExt(longText));
+
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < 1000); //1,000 ticks equals one tenth of a millisecond. Make sure we are inside of it.
+        }
+
+        [Fact]
+        public void Reverse()
+        {
+            string str1 = "fubar";
+            Assert.Equal("rabuf", str1.ReverseExt());
+
+            string str2 = "green room";
+            Assert.Equal("moor neerg", str2.ReverseExt());
+        }
+
+        [Fact]
+        public void Palindrome()
+        {
+            string str1 = "mom";
+            Assert.True(str1.IsPalindromeExt());
+
+            string str2 = "socks";
+            Assert.False(str2.IsPalindromeExt());
+        }
+
+        #region "Private Methods"
+        private long Base64DotNet(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            var tc1 = Convert.FromBase64String(str1);
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private long Base64Ext(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            sw.Start();
+            var tc2 = str1.FromBase64StringExt();
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private long TileCaseDotNet(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            TextInfo textInfo = CultureInfo.InvariantCulture.TextInfo;
+            var tc1 = textInfo.ToTitleCase(str1);
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private long TitleCaseExt(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            sw.Start();
+            var tc2 = str1.ToTitleCaseExt();
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+        #endregion
     }
 }

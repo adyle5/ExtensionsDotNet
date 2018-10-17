@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text;
 
 namespace Extensions.net
@@ -181,6 +182,41 @@ namespace Extensions.net
         /// <param name="text"></param>
         /// <returns></returns>
         public static byte[] FromBase64StringExt(this string text) => Convert.FromBase64String(text);
+
+        /// <summary>
+        /// Maps to TitleInfo.ToTitleCase
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static string ToTitleCaseExt(this string text)
+        {
+            TextInfo textInfo = CultureInfo.InvariantCulture.TextInfo;
+            return textInfo.ToTitleCase(text);
+        }
+
+        /// <summary>
+        /// Reverses a string
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static string ReverseExt(this string text)
+        {
+            char[] chars = text.ToCharArray();
+            Array.Reverse(chars);
+            return new string(chars);
+        }
+
+        /// <summary>
+        /// Retruns a bool indicating if the text is a palindrome
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static bool IsPalindromeExt(this string text)
+        {
+            string reversed = text.ReverseExt();
+            return text == reversed;
+                
+        }
 
         #region "Moved to Generic Extensions"
         ///// <summary>
