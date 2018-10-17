@@ -28,7 +28,7 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = ConvertInt32DotNet(strMax), () => actualElapsed = ConvertInt32Ext(strMax));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < 1000); //1,000 ticks equals one tenth of a millisecond. Make sure we are inside of it.
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = ConvertUInt32DotNet(strMax), () => actualElapsed = ConvertUInt32Ext(strMax));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < 1000); //1,000 ticks equals one tenth of a millisecond. Make sure we are inside of it.
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
         }
 
         [Fact]
@@ -76,7 +76,7 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = ConvertInt16DotNet(strMax), () => actualElapsed = ConvertInt16Ext(strMax));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < 1000); //1,000 ticks equals one tenth of a millisecond. Make sure we are inside of it.
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
         }
 
         [Fact]
@@ -100,7 +100,7 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = ConvertUInt16DotNet(strMax), () => actualElapsed = ConvertUInt16Ext(strMax));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < 1000); //1,000 ticks equals one tenth of a millisecond. Make sure we are inside of it.
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
         }
 
         [Fact]
@@ -121,7 +121,7 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = ConvertInt64DotNet(strMax), () => actualElapsed = ConvertInt64Ext(strMax));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < 1000); //1,000 ticks equals one tenth of a millisecond. Make sure we are inside of it.
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
         }
 
         [Fact]
@@ -145,7 +145,7 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = ConvertUInt64DotNet(strMax), () => actualElapsed = ConvertUInt64Ext(strMax));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < 1000); //1,000 ticks equals one tenth of a millisecond. Make sure we are inside of it.
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
         }
 
         [Fact]
@@ -166,7 +166,7 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = ConvertDoubleDotNet(strMax), () => actualElapsed = ConvertDoubleExt(strMax));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < 1000); //1,000 ticks equals one tenth of a millisecond. Make sure we are inside of it.
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
         }
 
         [Fact]
@@ -191,7 +191,7 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = ConvertSingleDotNet(strMax), () => actualElapsed = ConvertSingleExt(strMax));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < 1000); //1,000 ticks equals one tenth of a millisecond. Make sure we are inside of it.
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS); 
         }
 
         [Fact]
@@ -223,7 +223,7 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = ConvertBooleanDotNet(t), () => actualElapsed = ConvertBooleanExt(t));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < 1000); //1,000 ticks equals one tenth of a millisecond. Make sure we are inside of it.
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS); 
         }
 
         [Fact]
@@ -240,7 +240,7 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = ConvertByteDotNet(b), () => actualElapsed = ConvertByteExt(b));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < 1000); //1,000 ticks equals one tenth of a millisecond. Make sure we are inside of it.
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS); 
         }
 
         [Fact]
@@ -260,7 +260,7 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = ConvertCharDotNet(c), () => actualElapsed = ConvertCharExt(c));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < 1000); //1,000 ticks equals one tenth of a millisecond. Make sure we are inside of it.
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS); 
         }
 
         [Fact]
@@ -283,7 +283,7 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = ConvertDecimalDotNet(maxcDec), () => actualElapsed = ConvertDecimalExt(maxcDec));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < 1000); //1,000 ticks equals one tenth of a millisecond. Make sure we are inside of it.
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS); 
         }
 
         [Fact]
@@ -299,7 +299,7 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = ConvertSByteDotNet(sb), () => actualElapsed = ConvertSByteExt(sb));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < 1000); //1,000 ticks equals one tenth of a millisecond. Make sure we are inside of it.
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS); 
         }
 
         [Fact]

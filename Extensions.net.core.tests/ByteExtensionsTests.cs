@@ -17,7 +17,7 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = ConvertB64StringDotNet(bytes), () => actualElapsed = ConvertB64Ext(bytes));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < 1000); //1,000 ticks equals one tenth of a millisecond. Make sure we are inside of it.
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
         }
 
         #region "Private Methods"
