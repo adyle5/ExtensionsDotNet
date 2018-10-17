@@ -39,11 +39,11 @@ namespace Extensions.net.core.tests
             int target = 569;
             length = 300;
             //First call might skew results, so let's get it out of the way.
-            Array.BinarySearch(arr2, target);
+            Array.BinarySearch(arr2, index, length, target);
 
             long expectedElapsed = 0;
             long actualElapsed = 0;
-            Parallel.Invoke(() => expectedElapsed = BinarySearchDotNet(arr2, target), () => actualElapsed = BinarySearchExt(arr2, target));
+            Parallel.Invoke(() => expectedElapsed = BinarySearchDotNet(arr2, target, index, length), () => actualElapsed = BinarySearchExt(arr2, target, index, length));
 
             Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
         }
