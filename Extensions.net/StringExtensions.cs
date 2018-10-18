@@ -92,6 +92,7 @@ namespace Extensions.net
 
         /// <summary>
         /// Maps to string.Copy.
+        /// Deep copy.
         /// </summary>
         /// <returns>The copy.</returns>
         /// <param name="text">Text.</param>

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 
 namespace Extensions.net
@@ -149,5 +151,32 @@ namespace Extensions.net
         /// <returns>The SB yte ext.</returns>
         /// <param name="text">Text.</param>
         public static SByte ToSByteExt<T>(this T obj) where T : IConvertible => Convert.ToSByte(obj);
+
+        /// <summary>
+        /// Performs a deep copy of an object.
+        /// Object must be a class and must be serializable.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static T DeepCopyExt<T>(this T obj) where T : class
+        {
+            if (obj == null) return obj;
+
+            T newObj = null;
+
+            if (obj.GetType().IsSerializable)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    BinaryFormatter f = new BinaryFormatter();
+                    f.Serialize(ms, obj);
+                    ms.Position = 0;
+                    newObj = (T)f.Deserialize(ms);
+                }
+            }
+
+            return newObj;
+        }
     }
 }

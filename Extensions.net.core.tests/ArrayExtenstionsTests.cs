@@ -84,10 +84,10 @@ namespace Extensions.net.core.tests
 
 
         [Fact]
-        public void DeepCopy()
+        public void CopyDeep()
         {
             string[] arr1 = { "one", "two", "three", "four", "five" };
-            string[] arr2 = arr1.DeepCopyExt();
+            string[] arr2 = arr1.CopyDeepExt();
 
             Assert.False(Object.ReferenceEquals(arr2[0], arr1[0])); // strings do not point to the same memory loc.
 
@@ -95,6 +95,79 @@ namespace Extensions.net.core.tests
             Array.Copy(arr1, arr3, arr3.Length);
 
             Assert.True(Object.ReferenceEquals(arr3[0], arr1[0])); // strings point to the same memory loc.
+        }
+
+        [Fact]
+        public void CopyDeep2()
+        {
+            string[] arr1 = { "one", "two", "three", "four", "five" };
+            string[] arr2 = arr1.CopyDeepExt(1, 3);
+
+            Assert.Equal(new string[] { "two", "three", "four"}, arr2);
+            Assert.False(Object.ReferenceEquals(arr2[0], arr1[0])); // strings do not point to the same memory loc.
+
+            string[] arr3 = new string[arr1.Length];
+            Array.Copy(arr1, arr3, arr3.Length);
+
+            Assert.True(Object.ReferenceEquals(arr3[0], arr1[0])); // strings point to the same memory loc.
+
+            Assert.Throws<OverflowException>(() => arr2.CopyDeepExt(10, 10));
+
+        }
+
+        [Fact]
+        public void Concatenate()
+        {
+            int[] arr1 = { 1, 2, 3 };
+            int[] arr2 = { 4, 5, 6 };
+            int[] newArr = arr1.ConcatenateExt(arr2);
+            Assert.Equal(new int[] { 1, 2, 3, 4, 5, 6 }, newArr);
+
+            string[] arr3 = { "one", "two", "three" };
+            string[] arr4 = { "four", "five" };
+            string[] newArr2 = arr3.ConcatenateExt(arr4);
+            Assert.Equal(new string[] { "one", "two", "three", "four", "five" }, newArr2);
+
+            Assert.True(Object.ReferenceEquals(arr3[0], newArr2[0]));
+        }
+
+        [Fact]
+        public void ConcatenateDeep()
+        {
+            string[] arr1 = { "one", "two", "three" };
+            string[] arr2 = { "four", "five" };
+            string[] newArr = arr1.ConcatenateDeepExt(arr2);
+            Assert.Equal(new string[] { "one", "two", "three", "four", "five" }, newArr);
+
+            Assert.False(Object.ReferenceEquals(arr1[0], newArr[0]));
+        }
+
+        [Fact]
+        public void Insert()
+        {
+            string[] arr1 = { "one", "two", "four", "five" };
+            string valToInsert = "three";
+            int position = 2;
+            string[] arr2 = arr1.InsertExt(valToInsert, position);
+
+            Assert.True(arr2.Length == 5);
+            Assert.Equal(new string[] { "one", "two", "three", "four", "five" }, arr2);
+            Assert.True(Object.ReferenceEquals(arr1[0], arr2[0]));
+            Assert.Throws<ArgumentOutOfRangeException>(() => arr2.InsertDeepExt("ten", 10));
+        }
+
+        [Fact]
+        public void InsertDeep()
+        {
+            string[] arr1 = { "one", "two", "four", "five" };
+            string valToInsert = "three";
+            int position = 2;
+            string[] arr2 = arr1.InsertDeepExt(valToInsert, position);
+
+            Assert.True(arr2.Length == 5);
+            Assert.Equal(new string[] { "one", "two", "three", "four", "five" }, arr2);
+            Assert.False(Object.ReferenceEquals(arr1[0], arr2[0]));
+            Assert.Throws<ArgumentOutOfRangeException>(() => arr2.InsertDeepExt("ten", 10));
         }
 
         [Fact]
@@ -390,6 +463,17 @@ namespace Extensions.net.core.tests
         {
             decimal[] arr1 = { 100.34M, 45M, 57.2M, 85.934M, 203M, 125.4M, 30.36M, 10M, 45.9M, 155.008M, 35.9M, 45M };
             Assert.Equal(Array.FindAll(arr1, x => x <= 30.5M), arr1.FindLessThanInclusiveExt(30.5M));
+        }
+
+        [Fact]
+        public void ForEach()
+        {
+            int[] arr1 = { 100, 45, 57, 85, 203, 125, 30, 10, 45, 155, 35, 45 };
+            int[] arr2 = { 100, 45, 57, 85, 203, 125, 30, 10, 45, 155, 35, 45 };
+            Action<int> action = new Action<int>((val) => Console.WriteLine("{0:d} squared = {1:d}", val, val * val));
+            Array.ForEach<int>(arr1, action);
+            arr2.ForEachExt(action);
+            Assert.Equal(arr1, arr2);
         }
 
         #region "Private Methods"

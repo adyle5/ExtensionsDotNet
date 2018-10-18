@@ -347,6 +347,16 @@ namespace Extensions.net.core.tests
             Assert.Equal(s, i.ToShortExt());
         }
 
+        [Fact]
+        public void DeepCopy()
+        {
+            string str1 = "test";
+            string str2 = str1.DeepCopyExt();
+
+            Assert.Equal(str1, str2);
+            Assert.False(Object.ReferenceEquals(str1, str2));
+        }
+
         #region "Private Methods"
 
         private long ConvertInt32DotNet(string str1)

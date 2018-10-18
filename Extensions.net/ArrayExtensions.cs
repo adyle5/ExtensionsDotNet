@@ -43,11 +43,12 @@ namespace Extensions.net
 
         /// <summary>
         /// Performs a deep copy of an array containing reference types.
+        /// O(n) time complexity.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="arr"></param>
         /// <returns></returns>
-        public static T[] DeepCopyExt<T>(this T[] arr) where T : class
+        public static T[] CopyDeepExt<T>(this T[] arr) where T : class
         {
             if (arr == null) return arr;
 
@@ -57,17 +58,140 @@ namespace Extensions.net
             {
                 if (arr[i].GetType().IsSerializable)
                 {
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        BinaryFormatter f = new BinaryFormatter();
-                        f.Serialize(ms, arr[i]);
-                        ms.Position = 0;
-                        arr2[i] = (T)f.Deserialize(ms);
-                    }
+                    arr2[i] = arr[i].DeepCopyExt();
                 }
             }
 
             return arr2;
+        }
+
+        /// <summary>
+        /// Performs a deep copy of an array containing reference types.
+        /// O(n) time complexity.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public static T[] CopyDeepExt<T>(this T[] arr, int index, int length) where T : class
+        {
+            if (arr == null) return arr;
+
+            if (index > arr.Length || index + length > arr.Length)
+                throw new OverflowException("Array dimensions exceeded supported range.");
+
+            T[] arr2 = new T[length];
+
+            if (index <= length && index + length <= arr.Length)
+            {
+                for (int baseI = 0; baseI < length; baseI++)
+                {
+                    int i = baseI + index;
+                    if (arr[i].GetType().IsSerializable)
+                    {
+                        arr2[baseI] = arr[i].DeepCopyExt();
+                    }
+                }
+            }
+            else return arr;
+
+            return arr2;
+        }
+
+        /// <summary>
+        /// Copies an array of type T into a new array of type T and inserts a value into the position specified.
+        /// This performs a deep copy of the first of array and of the value being inserted.
+        /// This extension method may have time complexities that make it costly to run on a large array.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <param name="value"></param>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        public static T[] InsertDeepExt<T>(this T[] arr, T value, int position) where T : class
+        {
+            if (arr == null)
+                return arr;
+
+            if (position > arr.Length || position < 0)
+                throw new ArgumentOutOfRangeException("Insert position out of range");
+
+            T[] newArr1 = arr.CopyDeepExt(0, position);
+            T[] newArr2 = new T[1] { value.DeepCopyExt() };
+            T[] newArr3 = arr.CopyDeepExt(position, arr.Length - position);
+            return newArr1.ConcatenateDeepExt(newArr2).ConcatenateDeepExt(newArr3);
+        }
+
+        /// <summary>
+        /// Copies an array of type T into a new array of type T and inserts a value into the position specified.
+        /// This performs a shallow copy, so the generated array items will share the same memory location as the items in the first array and as the inserted value, if those values are reference types.
+        /// This extension method may have time complexities that make it costly to run on a very large array.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <param name="value"></param>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        public static T[] InsertExt<T>(this T[] arr, T value, int position)
+        {
+            if (arr == null)
+                return arr;
+
+            if (position > arr.Length || position < 0)
+                throw new ArgumentOutOfRangeException("Insert position out of range");
+
+            T[] newArr1 = new T[position + 1];
+            Array.Copy(arr, 0, newArr1, 0, position);
+            newArr1[newArr1.Length - 1] = value;
+            T[] newArr2 = new T[arr.Length - position];
+            Array.Copy(arr, position, newArr2, 0, newArr2.Length);
+            return newArr1.ConcatenateExt(newArr2);
+        }
+
+        /// <summary>
+        /// Concatenate two arrays. Shallow copy only. For deep copy (ref types) use ConcatenateDeepExt.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <param name="arr2"></param>
+        /// <returns></returns>
+        public static T[] ConcatenateExt<T>(this T[] arr, T[] arr2)
+        {
+            if (arr == null || arr2 == null)
+                return arr;
+
+            T[] newArr = new T[arr.Length + arr2.Length];
+            arr.CopyTo(newArr, 0);
+            arr2.CopyTo(newArr, arr.Length);
+            return newArr;
+        }
+
+        /// <summary>
+        /// Concatenate two arrays. Deep copy. For shallow copy use ConcatenateExt.
+        /// Type must implement ISerializable
+        /// Not recommended for large arrays.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <param name="arr2"></param>
+        /// <returns></returns>
+        public static T[] ConcatenateDeepExt<T>(this T[] arr, T[] arr2) where T : class
+        {
+            if (arr == null || arr2 == null)
+                return arr;
+
+            T[] newArr = new T[arr.Length + arr2.Length];
+            for (int i = 0; i < arr.Length; i++)
+            {
+                newArr[i] = (T)arr[i].DeepCopyExt();
+            }
+
+            for (int i = 0; i < arr2.Length; i++)
+            {
+                int j = i + arr.Length;
+                newArr[j] = (T)arr2[i].DeepCopyExt();
+            }
+
+            return newArr;
         }
 
         /// <summary>
@@ -549,5 +673,14 @@ namespace Extensions.net
         /// <param name="upper"></param>
         /// <returns></returns>
         public static decimal[] FindLessThanInclusiveExt(this decimal[] arr, decimal target) => Array.FindAll(arr, x => x <= target);
+
+        /// <summary>
+        /// Maps to Array.Action
+        /// Iterates through an array and performs the specified action
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <param name="action"></param>
+        public static void ForEachExt<T>(this T[] arr, Action<T> action) => Array.ForEach<T>(arr, action);
     }
 }
