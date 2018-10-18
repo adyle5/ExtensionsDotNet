@@ -8,6 +8,40 @@ namespace Extensions.net.core.tests
     public class ArrayExtenstionsTests
     {
         [Fact]
+        public void Sort()
+        {
+            int[] arr1 = { 2, 5, 3, 4, 1 };
+            int[] arr2 = { 2, 5, 3, 4, 1 };
+            Array.Sort(arr1);
+            arr2.SortExt();
+            Assert.Equal(arr1, arr2);
+
+            string[] arr3 = { "one", "two", "three", "four", "five" };
+            string[] arr4 = { "one", "two", "three", "four", "five" };
+            Array.Sort(arr3);
+            arr4.SortExt();
+
+            Assert.Equal(arr3, arr4);
+
+            DateTime[] arr5 = { new DateTime(2018, 10, 17), new DateTime(2018, 9, 17) , new DateTime(2018, 10, 16), new DateTime(2017, 10, 17), new DateTime(2018, 12, 29) };
+            DateTime[] arr6 = { new DateTime(2018, 10, 17), new DateTime(2018, 9, 17), new DateTime(2018, 10, 16), new DateTime(2017, 10, 17), new DateTime(2018, 12, 29) };
+
+            Array.Sort(arr5);
+            arr6.SortExt();
+
+            Assert.Equal(arr5, arr6);
+
+            DateTime[] arr7 = { new DateTime(2018, 10, 17), new DateTime(2018, 9, 17), new DateTime(2018, 10, 16), new DateTime(2017, 10, 17), new DateTime(2018, 12, 29) };
+            DateTime[] arr8 = { new DateTime(2018, 10, 17), new DateTime(2018, 9, 17), new DateTime(2018, 10, 16), new DateTime(2017, 10, 17), new DateTime(2018, 12, 29) };
+
+            long expectedElapsed = 0;
+            long actualElapsed = 0;
+            Parallel.Invoke(() => expectedElapsed = SortDotNet(arr7), () => actualElapsed = SortExt(arr8));
+
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
+        }
+
+        [Fact]
         public void BinarySearch()
         {
             int[] arr1 = { 2,5,3,4,1 };
@@ -84,8 +118,279 @@ namespace Extensions.net.core.tests
             Assert.Equal("12345", str2);
         }
 
+        [Fact]
+        public void AverageInt()
+        {
+            int[] arr = { 1, 2, 3, 4, 5, 6 };
+            Assert.Equal((1 + 2 + 3 + 4 + 5 + 6) / 6.0, arr.AverageExt());
+        }
 
+        [Fact]
+        public void AverageDouble()
+        {
+            double[] arr = { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
+            Assert.Equal((1.0 + 2.0 + 3.0 + 4.0 + 5.0 + 6.0) / 6, arr.AverageExt());
+        }
 
+        [Fact]
+        public void AverageDecimal()
+        {
+            decimal[] arr = { 1.0M, 2.0M, 3.0M, 4.0M, 5.0M, 6.0M };
+            Assert.Equal((1.0M + 2.0M + 3.0M + 4.0M + 5.0M + 6.0M) / 6, arr.AverageExt());
+        }
+
+        [Fact]
+        public void MedianInt()
+        {
+            int[] arr1 = { 1, 2, 3, 4, 5 };
+            Assert.Equal(3, arr1.MedianExt());
+
+            int[] arr2 = { 1, 2, 3, 4, 5, 6};
+            Assert.Equal(3.5, arr2.MedianExt());
+
+            int[] arr3 = { -6, 2, -3, 14, 5, 26 };
+            Assert.Equal(3.5, arr3.MedianExt());
+
+            int[] arr4 = null;
+            Assert.Throws<NullReferenceException>(() => arr4.MedianExt());
+        }
+
+        [Fact]
+        public void MedianDouble()
+        {
+            double[] arr1 = { 1, 2, 3, 4, 5 };
+            Assert.Equal(3, arr1.MedianExt());
+
+            double[] arr2 = { -90, -5.4, 0, 1.5, 7.6, 120 };
+            Assert.Equal(0.75, arr2.MedianExt());
+
+            double[] arr3 = { -6, 2, -3, 14, 5, 26 };
+            Assert.Equal(3.5, arr3.MedianExt());
+
+            double[] arr4 = null;
+            Assert.Throws<NullReferenceException>(() => arr4.MedianExt());
+        }
+
+        [Fact]
+        public void MedianDecimal()
+        {
+            decimal[] arr1 = { 1M, 2M, 3M, 4M, 5M };
+            Assert.Equal(3, arr1.MedianExt());
+
+            decimal[] arr2 = { -90M, -5.4M, 0M, 1.5M, 7.6M, 120M };
+            Assert.Equal(0.75M, arr2.MedianExt());
+
+            decimal[] arr3 = { -6M, 2M, -3M, 14M, 5M, 26M };
+            Assert.Equal(3.5M, arr3.MedianExt());
+
+            decimal[] arr4 = null;
+            Assert.Throws<NullReferenceException>(() => arr4.MedianExt());
+        }
+
+        [Fact]
+        public void IsIntegral()
+        {
+            double dou = 2.0;
+            Assert.True(dou.IsIntegralExt());
+
+            double dou2 = 2.3;
+            Assert.False(dou2.IsIntegralExt());
+
+            decimal dec = 3.0M;
+            Assert.True(dec.IsIntegralExt());
+
+            decimal dec2 = 3.2M;
+            Assert.False(dec2.IsIntegralExt());
+        }
+
+        [Fact]
+        public void Exists()
+        {
+            string[] arr1 = { "yellow", "green", "blue", "orange", "pink", "purple", "brown", "black", "white", "red", "mauve", "polka dot" };
+            Assert.Equal(Array.Exists(arr1, x => x == "purple"), arr1.ExistsExt(x => x == "purple"));
+        }
+
+        [Fact]
+        public void Contains()
+        {
+            string[] arr1 = { "yellow", "green", "blue", "orange", "pink", "purple", "brown", "black", "white", "red", "mauve", "polka dot" };
+            Assert.Equal(Array.Exists(arr1, x => x == "purple"), arr1.ContainsExt("purple"));
+        }
+
+        [Fact]
+        public void StartsWith()
+        {
+            string[] arr1 = { "yellow", "green", "blue", "orange", "pink", "purple", "brown", "black", "white", "red", "mauve", "polka dot" };
+            Assert.Equal(Array.Exists(arr1, x => x.StartsWith("ora")), arr1.StartsWithExt("ora"));
+        }
+
+        [Fact]
+        public void EndsWith()
+        {
+            string[] arr1 = { "yellow", "green", "blue", "orange", "pink", "purple", "brown", "black", "white", "red", "mauve", "polka dot" };
+            Assert.Equal(Array.Exists(arr1, x => x.EndsWith("nge")), arr1.EndsWithExt("nge"));
+        }
+
+        [Fact]
+        public void Find()
+        {
+            int[] arr1 = { 100, 45, 57, 85, 203, 125, 30, 10 };
+            Assert.Equal(Array.Find(arr1, x => x > 100), arr1.FindExt(x => x > 100));
+        }
+
+        [Fact]
+        public void FindAll()
+        {
+            int[] arr1 = { 100, 45, 57, 85, 203, 125, 30, 10, 45, 155, 35, 45 };
+            Assert.Equal(Array.FindAll(arr1, x => x > 30 && x <= 40), arr1.FindAllExt(x => x > 30 && x <= 40));
+        }
+
+        [Fact]
+        public void FindIndex()
+        {
+            int[] arr1 = { 100, 45, 57, 85, 203, 125, 30, 10, 45, 155, 35, 45 };
+            Assert.Equal(Array.FindIndex(arr1, x => x == 45), arr1.FindIndexExt(x => x == 45));
+        }
+
+        [Fact]
+        public void FindLast()
+        {
+            int[] arr1 = { 100, 45, 57, 85, 203, 125, 30, 10, 45, 155, 35, 45 };
+            Assert.Equal(Array.FindLast(arr1, x => x == 45), arr1.FindLastExt(x => x == 45));
+        }
+
+        [Fact]
+        public void FindLastIndex()
+        {
+            int[] arr1 = { 100, 45, 57, 85, 203, 125, 30, 10, 45, 155, 35, 45 };
+            Assert.Equal(Array.FindLastIndex(arr1, x => x == 45), arr1.FindLastIndexExt(x => x == 45));
+        }
+
+        [Fact]
+        public void FindBetweenInt()
+        {
+            int[] arr1 = { 100, 45, 57, 85, 203, 125, 30, 10, 45, 155, 35, 45 };
+            Assert.Equal(Array.FindAll(arr1, x => x > 30 && x < 40), arr1.FindBetweenExt(30, 40));
+        }
+
+        [Fact]
+        public void FindBetweenInclusiveInt()
+        {
+            int[] arr1 = { 100, 45, 57, 85, 203, 125, 30, 10, 45, 155, 35, 45 };
+            Assert.Equal(Array.FindAll(arr1, x => x >= 30 && x <= 40), arr1.FindBetweenInclusiveExt(30, 40));
+        }
+
+        [Fact]
+        public void FindBetweenDouble()
+        {
+            double[] arr1 = { 100.34, 45, 57.2, 85.934, 203, 125.4, 30.36, 10, 45.9, 155.008, 35.9, 45 };
+            Assert.Equal(Array.FindAll(arr1, x => x > 30 && x < 40), arr1.FindBetweenExt(30, 40));
+        }
+
+        [Fact]
+        public void FindBetweenInclusiveDouble()
+        {
+            double[] arr1 = { 100.34, 45, 57.2, 85.934, 203, 125.4, 30.36, 10, 45.9, 155.008, 35.9, 45 };
+            Assert.Equal(Array.FindAll(arr1, x => x >= 30 && x <= 40), arr1.FindBetweenInclusiveExt(30, 40));
+        }
+
+        [Fact]
+        public void FindBetweenDecimal()
+        {
+            decimal[] arr1 = { 100.34M, 45M, 57.2M, 85.934M, 203M, 125.4M, 30.36M, 10M, 45.9M, 155.008M, 35.9M, 45M };
+            Assert.Equal(Array.FindAll(arr1, x => x > 30 && x < 40), arr1.FindBetweenExt(30, 40));
+        }
+
+        [Fact]
+        public void FindBetweenInclusiveDecimal()
+        {
+            decimal[] arr1 = { 100.34M, 45M, 57.2M, 85.934M, 203M, 125.4M, 30.36M, 10M, 45.9M, 155.008M, 35.9M, 45M };
+            Assert.Equal(Array.FindAll(arr1, x => x >= 30 && x <= 40), arr1.FindBetweenInclusiveExt(30, 40));
+        }
+
+        [Fact]
+        public void FindGreaterThanInt()
+        {
+            int[] arr1 = { 100, 45, 57, 85, 203, 125, 30, 10, 45, 155, 35, 45 };
+            Assert.Equal(Array.FindAll(arr1, x => x > 30), arr1.FindGreaterThanExt(30));
+        }
+
+        [Fact]
+        public void FindGreaterThanInclusiveInt()
+        {
+            int[] arr1 = { 100, 45, 57, 85, 203, 125, 30, 10, 45, 155, 35, 45 };
+            Assert.Equal(Array.FindAll(arr1, x => x >= 30), arr1.FindGreaterThanInclusiveExt(30));
+        }
+
+        [Fact]
+        public void FindGreaterThanDouble()
+        {
+            double[] arr1 = { 100.34, 45, 57.2, 85.934, 203, 125.4, 30.36, 10, 45.9, 155.008, 35.9, 45 };
+            Assert.Equal(Array.FindAll(arr1, x => x > 30.5), arr1.FindGreaterThanExt(30.5));
+        }
+
+        [Fact]
+        public void FindGreaterThanInclusiveDouble()
+        {
+            double[] arr1 = { 100.34, 45, 57.2, 85.934, 203, 125.4, 30.36, 10, 45.9, 155.008, 35.9, 45 };
+            Assert.Equal(Array.FindAll(arr1, x => x >= 30.5), arr1.FindGreaterThanInclusiveExt(35));
+        }
+
+        [Fact]
+        public void FindGreaterThanDecimal()
+        {
+            decimal[] arr1 = { 100.34M, 45M, 57.2M, 85.934M, 203M, 125.4M, 30.36M, 10M, 45.9M, 155.008M, 35.9M, 45M };
+            Assert.Equal(Array.FindAll(arr1, x => x > 30.5M), arr1.FindGreaterThanExt(30.5M));
+        }
+
+        [Fact]
+        public void FindGreaterThanInclusiveDecimal()
+        {
+            decimal[] arr1 = { 100.34M, 45M, 57.2M, 85.934M, 203M, 125.4M, 30.36M, 10M, 45.9M, 155.008M, 35.9M, 45M };
+            Assert.Equal(Array.FindAll(arr1, x => x >= 30.5M), arr1.FindGreaterThanInclusiveExt(30.5M));
+        }
+
+        [Fact]
+        public void FindLessThanInt()
+        {
+            int[] arr1 = { 100, 45, 57, 85, 203, 125, 30, 10, 45, 155, 35, 45 };
+            Assert.Equal(Array.FindAll(arr1, x => x < 30), arr1.FindLessThanExt(30));
+        }
+
+        [Fact]
+        public void FindLessThanInclusiveInt()
+        {
+            int[] arr1 = { 100, 45, 57, 85, 203, 125, 30, 10, 45, 155, 35, 45 };
+            Assert.Equal(Array.FindAll(arr1, x => x <= 30), arr1.FindLessThanInclusiveExt(30));
+        }
+
+        [Fact]
+        public void FindLessThanDouble()
+        {
+            double[] arr1 = { 100.34, 45, 57.2, 85.934, 203, 125.4, 30.36, 10, 45.9, 155.008, 35.9, 45 };
+            Assert.Equal(Array.FindAll(arr1, x => x < 30.5), arr1.FindLessThanExt(30.5));
+        }
+
+        [Fact]
+        public void FindLessThanInclusiveDouble()
+        {
+            double[] arr1 = { 100.34, 45, 57.2, 85.934, 203, 125.4, 30.36, 10, 45.9, 155.008, 35.9, 45 };
+            Assert.Equal(Array.FindAll(arr1, x => x <= 30.5), arr1.FindLessThanInclusiveExt(35));
+        }
+
+        [Fact]
+        public void FindLessThanDecimal()
+        {
+            decimal[] arr1 = { 100.34M, 45M, 57.2M, 85.934M, 203M, 125.4M, 30.36M, 10M, 45.9M, 155.008M, 35.9M, 45M };
+            Assert.Equal(Array.FindAll(arr1, x => x < 30.5M), arr1.FindLessThanExt(30.5M));
+        }
+
+        [Fact]
+        public void FindLessThanInclusiveDecimal()
+        {
+            decimal[] arr1 = { 100.34M, 45M, 57.2M, 85.934M, 203M, 125.4M, 30.36M, 10M, 45.9M, 155.008M, 35.9M, 45M };
+            Assert.Equal(Array.FindAll(arr1, x => x <= 30.5M), arr1.FindLessThanInclusiveExt(30.5M));
+        }
 
         #region "Private Methods"
         private long BinarySearchDotNet(int[] arr1, int target)
@@ -118,6 +423,23 @@ namespace Extensions.net.core.tests
             Stopwatch sw = Stopwatch.StartNew();
             sw.Start();
             var tc2 = arr1.BinarySearchExt(index, length, target);
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private long SortDotNet(DateTime[] arr)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            Array.Sort(arr);
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private long SortExt(DateTime[] arr)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            sw.Start();
+            arr.SortExt();
             sw.Stop();
             return sw.ElapsedTicks;
         }
