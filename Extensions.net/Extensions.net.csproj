@@ -3,6 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
+    <Version>0.0.0.1</Version>
+    <Authors>adyle5</Authors>
+    <Copyright>Adrian Gabor</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageTags>extensions, helpers</PackageTags>
+    <PackageId>ExtensionsDotNet</PackageId>
   </PropertyGroup>
 
 </Project>
