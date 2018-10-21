@@ -320,5 +320,68 @@ namespace Extensions.net.core.tests
             sbyte? i3 = 0;
             Assert.True(i3.IsNullOrZeroExt());
         }
+
+        [Fact]
+        public void IsIntegral()
+        {
+            double dou = 2.0;
+            Assert.True(dou.IsIntegralExt());
+
+            double dou2 = 2.3;
+            Assert.False(dou2.IsIntegralExt());
+
+            decimal dec = 3.0M;
+            Assert.True(dec.IsIntegralExt());
+
+            decimal dec2 = 3.2M;
+            Assert.False(dec2.IsIntegralExt());
+        }
+
+        [Fact]
+        public void IsEven()
+        {
+            int i = 2;
+            Assert.True(i.IsEvenExt());
+
+            int i2 = 3;
+            Assert.False(i2.IsEvenExt());
+
+            double dou = 2.0;
+            Assert.True(dou.IsEvenExt());
+
+            double dou2 = 3.0;
+            Assert.False(dou2.IsEvenExt());
+
+            decimal dec = 2.0M;
+            Assert.True(dec.IsEvenExt());
+
+            decimal dec2 = 2.2M;
+            Assert.False(dec2.IsEvenExt());
+        }
+
+        [Fact]
+        public void IsOdd()
+        {
+            int i = 2;
+            Assert.False(i.IsOddExt());
+
+            int i2 = 3;
+            Assert.True(i2.IsOddExt());
+
+            double dou = 2.0;
+            Assert.False(dou.IsOddExt());
+
+            double dou2 = 3.0;
+            Assert.True(dou2.IsOddExt());
+
+            decimal dec = 2.0M;
+            Assert.False(dec.IsOddExt());
+
+            decimal dec2 = 3.2M;
+            Assert.False(dec2.IsOddExt());
+
+            decimal dec3 = 3.0M;
+            Assert.True(dec3.IsOddExt());
+        }
     }
 }

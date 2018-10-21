@@ -261,22 +261,6 @@ namespace Extensions.net.core.tests
         }
 
         [Fact]
-        public void IsIntegral()
-        {
-            double dou = 2.0;
-            Assert.True(dou.IsIntegralExt());
-
-            double dou2 = 2.3;
-            Assert.False(dou2.IsIntegralExt());
-
-            decimal dec = 3.0M;
-            Assert.True(dec.IsIntegralExt());
-
-            decimal dec2 = 3.2M;
-            Assert.False(dec2.IsIntegralExt());
-        }
-
-        [Fact]
         public void Exists()
         {
             string[] arr1 = { "yellow", "green", "blue", "orange", "pink", "purple", "brown", "black", "white", "red", "mauve", "polka dot" };

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -224,6 +225,38 @@ namespace Extensions.net.core.tests
 
             string str2 = "socks";
             Assert.False(str2.IsPalindromeExt());
+        }
+
+        [Fact]
+        public void WriteToConsole()
+        {
+            using (StringWriter stringWriter = new StringWriter())
+            {
+                Console.SetOut(stringWriter);
+
+                string str1 = "fubar";
+                str1.WriteToConsoleExt();
+
+                string consoleOutput = stringWriter.ToString();
+
+                Assert.Equal(str1, consoleOutput);
+            }
+        }
+
+        [Fact]
+        public void WriteLineToConsole()
+        {
+            using (StringWriter stringWriter = new StringWriter())
+            {
+                Console.SetOut(stringWriter);
+
+                string str1 = "fubar";
+                str1.WriteLineToConsoleExt();
+
+                string consoleOutput = stringWriter.ToString();
+
+                Assert.Equal(str1 + "\r\n", consoleOutput);
+            }
         }
 
         #region "Private Methods"

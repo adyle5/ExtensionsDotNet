@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 
@@ -218,6 +219,48 @@ namespace Extensions.net
             return text == reversed;
                 
         }
+
+        /// <summary>
+        /// Maps to Console.Write
+        /// </summary>
+        /// <param name="text"></param>
+        public static void WriteToConsoleExt(this string text) => Console.Write(text);
+
+        /// <summary>
+        /// Maps to Console.WriteLine
+        /// </summary>
+        /// <param name="text"></param>
+        public static void WriteLineToConsoleExt(this string text) => Console.WriteLine(text);
+
+        /// <summary>
+        /// Maps Debug.Write
+        /// Writes to the debug window
+        /// </summary>
+        /// <param name="text"></param>
+        public static void WriteToDebugExt(this string text) => Debug.Write(text);
+
+        /// <summary>
+        /// Maps to Debug.WriteLine
+        /// Writes to the debug window
+        /// </summary>
+        /// <param name="text"></param>
+        public static void WriteLineToDebugExt(this string text) => Debug.WriteLine(text);
+
+        /// <summary>
+        /// Maps to Debug.WriteIf
+        /// Writes to the debug window
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="condition"></param>
+        public static void WriteIfToDebugExt(this string text, bool condition) => Debug.WriteIf(condition, text);
+
+        /// <summary>
+        /// Maps to Debug.WriteLineIf
+        /// Writes to the debug window
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="condition"></param>
+        public static void WriteIfLineToDebugExt(this string text, bool condition) => Debug.WriteLineIf(condition, text);
 
         #region "Moved to Generic Extensions"
         ///// <summary>

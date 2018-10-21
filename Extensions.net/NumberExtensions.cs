@@ -184,5 +184,102 @@ namespace Extensions.net
         /// <param name="num"></param>
         /// <returns></returns>
         public static bool IsNullOrZeroExt(this sbyte? num) => num == null || num == 0;
+
+        /// <summary>
+        /// Returns true if a number is even.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static bool IsEvenExt(this int num) => num % 2 == 0;
+
+        /// <summary>
+        /// Returns true if a number is odd.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static bool IsOddExt(this int num) => num % 2 != 0;
+
+        /// <summary>
+        /// Returns true if a number is even.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static bool IsEvenExt(this double num)
+        {
+            if (num.IsIntegralExt())
+            {
+                return num % 2 == 0;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
+
+        /// <summary>
+        /// Returns true if a number is odd.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static bool IsOddExt(this double num)
+        {
+            if (num.IsIntegralExt())
+            {
+                return num % 2 != 0;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns true if a number is even.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static bool IsEvenExt(this decimal num)
+        {
+            if (num.IsIntegralExt())
+            {
+                return num % 2 == 0;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns true if a number is odd.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static bool IsOddExt(this decimal num)
+        {
+            if (num.IsIntegralExt())
+            {
+                return num % 2 != 0;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns a boolean value indicating if the double is an integral value.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static bool IsIntegralExt(this double num) => num % 1 == 0;
+
+        /// <summary>
+        /// Returns a boolean value indicating if the decimal is an integral value.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static bool IsIntegralExt(this decimal num) => num % 1 == 0;
     }
 }
