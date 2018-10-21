@@ -201,6 +201,7 @@ namespace Extensions.net
 
         /// <summary>
         /// Returns true if a number is even.
+        /// Double must be integral to be even. If not integral, will return false.
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
@@ -215,10 +216,11 @@ namespace Extensions.net
                 return false;
             }
         }
-        
+
 
         /// <summary>
         /// Returns true if a number is odd.
+        /// Double must be integral to be odd. If not integral, will return false.
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
@@ -236,6 +238,7 @@ namespace Extensions.net
 
         /// <summary>
         /// Returns true if a number is even.
+        /// Decimal must be integral to be even. If not integral, will return false.
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
@@ -253,6 +256,7 @@ namespace Extensions.net
 
         /// <summary>
         /// Returns true if a number is odd.
+        /// Decimal must be integral to be odd. If not integral, will return false.
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
