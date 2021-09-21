@@ -3,12 +3,27 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
-    <Version>0.0.0.3</Version>
+    <Version>0.0.1.0</Version>
     <Authors>adyle5</Authors>
     <Copyright>Adrian Gabor</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageTags>extensions, helpers</PackageTags>
     <PackageId>ExtensionsDotNet</PackageId>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageIconUrl />
+    <PackageLicenseFile>license.txt</PackageLicenseFile>
+    <Description>Helper extensions that let you work more productively in dotnet.</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="license.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
