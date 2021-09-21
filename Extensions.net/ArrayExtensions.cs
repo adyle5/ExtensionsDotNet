@@ -1,7 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Linq;
 
 namespace Extensions.net
 {
@@ -626,5 +623,29 @@ namespace Extensions.net
         /// <param name="arr"></param>
         /// <param name="action"></param>
         public static void ForEachExt<T>(this T[] arr, Action<T> action) => Array.ForEach<T>(arr, action);
+
+        /// <summary>
+        /// Maps to Array.Reverse
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        public static void ReverseExt<T>(this T[] arr) => Array.Reverse(arr);
+
+        /// <summary>
+        /// Returns a string representation of the values in an array separated by a comma.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public static string ToStringExt<T>(this T[] arr) => string.Join(",", arr);
+
+        /// <summary>
+        /// Returns a string representation of the values in an array separated by a provided string.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <param name="separator"></param>
+        /// <returns></returns>
+        public static string ToStringExt<T>(this T[] arr, string separator) => string.Join(separator, arr);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
-using Xunit;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace Extensions.net.core.tests
 {
@@ -19,7 +19,7 @@ namespace Extensions.net.core.tests
 
             string str3 = Int64.MaxValue.ToString();
             Assert.Throws<OverflowException>(() => str3.ToInt32Ext());
-         
+
             string strMax = int.MaxValue.ToString();
             //First call might skew results, so let's get it out of the way.
             Convert.ToInt32(strMax);
@@ -191,7 +191,7 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = ConvertSingleDotNet(strMax), () => actualElapsed = ConvertSingleExt(strMax));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS); 
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
         }
 
         [Fact]
@@ -223,7 +223,7 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = ConvertBooleanDotNet(t), () => actualElapsed = ConvertBooleanExt(t));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS); 
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
         }
 
         [Fact]
@@ -240,7 +240,7 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = ConvertByteDotNet(b), () => actualElapsed = ConvertByteExt(b));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS); 
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
         }
 
         [Fact]
@@ -260,7 +260,7 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = ConvertCharDotNet(c), () => actualElapsed = ConvertCharExt(c));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS); 
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
         }
 
         [Fact]
@@ -283,7 +283,7 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = ConvertDecimalDotNet(maxcDec), () => actualElapsed = ConvertDecimalExt(maxcDec));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS); 
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
         }
 
         [Fact]
@@ -299,7 +299,7 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = ConvertSByteDotNet(sb), () => actualElapsed = ConvertSByteExt(sb));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS); 
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
         }
 
         [Fact]

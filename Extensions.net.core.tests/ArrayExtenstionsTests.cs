@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
-using Xunit;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace Extensions.net.core.tests
 {
@@ -23,7 +23,7 @@ namespace Extensions.net.core.tests
 
             Assert.Equal(arr3, arr4);
 
-            DateTime[] arr5 = { new DateTime(2018, 10, 17), new DateTime(2018, 9, 17) , new DateTime(2018, 10, 16), new DateTime(2017, 10, 17), new DateTime(2018, 12, 29) };
+            DateTime[] arr5 = { new DateTime(2018, 10, 17), new DateTime(2018, 9, 17), new DateTime(2018, 10, 16), new DateTime(2017, 10, 17), new DateTime(2018, 12, 29) };
             DateTime[] arr6 = { new DateTime(2018, 10, 17), new DateTime(2018, 9, 17), new DateTime(2018, 10, 16), new DateTime(2017, 10, 17), new DateTime(2018, 12, 29) };
 
             Array.Sort(arr5);
@@ -44,7 +44,7 @@ namespace Extensions.net.core.tests
         [Fact]
         public void BinarySearch()
         {
-            int[] arr1 = { 2,5,3,4,1 };
+            int[] arr1 = { 2, 5, 3, 4, 1 };
 
             Assert.Equal(Array.BinarySearch(arr1, 3), arr1.BinarySearchExt(3));
 
@@ -103,7 +103,7 @@ namespace Extensions.net.core.tests
             string[] arr1 = { "one", "two", "three", "four", "five" };
             string[] arr2 = arr1.CopyDeepExt(1, 3);
 
-            Assert.Equal(new string[] { "two", "three", "four"}, arr2);
+            Assert.Equal(new string[] { "two", "three", "four" }, arr2);
             Assert.False(Object.ReferenceEquals(arr2[0], arr1[0])); // strings do not point to the same memory loc.
 
             string[] arr3 = new string[arr1.Length];
@@ -218,7 +218,7 @@ namespace Extensions.net.core.tests
             int[] arr1 = { 1, 2, 3, 4, 5 };
             Assert.Equal(3, arr1.MedianExt());
 
-            int[] arr2 = { 1, 2, 3, 4, 5, 6};
+            int[] arr2 = { 1, 2, 3, 4, 5, 6 };
             Assert.Equal(3.5, arr2.MedianExt());
 
             int[] arr3 = { -6, 2, -3, 14, 5, 26 };
@@ -460,6 +460,26 @@ namespace Extensions.net.core.tests
             Assert.Equal(arr1, arr2);
         }
 
+        [Fact]
+        public void Reverse()
+        {
+            int[] arr = { 1, 2, 3, 4, 5, 6, 7 };
+            int[] arr2 = { 7, 6, 5, 4, 3, 2, 1 };
+            arr.ReverseExt();
+            Assert.Equal(arr, arr2);
+        }
+
+        [Fact]
+        public void ToStringEx()
+        {
+            int[] arr = { 1, 2, 3, 4, 5, 6, 7 };
+            string expected = "1,2,3,4,5,6,7";
+            Assert.Equal(arr.ToStringExt(), expected);
+
+            expected = "1 : 2 : 3 : 4 : 5 : 6 : 7";
+            Assert.Equal(arr.ToStringExt(" : "), expected);
+        }
+
         #region "Private Methods"
         private long BinarySearchDotNet(int[] arr1, int target)
         {
@@ -511,6 +531,7 @@ namespace Extensions.net.core.tests
             sw.Stop();
             return sw.ElapsedTicks;
         }
+
         #endregion
     }
 }

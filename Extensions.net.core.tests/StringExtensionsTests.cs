@@ -182,7 +182,7 @@ namespace Extensions.net.core.tests
         public void FromBase64String()
         {
             string str1 = "AAEPISo=";
-            byte[] b64 = Convert.FromBase64String(str1);               
+            byte[] b64 = Convert.FromBase64String(str1);
 
             Assert.Equal(b64, str1.FromBase64StringExt());
 

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using Xunit;
-using System.Threading.Tasks;
 
 namespace Extensions.net.core.tests
 {
@@ -87,7 +85,7 @@ namespace Extensions.net.core.tests
         {
             double x = double.MaxValue;
             double y = double.MinValue;
-            Assert.Equal(Math.Atan2(x,y), x.Atan2Ext(y));
+            Assert.Equal(Math.Atan2(x, y), x.Atan2Ext(y));
         }
 
         [Fact]

@@ -217,7 +217,7 @@ namespace Extensions.net
         {
             string reversed = text.ReverseExt();
             return text == reversed;
-                
+
         }
 
         /// <summary>

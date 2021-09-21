@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
-using Xunit;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace Extensions.net.core.tests
 {

@@ -6,7 +6,7 @@ namespace Extensions.net.core.tests
     public class NumberExtensionsTests
     {
         [Fact]
-        public void TryParseExt()
+        public void TryParse()
         {
             string input = "1";
             int output = 0;
@@ -17,6 +17,15 @@ namespace Extensions.net.core.tests
             output = 0;
             output.TryParseExt(input2);
             Assert.Equal(0, output);
+        }
+
+        [Fact]
+        public void Parse()
+        {
+            string input = "1";
+            int output = 0;
+            output.ParseExt(input);
+            Assert.Equal(1, output);
         }
 
         [Fact]
