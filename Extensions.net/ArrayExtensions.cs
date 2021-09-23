@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Extensions.net
 {
@@ -647,5 +648,29 @@ namespace Extensions.net
         /// <param name="separator"></param>
         /// <returns></returns>
         public static string ToStringExt<T>(this T[] arr, string separator) => string.Join(separator, arr);
+
+        /// <summary>
+        /// Returns an ArraySegment from an Array
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <param name="offset"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static ArraySegment<T> ToArraySegmentExt<T>(this T[] arr, int offset, int length) => new ArraySegment<T>(arr, offset, length);
+
+        /// <summary>
+        /// Returns a splice of an array into a new array.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <param name="offset"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static T[] SpliceExt<T>(this T[] arr, int offset, int length)
+        {
+            ArraySegment<T> arrSeg = arr.ToArraySegmentExt(offset, length);
+            return arrSeg.ToArray();
+        }
     }
 }

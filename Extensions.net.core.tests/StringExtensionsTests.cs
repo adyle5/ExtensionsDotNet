@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -257,6 +258,210 @@ namespace Extensions.net.core.tests
 
                 Assert.Equal(str1 + "\r\n", consoleOutput);
             }
+        }
+
+        [Fact]
+        public void WriteToFile()
+        {
+            string lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tristique arcu vel libero gravida, tincidunt mollis est iaculis. Donec accumsan urna a libero volutpat vulputate. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi sem nunc, interdum eget tortor ac, feugiat auctor neque. Proin rutrum neque sed dictum accumsan. Praesent id viverra leo. Nunc fermentum eros et vulputate maximus. Suspendisse potenti. Duis viverra sagittis erat, vel pretium tortor vehicula nec.";
+
+            lorem.WriteToFileExt("c:\\temp\\lorem.txt");
+
+            string fileText = File.ReadAllText("c:\\temp\\lorem.txt");
+            Assert.True(fileText == lorem);
+        }
+
+        [Fact]
+        public void AppendToFile()
+        {
+            string lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tristique arcu vel libero gravida, tincidunt mollis est iaculis. Donec accumsan urna a libero volutpat vulputate. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi sem nunc, interdum eget tortor ac, feugiat auctor neque. Proin rutrum neque sed dictum accumsan. Praesent id viverra leo. Nunc fermentum eros et vulputate maximus. Suspendisse potenti. Duis viverra sagittis erat, vel pretium tortor vehicula nec.";
+
+            lorem.AppendToFileExt("c:\\temp\\lorem.txt");
+
+            string fileText = File.ReadAllText("c:\\temp\\lorem.txt");
+            Assert.Contains(lorem, fileText);
+        }
+
+        [Fact]
+        public void GetBytes()
+        {
+            string s = "test";
+            byte[] expected = Encoding.Default.GetBytes(s);
+            Assert.Equal(expected, s.GetBytesExt());
+        }
+
+        [Fact]
+        public void GetBytesUtf8()
+        {
+            string s = "test";
+            byte[] expected = Encoding.UTF8.GetBytes(s);
+            Assert.Equal(expected, s.GetBytesUtf8Ext());
+        }
+
+        [Fact]
+        public void GetBytesUtf7()
+        {
+            string s = "test";
+            byte[] expected = Encoding.UTF7.GetBytes(s);
+            Assert.Equal(expected, s.GetBytesUtf7Ext());
+        }
+
+        [Fact]
+        public void GetBytesUtf32()
+        {
+            string s = "test";
+            byte[] expected = Encoding.UTF32.GetBytes(s);
+            Assert.Equal(expected, s.GetBytesUtf32Ext());
+        }
+
+        [Fact]
+        public void GetBytesUnicode()
+        {
+            string s = "test";
+            byte[] expected = Encoding.Unicode.GetBytes(s);
+            Assert.Equal(expected, s.GetBytesUnicodeExt());
+        }
+
+        [Fact]
+        public void GetBytesASCII()
+        {
+            string s = "test";
+            byte[] expected = Encoding.ASCII.GetBytes(s);
+            Assert.Equal(expected, s.GetBytesASCIIExt());
+        }
+
+        [Fact]
+        public void GetBytesBigEndianUnicode()
+        {
+            string s = "test";
+            byte[] expected = Encoding.BigEndianUnicode.GetBytes(s);
+            Assert.Equal(expected, s.GetBytesBigEndianUnicodeExt());
+        }
+
+        [Fact]
+        public void UrlEncode()
+        {
+            string s = "This & That";
+            string expected = System.Web.HttpUtility.UrlEncode(s);
+            Assert.Equal(expected, s.UrlEncodeExt());
+        }
+
+        [Fact]
+        public void UrlDecode()
+        {
+            string s = "This+%26+That";
+            string expected = System.Web.HttpUtility.UrlDecode(s);
+            Assert.Equal(expected, s.UrlDecodeExt());
+        }
+
+        [Fact]
+        public void HtmlEncode()
+        {
+            string s = "This & That";
+            string expected = System.Web.HttpUtility.HtmlEncode(s);
+            Assert.Equal(expected, s.HtmlEncodeExt());
+        }
+
+        [Fact]
+        public void HtmlDecode()
+        {
+            string s = "This+%26+That";
+            string expected = System.Web.HttpUtility.HtmlDecode(s);
+            Assert.Equal(expected, s.HtmlDecodeExt());
+        }
+
+        [Fact]
+        public void HtmlAttributeEncode()
+        {
+            string s = "This & That";
+            string expected = System.Web.HttpUtility.HtmlAttributeEncode(s);
+            Assert.Equal(expected, s.HtmlAttributeEncodeExt());
+        }
+
+        [Fact]
+        public void JavaScriptStringEncode()
+        {
+            string s = "<script>function {};</script>";
+            string expected = System.Web.HttpUtility.JavaScriptStringEncode(s);
+            Assert.Equal(expected, s.JavaScriptStringEncodeExt());
+        }
+
+        [Fact]
+        public void UrlDecodeToBytes()
+        {
+            string s = "This+%26+That";
+            byte[] expected = System.Web.HttpUtility.UrlDecodeToBytes(s);
+            Assert.Equal(expected, s.UrlDecodeToBytesExt());
+
+            byte[] expected2 = System.Web.HttpUtility.UrlDecodeToBytes(s, Encoding.UTF8);
+            Assert.Equal(expected2, s.UrlDecodeToBytesExt(Encoding.UTF8));
+        }
+
+        [Fact]
+        public void UrlEncodeToBytes()
+        {
+            string s = "This & That";
+            byte[] expected = System.Web.HttpUtility.UrlEncodeToBytes(s);
+            Assert.Equal(expected, s.UrlEncodeToBytesExt());
+
+            expected = System.Web.HttpUtility.UrlEncodeToBytes(s, Encoding.UTF8);
+            Assert.Equal(expected, s.UrlEncodeToBytesExt(Encoding.UTF8));
+        }
+
+        [Fact]
+        public void GetString()
+        {
+            byte[] bytes = new byte[] { 100, 52, 3, 65, 76, 12 };
+            string expected = System.Text.Encoding.Default.GetString(bytes);
+            Assert.Equal(expected, bytes.GetStringExt());
+        }
+
+        [Fact]
+        public void GetStringASCII()
+        {
+            byte[] bytes = new byte[] { 100, 52, 3, 65, 76, 12 };
+            string expected = System.Text.Encoding.ASCII.GetString(bytes);
+            Assert.Equal(expected, bytes.GetStringASCIIExt());
+        }
+
+        [Fact]
+        public void GetStringUTF7()
+        {
+            byte[] bytes = new byte[] { 100, 52, 3, 65, 76, 12 };
+            string expected = System.Text.Encoding.UTF7.GetString(bytes);
+            Assert.Equal(expected, bytes.GetStringUTF7Ext());
+        }
+
+        [Fact]
+        public void GetStringUTF8()
+        {
+            byte[] bytes = new byte[] { 100, 52, 3, 65, 76, 12 };
+            string expected = System.Text.Encoding.UTF8.GetString(bytes);
+            Assert.Equal(expected, bytes.GetStringUTF8Ext());
+        }
+
+        [Fact]
+        public void GetStringUTF32()
+        {
+            byte[] bytes = new byte[] { 100, 52, 3, 65, 76, 12 };
+            string expected = System.Text.Encoding.UTF32.GetString(bytes);
+            Assert.Equal(expected, bytes.GetStringUTF32Ext());
+        }
+
+        [Fact]
+        public void GetStringUnicode()
+        {
+            byte[] bytes = new byte[] { 100, 52, 3, 65, 76, 12 };
+            string expected = System.Text.Encoding.Unicode.GetString(bytes);
+            Assert.Equal(expected, bytes.GetStringUnicodeExt());
+        }
+
+        [Fact]
+        public void GetStringBigEndianUnicode()
+        {
+            byte[] bytes = new byte[] { 100, 52, 3, 65, 76, 12 };
+            string expected = System.Text.Encoding.BigEndianUnicode.GetString(bytes);
+            Assert.Equal(expected, bytes.GetStringBigEndianUnicodeExt());
         }
 
         #region "Private Methods"

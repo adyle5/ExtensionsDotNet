@@ -177,5 +177,23 @@ namespace Extensions.net
 
             return newObj;
         }
+
+        /// <summary>
+        /// Converts generic type to a stream.
+        /// Generated stream needs to be disposed or wrapped in using.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static Stream ToStreamExt<T>(this T obj)
+        {
+            MemoryStream ms = new MemoryStream();
+            using (StreamWriter sw = new StreamWriter(ms))
+            {
+                sw.Write(obj);
+            }
+
+            return ms;
+        }
     }
 }

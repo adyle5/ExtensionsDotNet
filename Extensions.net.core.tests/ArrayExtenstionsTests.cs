@@ -480,6 +480,22 @@ namespace Extensions.net.core.tests
             Assert.Equal(arr.ToStringExt(" : "), expected);
         }
 
+        [Fact]
+        public void ToArraySegment()
+        {
+            int[] arr = { 1, 2, 3, 4, 5, 6, 7 };
+            ArraySegment<int> expected = new ArraySegment<int>(arr, 1, 3);
+            Assert.Equal(expected, arr.ToArraySegmentExt(1, 3));
+        }
+
+        [Fact]
+        public void Splice()
+        {
+            int[] arr = { 1, 2, 3, 4, 5, 6, 7 };
+            int[] expected = { 2, 3, 4 };
+            Assert.Equal(expected, arr.SpliceExt(1, 3));
+        }
+
         #region "Private Methods"
         private long BinarySearchDotNet(int[] arr1, int target)
         {

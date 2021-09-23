@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Text;
 
 namespace Extensions.net
@@ -15,7 +16,7 @@ namespace Extensions.net
         /// </summary>
         /// <returns><c>true</c>, if string null or white space, <c>false</c> otherwise.</returns>
         /// <param name="text">Text.</param>
-        public static bool IsNullOrWhiteSpaceExt(this String text) => string.IsNullOrWhiteSpace(text);
+        public static bool IsNullOrWhiteSpaceExt(this string text) => string.IsNullOrWhiteSpace(text);
 
         /// <summary>
         /// maps to string.IsNullOrEmpty
@@ -179,7 +180,7 @@ namespace Extensions.net
         public static DateTime ToDateTimeExt(this string text) => Convert.ToDateTime(text);
 
         /// <summary>
-        /// Maps to Convert.ToBase64String
+        /// Maps to Convert.FromBase64String
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -261,6 +262,207 @@ namespace Extensions.net
         /// <param name="text"></param>
         /// <param name="condition"></param>
         public static void WriteIfLineToDebugExt(this string text, bool condition) => Debug.WriteLineIf(condition, text);
+
+        /// <summary>
+        /// Write text to a file. If file exists it will ovewrite.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="path"></param>
+        public static void WriteToFileExt(this string text, string path)
+        {
+            using (var f = File.Create(path))
+            {
+                using (StreamWriter sw = new StreamWriter(f))
+                {
+                    sw.Write(text);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Append Text to a file or creates new file.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="path"></param>
+        public static void AppendToFileExt(this string text, string path)
+        {
+            using (var f = File.AppendText(path))
+            {
+                f.WriteLine(text);
+            }
+        }
+
+        /// <summary>
+        /// Maps to Encoding.Default.GetBytes
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static byte[] GetBytesExt(this string s) => Encoding.Default.GetBytes(s);
+
+        /// <summary>
+        /// Maps to Encoding.UTF8.GetBytes
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static byte[] GetBytesUtf8Ext(this string s) => Encoding.UTF8.GetBytes(s);
+
+        /// <summary>
+        /// Maps to Encoding.UTF7.GetBytes
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static byte[] GetBytesUtf7Ext(this string s) => Encoding.UTF7.GetBytes(s);
+
+        /// <summary>
+        /// Maps to Encoding.UTF32.GetBytes
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static byte[] GetBytesUtf32Ext(this string s) => Encoding.UTF32.GetBytes(s);
+
+        /// <summary>
+        /// Maps to Encoding.Unicode.GetBytes
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static byte[] GetBytesUnicodeExt(this string s) => Encoding.Unicode.GetBytes(s);
+
+        /// <summary>
+        /// Maps to Encoding.ASCII.GetBytes
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static byte[] GetBytesASCIIExt(this string s) => Encoding.ASCII.GetBytes(s);
+
+        /// <summary>
+        /// Maps to Encoding.BigEndianUnicode.GetBytes
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static byte[] GetBytesBigEndianUnicodeExt(this string s) => Encoding.BigEndianUnicode.GetBytes(s);
+
+        /// <summary>
+        /// Maps to System.Web.HttpUtility.UrlEncode
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string UrlEncodeExt(this string s) => System.Web.HttpUtility.UrlEncode(s);
+
+        /// <summary>
+        /// Maps to System.Web.HttpUtility.UrlDecode
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string UrlDecodeExt(this string s) => System.Web.HttpUtility.UrlDecode(s);
+
+        /// <summary>
+        /// Maps to System.Web.HttpUtility.HtmlEncode
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string HtmlEncodeExt(this string s) => System.Web.HttpUtility.HtmlEncode(s);
+
+        /// <summary>
+        /// Maps to System.Web.HttpUtility.HtmlDecode
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string HtmlDecodeExt(this string s) => System.Web.HttpUtility.HtmlDecode(s);
+
+        /// <summary>
+        /// Maps to System.Web.HttpUtility.HtmlAttributeEncode
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string HtmlAttributeEncodeExt(this string s) => System.Web.HttpUtility.HtmlAttributeEncode(s);
+
+        /// <summary>
+        /// Maps to System.Web.HttpUtility.JavaScriptStringEncode
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string JavaScriptStringEncodeExt(this string s) => System.Web.HttpUtility.JavaScriptStringEncode(s);
+
+        public static System.Collections.Specialized.NameValueCollection ParseQueryStringExt(this string s) => System.Web.HttpUtility.ParseQueryString(s);
+
+        /// <summary>
+        /// Maps to System.Web.HttpUtility.UrlDecodeToBytes
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static byte[] UrlDecodeToBytesExt(this string s) => System.Web.HttpUtility.UrlDecodeToBytes(s);
+
+        /// <summary>
+        /// Maps to System.Web.HttpUtility.UrlDecodeToBytes
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        public static byte[] UrlDecodeToBytesExt(this string s, Encoding e) => System.Web.HttpUtility.UrlDecodeToBytes(s, e);
+
+        /// <summary>
+        /// Maps to System.Web.HttpUtility.UrlEncodeToBytes
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static byte[] UrlEncodeToBytesExt(this string s) => System.Web.HttpUtility.UrlEncodeToBytes(s);
+
+        /// <summary>
+        /// Maps to System.Web.HttpUtility.UrlEncodeToBytes
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        public static byte[] UrlEncodeToBytesExt(this string s, Encoding e) => System.Web.HttpUtility.UrlEncodeToBytes(s, e);
+
+        /// <summary>
+        /// Maps to System.Text.Encoding.Default.GetString
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static string GetStringExt(this byte[] bytes) => System.Text.Encoding.Default.GetString(bytes);
+
+        /// <summary>
+        /// Maps to System.Text.Encoding.ASCII.GetString
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static string GetStringASCIIExt(this byte[] bytes) => System.Text.Encoding.ASCII.GetString(bytes);
+
+        /// <summary>
+        /// Maps to System.Text.Encoding.UTF7.GetString
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static string GetStringUTF7Ext(this byte[] bytes) => System.Text.Encoding.UTF7.GetString(bytes);
+
+        /// <summary>
+        /// Maps to System.Text.Encoding.UTF8.GetString
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static string GetStringUTF8Ext(this byte[] bytes) => System.Text.Encoding.UTF8.GetString(bytes);
+
+        /// <summary>
+        /// Maps to System.Text.Encoding.UTF32.GetString
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static string GetStringUTF32Ext(this byte[] bytes) => System.Text.Encoding.UTF32.GetString(bytes);
+
+        /// <summary>
+        /// Maps to System.Text.Encoding.Unicode.GetString
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static string GetStringUnicodeExt(this byte[] bytes) => System.Text.Encoding.Unicode.GetString(bytes);
+
+        /// <summary>
+        /// Maps to System.Text.Encoding.BigEndianUnicode.GetString
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static string GetStringBigEndianUnicodeExt(this byte[] bytes) => System.Text.Encoding.BigEndianUnicode.GetString(bytes);
 
         #region "Moved to Generic Extensions"
         ///// <summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -355,6 +356,22 @@ namespace Extensions.net.core.tests
 
             Assert.Equal(str1, str2);
             Assert.False(Object.ReferenceEquals(str1, str2));
+        }
+
+        [Fact]
+        public void ToStream()
+        {
+            string s = "test";
+            using (Stream stream = s.ToStreamExt())
+            {
+                Assert.NotNull(stream);
+            }
+
+            int[] arr = { 1, 2, 3, 4, 5 };
+            using (Stream stream = arr.ToStreamExt())
+            {
+                Assert.NotNull(stream);
+            }
         }
 
         #region "Private Methods"
