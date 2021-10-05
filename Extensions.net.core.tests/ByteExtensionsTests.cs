@@ -99,6 +99,62 @@ namespace Extensions.net.core.tests
             Assert.Equal(expected2, arr.GetBytesBigEndianUnicodeExt(0, 5));
         }
 
+        [Fact]
+        public void GetString()
+        {
+            byte[] bytes = new byte[] { 100, 52, 3, 65, 76, 12 };
+            string expected = System.Text.Encoding.Default.GetString(bytes);
+            Assert.Equal(expected, bytes.GetStringExt());
+        }
+
+        [Fact]
+        public void GetStringASCII()
+        {
+            byte[] bytes = new byte[] { 100, 52, 3, 65, 76, 12 };
+            string expected = System.Text.Encoding.ASCII.GetString(bytes);
+            Assert.Equal(expected, bytes.GetStringASCIIExt());
+        }
+
+        [Fact]
+        public void GetStringUTF7()
+        {
+            byte[] bytes = new byte[] { 100, 52, 3, 65, 76, 12 };
+            string expected = System.Text.Encoding.UTF7.GetString(bytes);
+            Assert.Equal(expected, bytes.GetStringUTF7Ext());
+        }
+
+        [Fact]
+        public void GetStringUTF8()
+        {
+            byte[] bytes = new byte[] { 100, 52, 3, 65, 76, 12 };
+            string expected = System.Text.Encoding.UTF8.GetString(bytes);
+            Assert.Equal(expected, bytes.GetStringUTF8Ext());
+        }
+
+        [Fact]
+        public void GetStringUTF32()
+        {
+            byte[] bytes = new byte[] { 100, 52, 3, 65, 76, 12 };
+            string expected = System.Text.Encoding.UTF32.GetString(bytes);
+            Assert.Equal(expected, bytes.GetStringUTF32Ext());
+        }
+
+        [Fact]
+        public void GetStringUnicode()
+        {
+            byte[] bytes = new byte[] { 100, 52, 3, 65, 76, 12 };
+            string expected = System.Text.Encoding.Unicode.GetString(bytes);
+            Assert.Equal(expected, bytes.GetStringUnicodeExt());
+        }
+
+        [Fact]
+        public void GetStringBigEndianUnicode()
+        {
+            byte[] bytes = new byte[] { 100, 52, 3, 65, 76, 12 };
+            string expected = System.Text.Encoding.BigEndianUnicode.GetString(bytes);
+            Assert.Equal(expected, bytes.GetStringBigEndianUnicodeExt());
+        }
+
         #region "Private Methods"
         private long ConvertB64StringDotNet(byte[] b1)
         {

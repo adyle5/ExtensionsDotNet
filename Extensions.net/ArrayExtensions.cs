@@ -414,7 +414,7 @@ namespace Extensions.net
 
         /// <summary>
         /// Maps to Array.FindLast
-        /// Returns the loast occurance of an element in an array that matches the arrow function parameter.
+        /// Returns the last occurrence of an element in an array that matches the arrow function parameter.
         /// Takes an arrow function as a parameter.
         /// Uses Linq which may affect time complexity.
         /// </summary>
@@ -617,7 +617,7 @@ namespace Extensions.net
         public static decimal[] FindLessThanInclusiveExt(this decimal[] arr, decimal target) => Array.FindAll(arr, x => x <= target);
 
         /// <summary>
-        /// Maps to Array.Action
+        /// Maps to Array.ForEach
         /// Iterates through an array and performs the specified action
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -671,6 +671,28 @@ namespace Extensions.net
         {
             ArraySegment<T> arrSeg = arr.ToArraySegmentExt(offset, length);
             return arrSeg.ToArray();
+        }
+
+        /// <summary>
+        /// Maps to Array.Resize
+        /// Changes the size of the array to the value passed in the newSize parameter.
+        /// Because of Type constraints in .NET must pass in the array as a parameter.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <param name="newSize"></param>
+        public static void ResizeExt<T>(this T[] arr, ref T[] sameArray, int newSize) => Array.Resize(ref sameArray, newSize);
+
+        /// <summary>
+        /// Returns all the duplicate values in an array in a new array.
+        /// Uses Linq which may affect time complexity.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public static T[] DuplicatesExt<T>(this T[] arr)
+        {
+            return arr.GroupBy(x => x).Where(x => x.Count() > 1).Select(x => x.Key).Distinct().ToArray();
         }
     }
 }

@@ -496,6 +496,28 @@ namespace Extensions.net.core.tests
             Assert.Equal(expected, arr.SpliceExt(1, 3));
         }
 
+        [Fact]
+        public void Resize()
+        {
+            int[] arr = { 1, 2, 3, 4, 5, 6, 7 };
+            int len1 = arr.Length;
+            int len2 = len1 + 1;
+
+            arr.ResizeExt(ref arr, len2);
+
+            Assert.Equal(len2, arr.Length);
+        }
+
+        [Fact]
+        public void Duplicates()
+        {
+            string[] arr = { "apples", "oranges", "bananas", "peaches", "apples", "pears", "bananas", "kiwis" };
+
+            string[] arr2 = { "apples", "bananas" };
+
+            Assert.Equal(arr2, arr.DuplicatesExt());
+        }
+
         #region "Private Methods"
         private long BinarySearchDotNet(int[] arr1, int target)
         {

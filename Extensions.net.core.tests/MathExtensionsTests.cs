@@ -74,6 +74,13 @@ namespace Extensions.net.core.tests
         }
 
         [Fact]
+        public void Asin()
+        {
+            double dou = double.MaxValue;
+            Assert.Equal(Math.Asin(dou), dou.AsinExt());
+        }
+
+        [Fact]
         public void Atan()
         {
             double dou = double.MaxValue;

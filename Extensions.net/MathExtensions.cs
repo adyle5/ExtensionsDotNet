@@ -235,7 +235,7 @@ namespace Extensions.net
         public static double LogExt(this double a, double newBase) => Math.Log(a, newBase);
 
         /// <summary>
-        /// Maps to Math.Log
+        /// Maps to Math.Log10
         /// Returns base 10 logarith of the source number.
         /// </summary>
         /// <param name="d"></param>
@@ -441,7 +441,7 @@ namespace Extensions.net
         public static int MinExt(this int val1, int val2) => Math.Min(val1, val2);
 
         /// <summary>
-        /// Maps to MathPow
+        /// Maps to Math.Pow
         /// Raises the source double to the power of the parameter double
         /// </summary>
         /// <param name="x"></param>

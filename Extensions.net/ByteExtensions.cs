@@ -137,5 +137,54 @@ namespace Extensions.net
         /// <param name="bytes"></param>
         /// <returns></returns>
         public static byte[] UrlEncodeToBytesExt(this byte[] bytes) => System.Web.HttpUtility.UrlEncodeToBytes(bytes);
+
+        /// <summary>
+        /// Maps to System.Text.Encoding.Default.GetString
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static string GetStringExt(this byte[] bytes) => System.Text.Encoding.Default.GetString(bytes);
+
+        /// <summary>
+        /// Maps to System.Text.Encoding.ASCII.GetString
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static string GetStringASCIIExt(this byte[] bytes) => System.Text.Encoding.ASCII.GetString(bytes);
+
+        /// <summary>
+        /// Maps to System.Text.Encoding.UTF7.GetString
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static string GetStringUTF7Ext(this byte[] bytes) => System.Text.Encoding.UTF7.GetString(bytes);
+
+        /// <summary>
+        /// Maps to System.Text.Encoding.UTF8.GetString
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static string GetStringUTF8Ext(this byte[] bytes) => System.Text.Encoding.UTF8.GetString(bytes);
+
+        /// <summary>
+        /// Maps to System.Text.Encoding.UTF32.GetString
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static string GetStringUTF32Ext(this byte[] bytes) => System.Text.Encoding.UTF32.GetString(bytes);
+
+        /// <summary>
+        /// Maps to System.Text.Encoding.Unicode.GetString
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static string GetStringUnicodeExt(this byte[] bytes) => System.Text.Encoding.Unicode.GetString(bytes);
+
+        /// <summary>
+        /// Maps to System.Text.Encoding.BigEndianUnicode.GetString
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static string GetStringBigEndianUnicodeExt(this byte[] bytes) => System.Text.Encoding.BigEndianUnicode.GetString(bytes);
     }
 }
