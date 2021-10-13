@@ -392,5 +392,48 @@ namespace Extensions.net.core.tests
             decimal dec3 = 3.0M;
             Assert.True(dec3.IsOddExt());
         }
+
+        [Fact]
+        public void ToCurrency()
+        {
+            double d = 1.99;
+            decimal dec = 1.99M;
+            float f = 1.99F;
+            string expected = "$1.99";
+
+            Assert.Equal(expected, d.ToCurrencyExt());
+            Assert.Equal(expected, dec.ToCurrencyExt());
+            Assert.Equal(expected, f.ToCurrencyExt());
+
+            int i = 1;
+            expected = "$1.00";
+            Assert.Equal(expected, i.ToCurrencyExt());
+        }
+
+        [Fact]
+        public void ToPercent()
+        {
+            double d = .23;
+            decimal dec = .23M;
+            float f = .23F;
+            string expected = "23%";
+
+            Assert.Equal(expected, d.ToPercentExt(0));
+            Assert.Equal(expected, dec.ToPercentExt(0));
+            Assert.Equal(expected, f.ToPercentExt(0));
+
+            int i = 1;
+            expected = "100%";
+            Assert.Equal(expected, i.ToPercentExt(0));
+
+            d = .2345;
+            dec = .2345M;
+            f = .2345F;
+            expected = "23.45%";
+
+            Assert.Equal(expected, d.ToPercentExt());
+            Assert.Equal(expected, dec.ToPercentExt());
+            Assert.Equal(expected, f.ToPercentExt());
+        }
     }
 }

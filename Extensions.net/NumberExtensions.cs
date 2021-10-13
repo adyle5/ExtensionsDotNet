@@ -285,5 +285,81 @@ namespace Extensions.net
         /// <param name="num"></param>
         /// <returns></returns>
         public static bool IsIntegralExt(this decimal num) => num % 1 == 0;
+
+        /// <summary>
+        /// Converts decimal to a currency string using "C2" formatter.
+        /// Culture set to CurrentCulture.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static string ToCurrencyExt(this decimal num) => num.ToString("C2", System.Globalization.CultureInfo.CurrentCulture);
+
+        /// <summary>
+        /// Converts double to a currency string using "C2" formatter.
+        /// CultureInfo set to CurrentCulture.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static string ToCurrencyExt(this double num) => num.ToString("C2", System.Globalization.CultureInfo.CurrentCulture);
+
+        /// <summary>
+        /// Converts float to a currency string using "C2" formatter.
+        /// CultureInfo set to CurrentCulture.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static string ToCurrencyExt(this float num) => num.ToString("C2", System.Globalization.CultureInfo.CurrentCulture);
+
+        /// <summary>
+        /// Converts int to a currency string using "C2" formatter.
+        /// CultureInfo set to CurrentCulture.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static string ToCurrencyExt(this int num) => num.ToString("C2", System.Globalization.CultureInfo.CurrentCulture);
+
+        /// <summary>
+        /// Converts decimal to a percent string.
+        /// .23 => "23.00%"
+        /// Optional parameter specifies how many decimals out return. Default value is 2 decimal places.
+        /// Will round value up or down if necessary.
+        /// Culture set to CurrentCulture.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static string ToPercentExt(this decimal num, int decimals = 2) => num.ToString($"P{decimals}", System.Globalization.CultureInfo.CurrentCulture);
+
+        /// <summary>
+        /// Converts double to a percent string.
+        /// .23 => "23.00%"
+        /// Optional parameter specifies how many decimals out return. Default value is 2 decimal places.
+        /// Will round value up or down if necessary.
+        /// CultureInfo set to CurrentCulture.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static string ToPercentExt(this double num, int decimals = 2) => num.ToString($"P{decimals}", System.Globalization.CultureInfo.CurrentCulture);
+
+        /// <summary>
+        /// Converts float to a percent string.
+        /// .23 => "23.00%"
+        /// Optional parameter specifies how many decimals out return. Default value is 2 decimal places.
+        /// Will round value up or down if necessary.
+        /// CultureInfo set to CurrentCulture.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static string ToPercentExt(this float num, int decimals = 2) => num.ToString($"P{decimals}", System.Globalization.CultureInfo.CurrentCulture);
+
+        /// <summary>
+        /// Converts int to a percent string.
+        /// 2 => "200.00%"
+        /// Optional parameter specifies how many decimals out return. Default value is 2 decimal places.
+        /// Will round value up or down if necessary.
+        /// CultureInfo set to CurrentCulture.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static string ToPercentExt(this int num, int decimals = 2) => num.ToString($"P{decimals}", System.Globalization.CultureInfo.CurrentCulture);
     }
 }

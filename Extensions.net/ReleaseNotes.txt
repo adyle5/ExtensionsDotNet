@@ -44,3 +44,26 @@ GetStringUTF8Ext
 GetStringUTF32Ext
 GetStringUnicodeExt
 GetStringBigEndianUnicodeExt
+
+1.0.1.0 October 13, 2021
+New Extensions
+
+Cryptography Extensions:
+ComputeHash256Ext
+ComputeHash512Ext
+ComputeHashMD5Ext
+
+Number Extensions:
+ToCurrencyExt
+ToPercentExt
+
+String Extensions:
+CapitalizeExt
+DuplicateExt
+CenterExt
+IsAlphaNumericExt
+IsAlphaExt
+IsNumericExt
+IsASCIIExt
+IsLowerExt
+IsUpperExt

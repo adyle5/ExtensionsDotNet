@@ -408,6 +408,268 @@ namespace Extensions.net.core.tests
             Assert.Equal(expected, s.UrlEncodeToBytesExt(Encoding.UTF8));
         }
 
+        [Fact]
+        public void Capitalize()
+        {
+            string s = "this is a test string.";
+            string expected = "This is a test string.";
+
+            Assert.Equal(expected, s.CapitalizeExt());
+
+            string s2 = null;
+            Assert.Null(s2.CapitalizeExt());
+
+            string s3 = " ";
+            Assert.Equal(s3, s3.CapitalizeExt());
+
+            s = "this is a test string. this is another test string.";
+            expected = "This is a test string. This is another test string.";
+
+            Assert.Equal(expected, s.CapitalizeExt());
+
+            s = "this is a test string";
+            expected = "This is a test string";
+
+            Assert.Equal(expected, s.CapitalizeExt());
+
+            s = "this is a test string; this is another test.";
+            expected = "This is a test string; this is another test.";
+
+            Assert.Equal(expected, s.CapitalizeExt());
+        }
+
+        [Fact]
+        public void Duplicate()
+        {
+            string s = "s";
+            string expected = "sssss";
+            Assert.Equal(expected, s.DuplicateExt(5));
+
+            s = null;
+            expected = "";
+            Assert.Equal("", s.DuplicateExt(5));
+
+            s = "";
+            expected = "";
+            Assert.Equal("", s.DuplicateExt(5));
+
+            s = " ";
+            expected = "     ";
+            Assert.Equal(expected, s.DuplicateExt(5));
+        }
+
+        [Fact]
+        public void Center()
+        {
+            string test = "test";
+            string expected = "     test     ";
+
+            string result = test.CenterExt(14);
+            Assert.Equal(expected, result);
+
+            expected = "aaaaatestaaaaa";
+            result = test.CenterExt(14, 'a');
+            Assert.Equal(expected, result);
+
+            expected = "test";
+            result = test.CenterExt(3);
+            Assert.Equal(expected, result);
+
+            test = null;
+            expected = null;
+            result = test.CenterExt(14);
+            Assert.Equal(expected, result);
+
+            test = "";
+            expected = "     ";
+            result = test.CenterExt(5);
+            Assert.Equal(expected, result);
+
+            test = "";
+            expected = "bbbbb";
+            result = test.CenterExt(5, 'b');
+            Assert.Equal(expected, result);
+
+            test = " ";
+            expected = "     ";
+            result = test.CenterExt(5);
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void IsAlphaNumeric()
+        {
+            string text = "abc123";
+            Assert.True(text.IsAlphaNumericExt());
+
+            text = "123";
+            Assert.True(text.IsAlphaNumericExt());
+
+            text = "abc";
+            Assert.True(text.IsAlphaNumericExt());
+
+            text = "abc.123";
+            Assert.False(text.IsAlphaNumericExt());
+
+            text = "abc 123";
+            Assert.False(text.IsAlphaNumericExt());
+
+            text = null;
+            Assert.False(text.IsAlphaNumericExt());
+        }
+
+        [Fact]
+        public void IsAlpha()
+        {
+            string text = "abc123";
+            Assert.False(text.IsAlphaExt());
+
+            text = "123";
+            Assert.False(text.IsAlphaExt());
+
+            text = "abc";
+            Assert.True(text.IsAlphaExt());
+
+            text = "abc.123";
+            Assert.False(text.IsAlphaExt());
+
+            text = "abc 123";
+            Assert.False(text.IsAlphaExt());
+
+            text = null;
+            Assert.False(text.IsAlphaExt());
+        }
+
+        [Fact]
+        public void IsNumeric()
+        {
+            string text = "abc123";
+            Assert.False(text.IsNumericExt());
+
+            text = "123";
+            Assert.True(text.IsNumericExt());
+
+            text = "abc";
+            Assert.False(text.IsNumericExt());
+
+            text = "abc.123";
+            Assert.False(text.IsNumericExt());
+
+            text = "abc 123";
+            Assert.False(text.IsNumericExt());
+
+            text = null;
+            Assert.False(text.IsNumericExt());
+        }
+
+        [Fact]
+        public void IsASCII()
+        {
+            string text = "abc123";
+            Assert.True(text.IsASCIIExt());
+
+            text = "123";
+            Assert.True(text.IsASCIIExt());
+
+            text = "abc";
+            Assert.True(text.IsASCIIExt());
+
+            text = "abc.123";
+            Assert.True(text.IsASCIIExt());
+
+            text = "abc 123";
+            Assert.True(text.IsASCIIExt());
+
+            text = null;
+            Assert.False(text.IsASCIIExt());
+
+            text = "";
+            Assert.True(text.IsASCIIExt());
+
+            text = " ";
+            Assert.True(text.IsASCIIExt());
+
+            text = "æ";
+            Assert.False(text.IsASCIIExt());
+        }
+
+        [Fact]
+        public void IsLower()
+        {
+            string text = "abc123";
+            Assert.False(text.IsLowerExt());
+
+            text = "123";
+            Assert.False(text.IsLowerExt());
+
+            text = "abc";
+            Assert.True(text.IsLowerExt());
+
+            text = "abc.123";
+            Assert.False(text.IsLowerExt());
+
+            text = "abc 123";
+            Assert.False(text.IsLowerExt());
+
+            text = null;
+            Assert.False(text.IsLowerExt());
+
+            text = "";
+            Assert.False(text.IsLowerExt());
+
+            text = " ";
+            Assert.False(text.IsLowerExt());
+
+            text = "æ";
+            Assert.False(text.IsLowerExt());
+
+            text = "zzz";
+            Assert.True(text.IsLowerExt());
+
+            text = "AAA";
+            Assert.False(text.IsLowerExt());
+        }
+
+        [Fact]
+        public void IsUpper()
+        {
+            string text = "abc123";
+            Assert.False(text.IsUpperExt());
+
+            text = "123";
+            Assert.False(text.IsUpperExt());
+
+            text = "abc";
+            Assert.False(text.IsUpperExt());
+
+            text = "ABC";
+            Assert.True(text.IsUpperExt());
+
+            text = "abc.123";
+            Assert.False(text.IsUpperExt());
+
+            text = "abc 123";
+            Assert.False(text.IsUpperExt());
+
+            text = null;
+            Assert.False(text.IsUpperExt());
+
+            text = "";
+            Assert.False(text.IsUpperExt());
+
+            text = " ";
+            Assert.False(text.IsUpperExt());
+
+            text = "æ";
+            Assert.False(text.IsUpperExt());
+
+            text = "zzz";
+            Assert.False(text.IsUpperExt());
+
+            text = "AAA";
+            Assert.True(text.IsUpperExt());
+        }
+
         #region "Private Methods"
         private long Base64DotNet(string str1)
         {

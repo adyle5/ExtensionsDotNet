@@ -415,6 +415,218 @@ namespace Extensions.net
         /// <returns></returns>
         public static byte[] UrlEncodeToBytesExt(this string s, Encoding e) => System.Web.HttpUtility.UrlEncodeToBytes(s, e);
 
+        /// <summary>
+        /// Capitalizes the first character in every sentence of a string. A sentence is defined by a string fragment that terminates in a period or a string with no periods. If the string is null or empty, returns the original string.
+        /// Uses IsNullOrWhiteSpaceExt and ConcatExt.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static string CapitalizeExt(this string text)
+        {
+            if (!text.IsNullOrWhiteSpaceExt())
+            {
+                if (text.Contains("."))
+                {
+                    string[] arrText = text.Split('.');
+                    string[] arrCap = new string[arrText.Length];
+
+                    for (int i = 0; i < arrText.Length; i++)
+                    {               
+                        if (!arrText[i].IsNullOrWhiteSpaceExt())
+                        {
+                            string currText = arrText[i].Trim();
+                            arrCap[i] = currText.Substring(0, 1).ToUpperInvariant().ConcatExt(currText.Substring(1, currText.Length - 1));
+                        }
+                        else
+                        {
+                            arrCap[i] = arrText[i];
+                        }
+                    }
+
+                    return arrCap.JoinExt(". ").Trim();
+                }
+                else
+                {
+                    return text.Substring(0, 1).ToUpperInvariant().ConcatExt(text.Substring(1, text.Length - 1));
+                }        
+            }
+
+            return text;
+        }
+
+        /// <summary>
+        /// Duplicates the value of a string the specified number of times.
+        /// String can be of any valid string value including a character, word, sentence, empty space, white space, or null.
+        /// Usefull for adding padding.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static string DuplicateExt(this string text, int length)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < length; i++)
+            {
+                sb.Append(text);
+            }
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Centers the string and adds leading and trailing characters. 
+        /// Optional char parameter specifies the fill in the beginning and the end.
+        /// If the word is larger then the specified length, the original word is returned.
+        /// Similiar to the Python stringmethod Center.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="length"></param>
+        /// <param name="fill"></param>
+        /// <returns></returns>
+        public static string CenterExt(this string text, int length, char fill = ' ')
+        {
+            if (text == null)
+            {
+                return text;
+            }
+            
+            int wordLen = text.Length;
+            if (length > wordLen)
+            {
+                int lead = ((length - wordLen) / 2);
+                string centered = string.Concat(fill.ToString().DuplicateExt(lead), text);
+
+                int centeredLen = centered.Length;
+                if (length > centeredLen)
+                {
+                    int tail = length - centeredLen;
+                    centered = centered.ConcatExt(fill.ToString().DuplicateExt(tail));
+                }
+
+                return centered;
+            }
+
+            return text;
+        }
+
+        /// <summary>
+        /// Returns true if all characters inside the string are either numbers or letters, otherwise returns false. All characters evaluated including blank spaces.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static bool IsAlphaNumericExt(this string text)
+        {
+            if (text == null)
+            {
+                return false;
+            }
+
+            string regex = "^[a-zA-Z0-9]+$";
+            return System.Text.RegularExpressions.Regex.IsMatch(text, regex);
+        }
+
+        /// <summary>
+        /// Returns true if all characters inside the string are letters, otherwise returns false. All characters evaluated including blank spaces.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static bool IsAlphaExt(this string text)
+        {
+            if (text == null)
+            {
+                return false;
+            }
+
+            string regex = "^[a-zA-Z]+$";
+            return System.Text.RegularExpressions.Regex.IsMatch(text, regex);
+        }
+
+        /// <summary>
+        /// Returns true if all characters inside the string are numeric, otherwise returns false. All characters evaluated including blank spaces. A decimal number returns false since it contains a non-numeric character (period).
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static bool IsNumericExt(this string text)
+        {
+            if (text == null)
+            {
+                return false;
+            }
+
+            string regex = "^[0-9]+$";
+            return System.Text.RegularExpressions.Regex.IsMatch(text, regex);
+        }
+
+        /// <summary>
+        /// Returns true if all characters in the string are within the ASCII number range (0-126), otherwise returns false.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static bool IsASCIIExt(this string text)
+        {
+            if (text == null)
+            {
+                return false;
+            }
+
+            foreach (char c in text)
+            {
+                if (c.ToInt32Ext() > 126)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Returns true if all characters in the string are letters and lower case, otherwise returns false. Null, empty string, and white space return false.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static bool IsLowerExt(this string text)
+        {
+            if (text.IsNullOrWhiteSpaceExt())
+            {
+                return false;
+            }
+
+            foreach (char c in text)
+            {
+                if (c.ToInt32Ext() < 97 || c.ToInt32Ext() > 122)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Returns true if all characters in the string are letters and upper case, otherwise returns false. Null, empty string, and white space return false.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static bool IsUpperExt(this string text)
+        {
+            if (text.IsNullOrWhiteSpaceExt())
+            {
+                return false;
+            }
+
+            foreach (char c in text)
+            {
+                if (c.ToInt32Ext() < 65 || c.ToInt32Ext() > 90)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         #region "Moved to Generic Extensions"
         ///// <summary>
         ///// Maps to Convert.ToInt32
