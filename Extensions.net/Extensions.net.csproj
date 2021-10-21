@@ -3,11 +3,11 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
-    <Version>1.0.1.0</Version>
+    <Version>1.0.1.2</Version>
     <Authors>adyle5</Authors>
     <Copyright>Adrian Gabor</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageTags>extensions, helpers</PackageTags>
+    <PackageTags>extensions, helpers, helper methods</PackageTags>
     <PackageId>ExtensionsDotNet</PackageId>
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl />
@@ -17,54 +17,35 @@
 Visit our wiki at https://github.com/adyle5/ExtensionsDotNet/wiki for a list of available methods and samples.
 
 To send feedback, suggestions, or report an issue, please visit https://www.nuget.org/packages/ExtensionsDotNet/ and click on "Contact owener."</Description>
-    <PackageReleaseNotes>09/23/2021
+    <PackageReleaseNotes>1.0.1.0 October 13, 2021
 New Extensions
 
-ArrayExtensions:
-ToArraySegmentExt
-SpliceExt
+Cryptography Extensions:
+ComputeHash256Ext
+ComputeHash512Ext
+ComputeHashMD5Ext
 
-ByteExtensions:
-GetBytesExt
-GetBytesUtf8Ext
-GetBytesUtf7Ext
-GetBytesUtf32Ext
-GetBytesUnicodeExt
-GetBytesASCIIExt
-GetBytesBigEndianUnicodeExt
-UrlDecodeToBytesExt
-UrlEncodeToBytesExt
-
-Generic Extensions:
-ToStreamExt
+Number Extensions:
+ToCurrencyExt
+ToPercentExt
 
 String Extensions:
-WriteToFileExt
-AppendToFileExt
-GetBytesExt
-GetBytesUtf8Ext
-GetBytesUtf7Ext
-GetBytesUtf32Ext
-GetBytesUnicodeExt
-GetBytesASCIIExt
-GetBytesBigEndianUnicodeExt
-UrlEncodeExt
-UrlDecodeExt
-HtmlEncodeExt
-HtmlDecodeExt
-HtmlAttributeEncodeExt
-JavaScriptStringEncodeExt
-UrlDecodeToBytesExt
-UrlEncodeToBytesExt
-GetStringExt
-GetStringASCIIExt
-GetStringUTF7Ext
-GetStringUTF8Ext
-GetStringUTF32Ext
-GetStringUnicodeExt
-GetStringBigEndianUnicodeExt</PackageReleaseNotes>
+CapitalizeExt
+DuplicateExt
+CenterExt
+IsAlphaNumericExt
+IsAlphaExt
+IsNumericExt
+IsASCIIExt
+IsLowerExt
+IsUpperExt</PackageReleaseNotes>
     <RepositoryUrl></RepositoryUrl>
     <PackageProjectUrl>https://github.com/adyle5/ExtensionsDotNet/wiki</PackageProjectUrl>
+    <AssemblyVersion>1.0.1.2</AssemblyVersion>
+    <FileVersion>1.0.1.2</FileVersion>
+    <Product>ExtensionsDotNet</Product>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>

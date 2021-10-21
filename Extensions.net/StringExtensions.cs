@@ -457,7 +457,7 @@ namespace Extensions.net
         /// <summary>
         /// Duplicates the value of a string the specified number of times.
         /// String can be of any valid string value including a character, word, sentence, empty space, white space, or null.
-        /// Usefull for adding padding.
+        /// Useful for adding padding.
         /// </summary>
         /// <param name="text"></param>
         /// <param name="length"></param>
