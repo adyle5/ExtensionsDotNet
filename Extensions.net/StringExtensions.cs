@@ -2,7 +2,9 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Extensions.net
 {
@@ -627,151 +629,88 @@ namespace Extensions.net
             return true;
         }
 
-        #region "Moved to Generic Extensions"
-        ///// <summary>
-        ///// Maps to Convert.ToInt32
-        ///// </summary>
-        ///// <returns>The int32 ext.</returns>
-        ///// <param name="text">Text.</param>
-        //public static int ToInt32Ext(this string text) => Convert.ToInt32(text);
+        /// <summary>
+        /// Returns true if the string matches the regular expression pattern parameter, otherwise returns false.
+        /// Maps to Regex.IsMatch
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="text"></param>
+        /// <param name="pattern"></param>
+        /// <returns></returns>
+        public static bool IsMatchExt(this string text, string pattern) => Regex.IsMatch(text, pattern);
 
-        ///// <summary>
-        ///// Maps to Covert.ToUInt32
-        ///// </summary>
-        ///// <returns>The user interface nt32 ext.</returns>
-        ///// <param name="text">Text.</param>
-        //public static uint ToUInt32Ext(this string text) => Convert.ToUInt32(text);
+        /// <summary>
+        /// Returns true if the string matches the regular expression pattern parameter, otherwise returns false.
+        /// Maps to Regex.IsMatch
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="text"></param>
+        /// <param name="pattern"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static bool IsMatchExt(this string text, string pattern, RegexOptions options) => Regex.IsMatch(text, pattern, options);
 
-        ///// <summary>
-        ///// Maps to Convert.ToInt16
-        ///// </summary>
-        ///// <returns>The int16 ext.</returns>
-        ///// <param name="text">Text.</param>
-        //public static Int16 ToInt16Ext(this string text) => Convert.ToInt16(text);
+        /// <summary>
+        /// Returns true if the string matches the regular expression pattern parameter, otherwise returns false.
+        /// Maps to Regex.IsMatch
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="text"></param>
+        /// <param name="pattern"></param>
+        /// <param name="options"></param>
+        /// <param name="matchTimeout"></param>
+        /// <returns></returns>
+        public static bool IsMatchExt(this string text, string pattern, RegexOptions options, TimeSpan matchTimeout) => Regex.IsMatch(text, pattern, options, matchTimeout);
 
-        ///// <summary>
-        ///// Maps to Convert.ToUInt16
-        ///// </summary>
-        ///// <returns>The user interface nt16 ext.</returns>
-        ///// <param name="text">Text.</param>
-        //public static UInt16 ToUInt16Ext(this string text) => Convert.ToUInt16(text);
+        /// <summary>
+        /// Converts a string to a Uri
+        /// If the supplied string is not a valid uri, with throw a System.UriFormatException.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static Uri ToUriExt(this string url) => new Uri(url);
 
-        ///// <summary>
-        ///// Maps to Convert.ToInt64
-        ///// </summary>
-        ///// <returns>The int64 ext.</returns>
-        ///// <param name="text">Text.</param>
-        //public static Int64 ToInt64Ext(this string text) => Convert.ToInt64(text);
+        /// <summary>
+        /// Creates an HttpWebRequest from the value in the string.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="method"></param>
+        /// <param name="contentType"></param>
+        /// <param name="accept"></param>
+        /// <param name="host"></param>
+        /// <param name="timeout"></param>
+        /// <param name="mediaType"></param>
+        /// <param name="userAgent"></param>
+        /// <param name="headers"></param>
+        /// <returns></returns>
+        public static HttpWebRequest ToHttpWebRequest(this string url, string method = null, string contentType = null, string accept = null, string host = null, int timeout = -1, string mediaType = null, string userAgent = null, Tuple<string,string>[] headers = null)
+        {
+            var request = (HttpWebRequest)WebRequest.Create(url);
 
-        ///// <summary>
-        ///// Maps to Convert.ToUInt64
-        ///// </summary>
-        ///// <returns>The user interface nt64 ext.</returns>
-        ///// <param name="text">Text.</param>
-        //public static UInt64 ToUInt64Ext(this string text) => Convert.ToUInt64(text);
+            if (!string.IsNullOrEmpty(method))
+                request.Method = method;
 
-        ///// <summary>
-        ///// Maps to Convert.ToDouble
-        ///// </summary>
-        ///// <returns>The double ext.</returns>
-        ///// <param name="text">Text.</param>
-        //public static double ToDoubleExt(this string text) => Convert.ToDouble(text);
+            if (!string.IsNullOrEmpty(contentType))
+            request.ContentType = contentType;
 
-        ///// <summary>
-        ///// Maps to Convert.ToSingle
-        ///// </summary>
-        ///// <returns>The single ext.</returns>
-        ///// <param name="text">Text.</param>
-        //public static Single ToSingleExt(this string text) => Convert.ToSingle(text);
+            if (!string.IsNullOrEmpty(accept))
+                request.Accept = accept;
 
-        ///// <summary>
-        ///// Converts a string to a float or throws a format exception.
-        ///// </summary>
-        ///// <returns>The float ext.</returns>
-        ///// <param name="text">Text.</param>
-        //public static float ToFloatExt(this string text)
-        //{
-        //    float f = -1;
-        //    if (float.TryParse(text, out f))
-        //    {
-        //        return f;
-        //    }
-        //    else
-        //    {
-        //        throw new FormatException("Input string was not in a correct format.");
-        //    }
-        //}
+            if (!string.IsNullOrEmpty(host))
+            request.Host = host;
 
-        ///// <summary>
-        ///// Converts a string to a long or throws a Format Exception
-        ///// </summary>
-        ///// <returns>The long ext.</returns>
-        ///// <param name="text">Text.</param>
-        //public static long ToLongExt(this string text)
-        //{
-        //    long l = -1;
-        //    if (long.TryParse(text, out l))
-        //    {
-        //        return l;
-        //    }
-        //    else
-        //    {
-        //        throw new FormatException("Input string was not in a correct format.");
-        //    }
-        //}
+            if (timeout > -1)
+                request.Timeout = timeout;
 
-        ///// <summary>
-        ///// Converts a string to a short or throws a format exception.
-        ///// </summary>
-        ///// <returns>The short ext.</returns>
-        ///// <param name="text">Text.</param>
-        //public static short ToShortExt(this string text)
-        //{
-        //    short s = -1;
-        //    if (short.TryParse(text, out s))
-        //    {
-        //        return s;
-        //    }
-        //    else
-        //    {
-        //        throw new FormatException("Input string was not in a correct format.");
-        //    }
-        //}
+            if (headers != null && headers.Length > 0)
+            {
+                foreach (var header in headers)
+                {
+                    request.Headers.Add(header.Item1, header.Item2);
+                }
+            }
 
-        ///// <summary>
-        ///// Maps to Convert.ToBoolean
-        ///// </summary>
-        ///// <returns><c>true</c>, if boolean ext was toed, <c>false</c> otherwise.</returns>
-        ///// <param name="text">Text.</param>
-        //public static bool ToBooleanExt(this string text) => Convert.ToBoolean(text);
-
-        ///// <summary>
-        ///// Maps to Convert.ToByte
-        ///// </summary>
-        ///// <returns>The byte ext.</returns>
-        ///// <param name="text">Text.</param>
-        //public static byte ToByteExt(this string text) => Convert.ToByte(text);
-
-        ///// <summary>
-        ///// Maps to Convert.ToChar
-        ///// </summary>
-        ///// <returns>The char ext.</returns>
-        ///// <param name="text">Text.</param>
-        //public static char ToCharExt(this string text) => Convert.ToChar(text);
-
-        ///// <summary>
-        ///// Maps to Convert.ToDecimal
-        ///// </summary>
-        ///// <returns>The decimal ext.</returns>
-        ///// <param name="text">Text.</param>
-        //public static decimal ToDecimalExt(this string text) => Convert.ToDecimal(text);
-
-        ///// <summary>
-        ///// Maps to Convert.ToSByte.
-        ///// </summary>
-        ///// <returns>The SB yte ext.</returns>
-        ///// <param name="text">Text.</param>
-        //public static SByte ToSByteExt(this string text) => Convert.ToSByte(text);
-        #endregion
+            return request;
+        }
     }
 }

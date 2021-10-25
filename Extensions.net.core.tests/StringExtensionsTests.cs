@@ -2,7 +2,9 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -668,6 +670,52 @@ namespace Extensions.net.core.tests
 
             text = "AAA";
             Assert.True(text.IsUpperExt());
+        }
+
+        [Fact]
+        public void IsMatch()
+        {
+            string text = "Lorem ipsum dolor sit amet consectetur adipiscing elit";
+            string pattern = "^[a-zA-Z.\\s]+$";
+
+            Assert.True(text.IsMatchExt(pattern));
+            Assert.Equal(Regex.IsMatch(text, pattern), text.IsMatchExt(pattern));
+            Assert.Equal(Regex.IsMatch(text, pattern, RegexOptions.IgnorePatternWhitespace), text.IsMatchExt(pattern, RegexOptions.IgnorePatternWhitespace));
+            Assert.Equal(Regex.IsMatch(text, pattern, RegexOptions.IgnorePatternWhitespace, new TimeSpan(0, 1, 0)), text.IsMatchExt(pattern, RegexOptions.IgnorePatternWhitespace, new TimeSpan(0, 1, 0)));
+        }
+
+        [Fact]
+        public void ToUri()
+        {
+            string url = "https://www.example.com";
+            Assert.Equal(new Uri(url), url.ToUriExt());
+
+            url = "";
+            Assert.Throws<System.UriFormatException>(() => url.ToUriExt());
+        }
+
+        [Fact]
+        public void ToHttpWebRequest()
+        {
+            string url = "https://www.example.com";
+            string method = "get";
+            string contentType = "application/json";
+            string accept = "*/*";
+            string host = "example.com";
+            int timeout = 60;
+            //string mediaType = "audio/mpeg";
+            //string userAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0";
+
+            //var headers = new Tuple<string, string>[1] { new Tuple<string,string>("Authorization", "Basic ar4fgvtr6bh7") };
+
+            HttpWebRequest actual = url.ToHttpWebRequest();
+            Assert.NotNull(actual);
+
+            HttpWebRequest actual2 = url.ToHttpWebRequest(method, contentType);
+            Assert.Equal(actual2.Method, method);
+
+            HttpWebRequest actual3 = url.ToHttpWebRequest(method: method, contentType: contentType, accept: accept, host: host, timeout: timeout);
+            Assert.Equal(actual3.Accept, accept);
         }
 
         #region "Private Methods"
