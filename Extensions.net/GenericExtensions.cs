@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -187,13 +188,47 @@ namespace Extensions.net
         /// <returns></returns>
         public static Stream ToStreamExt<T>(this T obj)
         {
-            MemoryStream ms = new MemoryStream();
-            using (StreamWriter sw = new StreamWriter(ms))
-            {
-                sw.Write(obj);
-            }
+            string strObj = obj.ToString();
+            byte[] bytes = strObj.GetBytesExt();
+            MemoryStream ms = new MemoryStream(bytes);       
 
             return ms;
         }
+
+        /// <summary>
+        /// Converts to a KeyValuePair with the value of the extended type as the key and the parameter as the value.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="U"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static KeyValuePair<T, U> ToKeyValuePairExt<T, U>(this T key, U value)
+        {
+            return new KeyValuePair<T, U>(key, value);
+        }
+
+        /// <summary>
+        /// Converts to a KeyValuePair with the value of the extended type as the value and the parameter as the key.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="U"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static KeyValuePair<T, U> ToKeyValuePair2Ext<T, U>(this U value, T key)
+        {
+            return new KeyValuePair<T, U>(key, value);
+        }
+
+        /// <summary>
+        /// Creates a new IEnumerable of the same type as the extended type and repeats the value of the extended times based on the integral parameter.
+        /// Maps to Enumerable.Repeat.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="numberOfTimes"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> RepeatExt<T>(this T value, int numberOfTimes) => System.Linq.Enumerable.Repeat(value, numberOfTimes);
     }
 }

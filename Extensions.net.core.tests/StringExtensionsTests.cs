@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.IO.Compression;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -197,6 +198,17 @@ namespace Extensions.net.core.tests
         }
 
         [Fact]
+        public void ToBase64String()
+        {
+            string text = "Lorem ipsum dolor amet";
+
+            byte[] bytes = Encoding.UTF8.GetBytes(text);
+            string expected = Convert.ToBase64String(bytes);            
+
+            Assert.Equal(expected, text.ToBase64StringExt());
+        }
+
+        [Fact]
         public void ToTitleCase()
         {
             string str1 = "fubar";
@@ -271,6 +283,26 @@ namespace Extensions.net.core.tests
 
             string fileText = File.ReadAllText("c:\\temp\\lorem.txt");
             Assert.True(fileText == lorem);
+        }
+
+        [Fact]
+        public void WriteToGZippedFile()
+        {
+            string lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tristique arcu vel libero gravida, tincidunt mollis est iaculis. Donec accumsan urna a libero volutpat vulputate. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi sem nunc, interdum eget tortor ac, feugiat auctor neque. Proin rutrum neque sed dictum accumsan. Praesent id viverra leo. Nunc fermentum eros et vulputate maximus. Suspendisse potenti. Duis viverra sagittis erat, vel pretium tortor vehicula nec.";
+
+            lorem.WriteToGZippedFileExt("c:\\temp\\lorem.gz");
+            Assert.True(File.Exists("c:\\temp\\lorem.gz"));
+        }
+
+        [Fact]
+        public void ReadFromGZippedFile()
+        {
+            string expected = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tristique arcu vel libero gravida, tincidunt mollis est iaculis. Donec accumsan urna a libero volutpat vulputate. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi sem nunc, interdum eget tortor ac, feugiat auctor neque. Proin rutrum neque sed dictum accumsan. Praesent id viverra leo. Nunc fermentum eros et vulputate maximus. Suspendisse potenti. Duis viverra sagittis erat, vel pretium tortor vehicula nec.";
+
+            string path = "c:\\temp\\lorem.gz";
+            string decompressedString = path.ReadFromGZippedFileExt();
+
+            Assert.Equal(expected, decompressedString);
         }
 
         [Fact]
@@ -708,14 +740,21 @@ namespace Extensions.net.core.tests
 
             //var headers = new Tuple<string, string>[1] { new Tuple<string,string>("Authorization", "Basic ar4fgvtr6bh7") };
 
-            HttpWebRequest actual = url.ToHttpWebRequest();
+            HttpWebRequest actual = url.ToHttpWebRequestExt();
             Assert.NotNull(actual);
 
-            HttpWebRequest actual2 = url.ToHttpWebRequest(method, contentType);
+            HttpWebRequest actual2 = url.ToHttpWebRequestExt(method, contentType);
             Assert.Equal(actual2.Method, method);
 
-            HttpWebRequest actual3 = url.ToHttpWebRequest(method: method, contentType: contentType, accept: accept, host: host, timeout: timeout);
+            HttpWebRequest actual3 = url.ToHttpWebRequestExt(method: method, contentType: contentType, accept: accept, host: host, timeout: timeout);
             Assert.Equal(actual3.Accept, accept);
+        }
+
+        [Fact]
+        public void Print()
+        {
+            string text = "test";
+            text.PrintExt();
         }
 
         #region "Private Methods"

@@ -67,3 +67,30 @@ IsNumericExt
 IsASCIIExt
 IsLowerExt
 IsUpperExt
+
+1.0.1.3 October 24, 2021
+New Extensions
+
+String Extensions:
+IsMatchExt - Returns true if the string matches the regular expression pattern parameter, otherwise returns false.
+ToUriExt - Converts a string to a Uri.
+ToHttpWebRequest - Creates an HttpWebRequest from the value in the string.
+
+1.0.2.0 
+
+Fixed the ToStreamExt & ToHttpWebRequestExt extensions.
+
+New Extension
+
+Generic Extensions:
+ToKeyValuePairExt
+RepeatExt
+
+Number Extensions:
+ToRangeExt
+
+String Extensions:
+ToBase64StringExt
+WriteToGZippedFileExt
+ReadFromGZippedFileExt
+PrintExt

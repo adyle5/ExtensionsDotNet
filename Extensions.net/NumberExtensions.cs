@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Extensions.net
 {
@@ -361,5 +362,14 @@ namespace Extensions.net
         /// <param name="num"></param>
         /// <returns></returns>
         public static string ToPercentExt(this int num, int decimals = 2) => num.ToString($"P{decimals}", System.Globalization.CultureInfo.CurrentCulture);
+
+        /// <summary>
+        /// Creates a range of integers starting with the extended type through the count parameter.
+        /// Maps to Enumerable.Range
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public static IEnumerable<int> ToRangeExt(this int num, int count) => System.Linq.Enumerable.Range(num, count);
     }
 }

@@ -435,5 +435,15 @@ namespace Extensions.net.core.tests
             Assert.Equal(expected, dec.ToPercentExt());
             Assert.Equal(expected, f.ToPercentExt());
         }
+
+        [Fact]
+        public void ToRange()
+        {
+            int num = 0;
+            int count = 100;
+
+            var expected = System.Linq.Enumerable.Range(num, count);
+            Assert.Equal(expected, num.ToRangeExt(count));
+        }
     }
 }

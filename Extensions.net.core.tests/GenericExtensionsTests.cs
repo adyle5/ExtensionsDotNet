@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
@@ -367,11 +368,52 @@ namespace Extensions.net.core.tests
                 Assert.NotNull(stream);
             }
 
+            using (Stream stream = s.ToStreamExt())
+            {
+                using (StreamReader sr = new StreamReader(stream))
+                {
+                    Assert.Equal(s, sr.ReadToEnd());
+                }
+            }
+
             int[] arr = { 1, 2, 3, 4, 5 };
             using (Stream stream = arr.ToStreamExt())
             {
                 Assert.NotNull(stream);
             }
+        }
+
+        [Fact]
+        public void ToKeyValuePair()
+        {
+            int key = 1;
+            string value = "red";
+
+            var expected = new KeyValuePair<int, string>(key, value);
+            Assert.Equal(expected, key.ToKeyValuePairExt(value));
+        }
+
+        [Fact]
+        public void ToKeyValuePair2()
+        {
+            int key = 1;
+            string value = "red";
+
+            var expected = new KeyValuePair<int, string>(key, value);
+            Assert.Equal(expected, value.ToKeyValuePair2Ext(key));
+        }
+
+        [Fact]
+        public void Repeat()
+        {
+            int num = 3;
+            int repeat = 5;
+
+            IEnumerable<int> expected = System.Linq.Enumerable.Repeat(num, repeat);
+            Assert.Equal(expected, num.RepeatExt(repeat));
+
+            IEnumerable<bool> expected2 = System.Linq.Enumerable.Repeat(true, repeat);
+            Assert.Equal(expected2, true.RepeatExt(repeat));
         }
 
         #region "Private Methods"

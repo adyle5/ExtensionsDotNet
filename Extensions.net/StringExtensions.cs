@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.IO.Compression;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -189,6 +190,13 @@ namespace Extensions.net
         public static byte[] FromBase64StringExt(this string text) => Convert.FromBase64String(text);
 
         /// <summary>
+        /// Converts a standard string into a base64 encoded string.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static string ToBase64StringExt(this string text) => text.GetBytesExt().ToBase64StringExt();
+
+        /// <summary>
         /// Maps to TitleInfo.ToTitleCase
         /// </summary>
         /// <param name="text"></param>
@@ -279,6 +287,51 @@ namespace Extensions.net
                     sw.Write(text);
                 }
             }
+        }
+
+        /// <summary>
+        /// Writes string to a compressed file with the extension gz.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="compressedFilePath"></param>
+        public static void WriteToGZippedFileExt(this string text, string compressedFilePath)
+        {
+            using (MemoryStream uncompressedStream = new MemoryStream(text.GetBytesExt()))
+            {
+                using (FileStream compressedStream = File.Create(compressedFilePath))
+                {
+                    using (GZipStream gZipStream = new GZipStream(compressedStream, CompressionMode.Compress))
+                    {
+                        uncompressedStream.CopyTo(gZipStream);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Reads a GZipped compressed file and returns the content as a decompressed string
+        /// </summary>
+        /// <param name="compressedFilePath"></param>
+        /// <returns></returns>
+        public static string ReadFromGZippedFileExt(this string compressedFilePath)
+        {
+            string decompressedString = "";
+            using (FileStream compressedStream = File.Open(compressedFilePath, FileMode.Open))
+            {
+                using (var decompressedStream = new GZipStream(compressedStream, CompressionMode.Decompress))
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        decompressedStream.CopyTo(ms);
+
+                        var bytes = ms.ToArray();
+
+                        decompressedString = bytes.GetStringExt();
+                    }
+                }
+            }
+
+            return decompressedString;
         }
 
         /// <summary>
@@ -683,7 +736,7 @@ namespace Extensions.net
         /// <param name="userAgent"></param>
         /// <param name="headers"></param>
         /// <returns></returns>
-        public static HttpWebRequest ToHttpWebRequest(this string url, string method = null, string contentType = null, string accept = null, string host = null, int timeout = -1, string mediaType = null, string userAgent = null, Tuple<string,string>[] headers = null)
+        public static HttpWebRequest ToHttpWebRequestExt(this string url, string method = null, string contentType = null, string accept = null, string host = null, int timeout = -1, string mediaType = null, string userAgent = null, Tuple<string,string>[] headers = null)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
 
@@ -691,16 +744,22 @@ namespace Extensions.net
                 request.Method = method;
 
             if (!string.IsNullOrEmpty(contentType))
-            request.ContentType = contentType;
+                request.ContentType = contentType;
 
             if (!string.IsNullOrEmpty(accept))
                 request.Accept = accept;
 
             if (!string.IsNullOrEmpty(host))
-            request.Host = host;
+                request.Host = host;
 
             if (timeout > -1)
                 request.Timeout = timeout;
+
+            if (!string.IsNullOrEmpty(mediaType))
+                request.MediaType = mediaType;
+
+            if (!string.IsNullOrEmpty(userAgent))
+                request.UserAgent = userAgent;
 
             if (headers != null && headers.Length > 0)
             {
@@ -712,5 +771,12 @@ namespace Extensions.net
 
             return request;
         }
+
+        /// <summary>
+        /// From MSDN: Writes a message followed by a line terminator to the trace listeners in the Listeners collection.
+        /// Maps to Debug.Print
+        /// </summary>
+        /// <param name="text"></param>
+        public static void PrintExt(this string text) => Debug.Print(text);
     }
 }

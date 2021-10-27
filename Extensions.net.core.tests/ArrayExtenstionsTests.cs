@@ -454,8 +454,8 @@ namespace Extensions.net.core.tests
         {
             int[] arr1 = { 100, 45, 57, 85, 203, 125, 30, 10, 45, 155, 35, 45 };
             int[] arr2 = { 100, 45, 57, 85, 203, 125, 30, 10, 45, 155, 35, 45 };
-            Action<int> action = new Action<int>((val) => Console.WriteLine("{0:d} squared = {1:d}", val, val * val));
-            Array.ForEach<int>(arr1, action);
+            Action<int> action = new Action<int>((val) => Debug.Write(val));
+            Array.ForEach(arr1, action);
             arr2.ForEachExt(action);
             Assert.Equal(arr1, arr2);
         }
