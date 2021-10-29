@@ -1,4 +1,6 @@
-﻿namespace Extensions.net
+﻿using System.Diagnostics;
+
+namespace Extensions.net
 {
     public static class BooleanExtensions
     {
@@ -25,5 +27,29 @@
         /// <param name="input"></param>
         /// <returns></returns>
         public static bool EqualsExt(this bool output, bool input) => bool.Equals(output, input);
+
+        /// <summary>
+        /// If extended object's condition is false, will output a message to the trace listener.
+        /// Maps to Trace.Assert
+        /// </summary>
+        /// <param name="condition"></param>
+        public static void AssertExt(this bool condition) => Trace.Assert(condition);
+
+        /// <summary>
+        /// If extended object's condition is false, will output provided message to the trace listener.
+        /// Maps to Trace.Assert
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <param name="shortMessage"></param>
+        public static void AssertExt(this bool condition, string shortMessage) => Trace.Assert(condition, shortMessage);
+
+        /// <summary>
+        /// If extended object's condition is false, will output provided message to the trace listener.
+        /// Maps to Trace.Assert
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <param name="shortMessage"></param>
+        /// <param name="detailedMessage"></param>
+        public static void AssertExt(this bool condition, string shortMessage, string detailedMessage) => Trace.Assert(condition, shortMessage, detailedMessage);
     }
 }

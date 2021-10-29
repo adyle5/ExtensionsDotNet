@@ -80,11 +80,20 @@ ToHttpWebRequest - Creates an HttpWebRequest from the value in the string.
 
 Fixed the ToStreamExt & ToHttpWebRequestExt extensions.
 
-New Extension
+Moved the following Extensions to File Extensions:
+WriteToFileExt
+WriteToGZippedFileExt
+ReadFromGZippedFileExt
+
+New Extensions
 
 Generic Extensions:
 ToKeyValuePairExt
 RepeatExt
+TraceExt
+TraceIfExt
+TraceLineExt
+TraceLineIfExt
 
 Number Extensions:
 ToRangeExt
@@ -94,3 +103,42 @@ ToBase64StringExt
 WriteToGZippedFileExt
 ReadFromGZippedFileExt
 PrintExt
+TraceErrorExt
+TraceWarningExt
+TraceInformationExt
+
+Boolean Extensions:
+AssertExt
+
+Date Extensions:
+IsLeapYearExt
+IsLeapDayExt
+DaysInMonthExt
+WeekOfYearExt
+
+Enumeration Extensions:
+ToListExt
+GetNameExt
+GetNamesExt
+
+Char Extensions:
+ToUpperExt
+ToUpperInvariantExt
+IsUpperExt
+ToLowerExt
+ToLowerInvariantExt
+IsLowerExt
+IsControlCharacterExt
+IsWhiteSpaceExt
+IsDigitExt
+IsLetterExt
+IsLetterOrDigitExt
+IsNumberExt
+IsPunctuationExt
+IsSeparatorExt
+IsSymbolExt
+IsSurrogateExt
+IsHighSurrogateExt
+IsLowSurrogateExt
+IsMinValueExt
+IsMaxValueExt

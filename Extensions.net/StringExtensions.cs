@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
-using System.IO.Compression;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -274,80 +272,6 @@ namespace Extensions.net
         public static void WriteIfLineToDebugExt(this string text, bool condition) => Debug.WriteLineIf(condition, text);
 
         /// <summary>
-        /// Write text to a file. If file exists it will ovewrite.
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="path"></param>
-        public static void WriteToFileExt(this string text, string path)
-        {
-            using (var f = File.Create(path))
-            {
-                using (StreamWriter sw = new StreamWriter(f))
-                {
-                    sw.Write(text);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Writes string to a compressed file with the extension gz.
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="compressedFilePath"></param>
-        public static void WriteToGZippedFileExt(this string text, string compressedFilePath)
-        {
-            using (MemoryStream uncompressedStream = new MemoryStream(text.GetBytesExt()))
-            {
-                using (FileStream compressedStream = File.Create(compressedFilePath))
-                {
-                    using (GZipStream gZipStream = new GZipStream(compressedStream, CompressionMode.Compress))
-                    {
-                        uncompressedStream.CopyTo(gZipStream);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Reads a GZipped compressed file and returns the content as a decompressed string
-        /// </summary>
-        /// <param name="compressedFilePath"></param>
-        /// <returns></returns>
-        public static string ReadFromGZippedFileExt(this string compressedFilePath)
-        {
-            string decompressedString = "";
-            using (FileStream compressedStream = File.Open(compressedFilePath, FileMode.Open))
-            {
-                using (var decompressedStream = new GZipStream(compressedStream, CompressionMode.Decompress))
-                {
-                    using (var ms = new MemoryStream())
-                    {
-                        decompressedStream.CopyTo(ms);
-
-                        var bytes = ms.ToArray();
-
-                        decompressedString = bytes.GetStringExt();
-                    }
-                }
-            }
-
-            return decompressedString;
-        }
-
-        /// <summary>
-        /// Append Text to a file or creates new file.
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="path"></param>
-        public static void AppendToFileExt(this string text, string path)
-        {
-            using (var f = File.AppendText(path))
-            {
-                f.WriteLine(text);
-            }
-        }
-
-        /// <summary>
         /// Maps to Encoding.Default.GetBytes
         /// </summary>
         /// <param name="s"></param>
@@ -486,7 +410,7 @@ namespace Extensions.net
                     string[] arrCap = new string[arrText.Length];
 
                     for (int i = 0; i < arrText.Length; i++)
-                    {               
+                    {
                         if (!arrText[i].IsNullOrWhiteSpaceExt())
                         {
                             string currText = arrText[i].Trim();
@@ -503,7 +427,7 @@ namespace Extensions.net
                 else
                 {
                     return text.Substring(0, 1).ToUpperInvariant().ConcatExt(text.Substring(1, text.Length - 1));
-                }        
+                }
             }
 
             return text;
@@ -545,7 +469,7 @@ namespace Extensions.net
             {
                 return text;
             }
-            
+
             int wordLen = text.Length;
             if (length > wordLen)
             {
@@ -736,7 +660,7 @@ namespace Extensions.net
         /// <param name="userAgent"></param>
         /// <param name="headers"></param>
         /// <returns></returns>
-        public static HttpWebRequest ToHttpWebRequestExt(this string url, string method = null, string contentType = null, string accept = null, string host = null, int timeout = -1, string mediaType = null, string userAgent = null, Tuple<string,string>[] headers = null)
+        public static HttpWebRequest ToHttpWebRequestExt(this string url, string method = null, string contentType = null, string accept = null, string host = null, int timeout = -1, string mediaType = null, string userAgent = null, Tuple<string, string>[] headers = null)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
 
@@ -778,5 +702,26 @@ namespace Extensions.net
         /// </summary>
         /// <param name="text"></param>
         public static void PrintExt(this string text) => Debug.Print(text);
+
+        /// <summary>
+        /// Writes an error message to the trace listener.
+        /// Maps to Trace.TraceError
+        /// </summary>
+        /// <param name="message"></param>
+        public static void TraceErrorExt(this string message) => Trace.TraceError(message);
+
+        /// <summary>
+        /// Writes a warning message to the tace listener.
+        /// Maps to Trace.TraceWarning
+        /// </summary>
+        /// <param name="message"></param>
+        public static void TraceWarningExt(this string message) => Trace.TraceWarning(message);
+
+        /// <summary>
+        /// Write an information message to the trace listener.
+        /// Maps to Trace.TraceInformation
+        /// </summary>
+        /// <param name="message"></param>
+        public static void TraceInformationExt(this string message) => Trace.TraceInformation(message);
     }
 }

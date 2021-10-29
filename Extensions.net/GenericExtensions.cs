@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -190,7 +191,7 @@ namespace Extensions.net
         {
             string strObj = obj.ToString();
             byte[] bytes = strObj.GetBytesExt();
-            MemoryStream ms = new MemoryStream(bytes);       
+            MemoryStream ms = new MemoryStream(bytes);
 
             return ms;
         }
@@ -230,5 +231,77 @@ namespace Extensions.net
         /// <param name="numberOfTimes"></param>
         /// <returns></returns>
         public static IEnumerable<T> RepeatExt<T>(this T value, int numberOfTimes) => System.Linq.Enumerable.Repeat(value, numberOfTimes);
+
+        /// <summary>
+        /// Write's the value of a string or the ToString method to the Trace Listener.
+        /// Map of Trace.Write
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        public static void TraceExt<T>(this T obj) => System.Diagnostics.Trace.Write(obj);
+
+        /// <summary>
+        /// Write's the value of a string or the ToString method and category specified to the Trace Listener.
+        /// Map of Trace.Write
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="category"></param>
+        public static void TraceExt<T>(this T obj, string category) => Trace.Write(obj, category);
+
+        /// <summary>
+        /// Write's the value of a string or the ToString method specified to the Trace Listener based on a condition.
+        /// Map of Trace.WriteIf
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="condition"></param>
+        public static void TraceIfExt<T>(this T obj, bool condition) => Trace.WriteIf(condition, obj);
+
+        /// <summary>
+        /// Write's the value of a string or the ToString method and category specified to the Trace Listener based on a condition.
+        /// Map of Trace.WriteIf
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="condition"></param>
+        /// <param name="category"></param>
+        public static void TraceIfExt<T>(this T obj, bool condition, string category) => Trace.WriteIf(condition, obj, category);
+
+        /// <summary>
+        /// Write's the value of a string or the ToString method to a new line in the Trace Listener.
+        /// Map of Trace.WriteLine
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        public static void TraceLineExt<T>(this T obj) => Trace.WriteLine(obj);
+
+        /// <summary>
+        /// Write's the value of a string or the ToString method and category specified to a new line in the Trace Listener.
+        /// Map of Trace.WriteLine
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="category"></param>
+        public static void TraceLineExt<T>(this T obj, string category) => Trace.WriteLine(obj, category);
+
+        /// <summary>
+        /// Write's the value of a string or the ToString method specified to a new line in the Trace Listener based on a condition.
+        /// Map of Trace.WriteLineIf
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="condition"></param>
+        public static void TraceLineIfExt<T>(this T obj, bool condition) => Trace.WriteLineIf(condition, obj);
+
+        /// <summary>
+        /// Write's the value of a string or the ToString method and category specified to a new line in the Trace Listener based on a condition.
+        /// Map of Trace.WriteLineIf
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="condition"></param>
+        /// <param name="category"></param>
+        public static void TraceLineIfExt<T>(this T obj, bool condition, string category) => Trace.WriteLineIf(condition, obj, category);
     }
 }

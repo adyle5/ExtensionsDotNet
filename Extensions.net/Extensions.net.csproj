@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -12,7 +12,7 @@
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl />
     <PackageLicenseFile>license.txt</PackageLicenseFile>
-    <Description>The missing extensions library. Lets you work more productively in dotnet. Type a dot after your object instance for a list of helper functions that allow you to perform common and complex tasks.
+    <Description>The missing extensions library. Lets you work more productively in dotnet. Type a dot after your object instance for a list of helper functions that allow you to perform common and complex tasks. Features over 200 extension methods.
 
 Visit our wiki at https://github.com/adyle5/ExtensionsDotNet/wiki for a list of available methods and samples.
 

@@ -65,5 +65,22 @@ namespace Extensions.net.core.tests
             bool areEqual2 = output2.EqualsExt(input2);
             Assert.False(areEqual2);
         }
+
+        [Fact]
+        public void AssertTrace()
+        {
+            bool condition = 2 > 3;
+
+            var ex1 = Record.Exception(() => condition.AssertExt());
+            Assert.Null(ex1);
+
+            string shortMessage = "short message";
+            var ex2 = Record.Exception(() => condition.AssertExt(shortMessage));
+            Assert.Null(ex2);
+
+            string detailedMessage = "detailed message";
+            var ex3 = Record.Exception(() => condition.AssertExt(shortMessage, detailedMessage));
+            Assert.Null(ex3);
+        }
     }
 }

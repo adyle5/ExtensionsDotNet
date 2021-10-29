@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Extensions.net.core.tests
 {
-    public class ArrayExtenstionsTests
+    public class ArrayExtensionsTests
     {
         [Fact]
         public void Sort()

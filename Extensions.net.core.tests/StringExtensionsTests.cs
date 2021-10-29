@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.IO.Compression;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -203,7 +202,7 @@ namespace Extensions.net.core.tests
             string text = "Lorem ipsum dolor amet";
 
             byte[] bytes = Encoding.UTF8.GetBytes(text);
-            string expected = Convert.ToBase64String(bytes);            
+            string expected = Convert.ToBase64String(bytes);
 
             Assert.Equal(expected, text.ToBase64StringExt());
         }
@@ -272,48 +271,6 @@ namespace Extensions.net.core.tests
 
                 Assert.Equal(str1 + "\r\n", consoleOutput);
             }
-        }
-
-        [Fact]
-        public void WriteToFile()
-        {
-            string lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tristique arcu vel libero gravida, tincidunt mollis est iaculis. Donec accumsan urna a libero volutpat vulputate. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi sem nunc, interdum eget tortor ac, feugiat auctor neque. Proin rutrum neque sed dictum accumsan. Praesent id viverra leo. Nunc fermentum eros et vulputate maximus. Suspendisse potenti. Duis viverra sagittis erat, vel pretium tortor vehicula nec.";
-
-            lorem.WriteToFileExt("c:\\temp\\lorem.txt");
-
-            string fileText = File.ReadAllText("c:\\temp\\lorem.txt");
-            Assert.True(fileText == lorem);
-        }
-
-        [Fact]
-        public void WriteToGZippedFile()
-        {
-            string lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tristique arcu vel libero gravida, tincidunt mollis est iaculis. Donec accumsan urna a libero volutpat vulputate. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi sem nunc, interdum eget tortor ac, feugiat auctor neque. Proin rutrum neque sed dictum accumsan. Praesent id viverra leo. Nunc fermentum eros et vulputate maximus. Suspendisse potenti. Duis viverra sagittis erat, vel pretium tortor vehicula nec.";
-
-            lorem.WriteToGZippedFileExt("c:\\temp\\lorem.gz");
-            Assert.True(File.Exists("c:\\temp\\lorem.gz"));
-        }
-
-        [Fact]
-        public void ReadFromGZippedFile()
-        {
-            string expected = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tristique arcu vel libero gravida, tincidunt mollis est iaculis. Donec accumsan urna a libero volutpat vulputate. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi sem nunc, interdum eget tortor ac, feugiat auctor neque. Proin rutrum neque sed dictum accumsan. Praesent id viverra leo. Nunc fermentum eros et vulputate maximus. Suspendisse potenti. Duis viverra sagittis erat, vel pretium tortor vehicula nec.";
-
-            string path = "c:\\temp\\lorem.gz";
-            string decompressedString = path.ReadFromGZippedFileExt();
-
-            Assert.Equal(expected, decompressedString);
-        }
-
-        [Fact]
-        public void AppendToFile()
-        {
-            string lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tristique arcu vel libero gravida, tincidunt mollis est iaculis. Donec accumsan urna a libero volutpat vulputate. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi sem nunc, interdum eget tortor ac, feugiat auctor neque. Proin rutrum neque sed dictum accumsan. Praesent id viverra leo. Nunc fermentum eros et vulputate maximus. Suspendisse potenti. Duis viverra sagittis erat, vel pretium tortor vehicula nec.";
-
-            lorem.AppendToFileExt("c:\\temp\\lorem.txt");
-
-            string fileText = File.ReadAllText("c:\\temp\\lorem.txt");
-            Assert.Contains(lorem, fileText);
         }
 
         [Fact]
@@ -754,7 +711,33 @@ namespace Extensions.net.core.tests
         public void Print()
         {
             string text = "test";
-            text.PrintExt();
+
+            var ex1 = Record.Exception(() => text.PrintExt());
+            Assert.Null(ex1);
+        }
+
+        [Fact]
+        public void TraceError()
+        {
+            string message = "error";
+            var ex = Record.Exception(() => message.TraceErrorExt());
+            Assert.Null(ex);
+        }
+
+        [Fact]
+        public void TraceWarning()
+        {
+            string message = "warning";
+            var ex = Record.Exception(() => message.TraceWarningExt());
+            Assert.Null(ex);
+        }
+
+        [Fact]
+        public void TraceInformation()
+        {
+            string message = "info";
+            var ex = Record.Exception(() => message.TraceInformationExt());
+            Assert.Null(ex);
         }
 
         #region "Private Methods"

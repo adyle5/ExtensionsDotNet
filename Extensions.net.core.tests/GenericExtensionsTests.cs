@@ -416,6 +416,68 @@ namespace Extensions.net.core.tests
             Assert.Equal(expected2, true.RepeatExt(repeat));
         }
 
+        [Fact]
+        public void Trace()
+        {
+            string text = "test";
+            var ex1 = Record.Exception(() => text.TraceExt());
+            Assert.Null(ex1);
+
+            string category = "debug";
+            var ex2 = Record.Exception(() => text.TraceExt(category));
+            Assert.Null(ex2);
+        }
+
+        [Fact]
+        public void TraceIf()
+        {
+            string text = "test";
+            var ex1 = Record.Exception(() => text.TraceIfExt(true));
+            Assert.Null(ex1);
+
+            ex1 = Record.Exception(() => text.TraceIfExt(false));
+            Assert.Null(ex1);
+
+            string category = "category";
+            var ex2 = Record.Exception(() => text.TraceIfExt(true, category));
+            Assert.Null(ex2);
+
+            ex2 = Record.Exception(() => text.TraceIfExt(false, category));
+            Assert.Null(ex2);
+        }
+
+        [Fact]
+        public void TraceLineExt()
+        {
+            string text = "test";
+            var ex1 = Record.Exception(() => text.TraceLineExt());
+            Assert.Null(ex1);
+
+            string category = "debug";
+            var ex2 = Record.Exception(() => text.TraceLineExt(category));
+            Assert.Null(ex2);
+        }
+
+        [Fact]
+        public void TraceLineIf()
+        {
+            string text = "test";
+
+            var ex1 = Record.Exception(() => text.TraceLineIfExt(true));
+            Assert.Null(ex1);
+
+            ex1 = Record.Exception(() => text.TraceLineIfExt(false));
+            Assert.Null(ex1);
+
+            string category = "category";
+
+            var ex2 = Record.Exception(() => text.TraceLineIfExt(true, category));
+            Assert.Null(ex2);
+
+            ex2 = Record.Exception(() => text.TraceLineIfExt(false, category));
+            Assert.Null(ex2);
+        }
+
         #region "Private Methods"
 
         private long ConvertInt32DotNet(string str1)
