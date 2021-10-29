@@ -76,7 +76,7 @@ IsMatchExt - Returns true if the string matches the regular expression pattern p
 ToUriExt - Converts a string to a Uri.
 ToHttpWebRequest - Creates an HttpWebRequest from the value in the string.
 
-1.0.2.0 
+1.0.2.1
 
 Fixed the ToStreamExt & ToHttpWebRequestExt extensions.
 
