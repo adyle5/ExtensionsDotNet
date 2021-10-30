@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// Copyright © 2021 Adrian Gabor
+// Refer to license.txt for usage and permission information 
 
 namespace Extensions.net
 {

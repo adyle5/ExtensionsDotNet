@@ -1,4 +1,7 @@
-﻿namespace Extensions.net.core.tests
+﻿// Copyright © 2021 Adrian Gabor
+// Refer to license.txt for usage and permission information 
+
+namespace Extensions.net.core.tests
 {
     public class Consts
     {

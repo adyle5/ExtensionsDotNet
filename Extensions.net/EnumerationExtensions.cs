@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿// Copyright © 2021 Adrian Gabor
+// Refer to license.txt for usage and permission information 
+
+using System.Linq;
 using System.Collections.Generic;
 using System;
 

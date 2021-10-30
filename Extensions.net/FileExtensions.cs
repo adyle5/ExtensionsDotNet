@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿// Copyright © 2021 Adrian Gabor
+// Refer to license.txt for usage and permission information 
+
+using System.IO;
 using System.IO.Compression;
 
 namespace Extensions.net
