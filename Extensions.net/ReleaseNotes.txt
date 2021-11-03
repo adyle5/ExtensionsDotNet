@@ -100,8 +100,6 @@ ToRangeExt
 
 String Extensions:
 ToBase64StringExt
-WriteToGZippedFileExt
-ReadFromGZippedFileExt
 PrintExt
 TraceErrorExt
 TraceWarningExt
@@ -142,3 +140,39 @@ IsHighSurrogateExt
 IsLowSurrogateExt
 IsMinValueExt
 IsMaxValueExt
+
+1.1.0.1
+
+Updated Test project to target .NET 5.
+
+Fixed tests that no longer passed once target framework was upgraded.
+
+Marked CopyExt and all UTF7 extensions as deprecated.
+
+Code maintenance.
+
+Added new versions of 
+AddExt, 
+SubstractExt, 
+MultiplyExt, and 
+DivideExt 
+for double and decimal types.
+
+New Extensions
+
+Math Extensions:
+AreaCircleExt
+AreaOfTriangleExt
+CircumferenceOfCircle
+ArcLengthExt
+HypotenuseExt
+
+String Extensions:
+FromBase64String2Ext - Converts a base64 string into a standard string using default encoding.
+
+Cryptography Extensions:
+GenerateRandomBytesExt
+GenerateRandomNonZeroBytesExt
+
+Array Extensions:
+RandomExt

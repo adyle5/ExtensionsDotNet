@@ -110,6 +110,7 @@ namespace Extensions.net.core.tests
         }
 
         [Fact]
+        [Obsolete(message: "String.Copy no longer recommended by Microsoft.")]
         public void Copy()
         {
             string str1 = "fubar";
@@ -124,7 +125,7 @@ namespace Extensions.net.core.tests
             string str2 = "bar";
             string str3 = "star";
 
-            object obj1 = new object();
+            object obj1 = new ();
 
             Assert.Equal(string.Format(str1, str2, str3), str1.FormatExt(str2, str3));
             Assert.Equal(string.Format(str1, str2, obj1), str1.FormatExt(str2, obj1));
@@ -200,6 +201,22 @@ namespace Extensions.net.core.tests
         }
 
         [Fact]
+        public void FromBase64String2()
+        {
+            string str1 = "AAEPISo=";
+            byte[] b64 = Convert.FromBase64String(str1);
+            string actual = Encoding.Default.GetString(b64);
+
+            Assert.Equal(actual, str1.FromBase64String2Ext());
+
+            long expectedElapsed = 0;
+            long actualElapsed = 0;
+            Parallel.Invoke(() => expectedElapsed = Base64DotNet2(str1), () => actualElapsed = Base64Ext2(str1));
+
+            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
+        }
+
+        [Fact]
         public void ToBase64String()
         {
             string text = "Lorem ipsum dolor amet";
@@ -247,33 +264,29 @@ namespace Extensions.net.core.tests
         [Fact]
         public void WriteToConsole()
         {
-            using (StringWriter stringWriter = new StringWriter())
-            {
-                Console.SetOut(stringWriter);
+            using StringWriter stringWriter = new ();
+            Console.SetOut(stringWriter);
 
-                string str1 = "fubar";
-                str1.WriteToConsoleExt();
+            string str1 = "fubar";
+            str1.WriteToConsoleExt();
 
-                string consoleOutput = stringWriter.ToString();
+            string consoleOutput = stringWriter.ToString();
 
-                Assert.Equal(str1, consoleOutput);
-            }
+            Assert.Equal(str1, consoleOutput);
         }
 
         [Fact]
         public void WriteLineToConsole()
         {
-            using (StringWriter stringWriter = new StringWriter())
-            {
-                Console.SetOut(stringWriter);
+            using StringWriter stringWriter = new ();
+            Console.SetOut(stringWriter);
 
-                string str1 = "fubar";
-                str1.WriteLineToConsoleExt();
+            string str1 = "fubar";
+            str1.WriteLineToConsoleExt();
 
-                string consoleOutput = stringWriter.ToString();
+            string consoleOutput = stringWriter.ToString();
 
-                Assert.Equal(str1 + "\r\n", consoleOutput);
-            }
+            Assert.Equal(str1 + "\r\n", consoleOutput);
         }
 
         [Fact]
@@ -293,6 +306,7 @@ namespace Extensions.net.core.tests
         }
 
         [Fact]
+        [Obsolete (message: "Not recommended for use. Use UTF8 instead.")]
         public void GetBytesUtf7()
         {
             string s = "test";
@@ -441,10 +455,9 @@ namespace Extensions.net.core.tests
 
             s = null;
             expected = "";
-            Assert.Equal("", s.DuplicateExt(5));
+            Assert.Equal(expected, s.DuplicateExt(5));
 
             s = "";
-            expected = "";
             Assert.Equal("", s.DuplicateExt(5));
 
             s = " ";
@@ -744,37 +757,55 @@ namespace Extensions.net.core.tests
         }
 
         #region "Private Methods"
-        private long Base64DotNet(string str1)
+        private static long Base64DotNet(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            Convert.FromBase64String(str1);
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private static long Base64Ext(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            sw.Start();
+            str1.FromBase64StringExt();
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private static long Base64DotNet2(string str1)
         {
             Stopwatch sw = Stopwatch.StartNew();
             var tc1 = Convert.FromBase64String(str1);
+            Encoding.Default.GetString(tc1);
             sw.Stop();
             return sw.ElapsedTicks;
         }
 
-        private long Base64Ext(string str1)
+        private static long Base64Ext2(string str1)
         {
             Stopwatch sw = Stopwatch.StartNew();
             sw.Start();
-            var tc2 = str1.FromBase64StringExt();
+            str1.FromBase64StringExt().GetStringExt();
             sw.Stop();
             return sw.ElapsedTicks;
         }
 
-        private long TileCaseDotNet(string str1)
+        private static long TileCaseDotNet(string str1)
         {
             Stopwatch sw = Stopwatch.StartNew();
             TextInfo textInfo = CultureInfo.InvariantCulture.TextInfo;
-            var tc1 = textInfo.ToTitleCase(str1);
+            textInfo.ToTitleCase(str1);
             sw.Stop();
             return sw.ElapsedTicks;
         }
 
-        private long TitleCaseExt(string str1)
+        private static long TitleCaseExt(string str1)
         {
             Stopwatch sw = Stopwatch.StartNew();
             sw.Start();
-            var tc2 = str1.ToTitleCaseExt();
+            str1.ToTitleCaseExt();
             sw.Stop();
             return sw.ElapsedTicks;
         }

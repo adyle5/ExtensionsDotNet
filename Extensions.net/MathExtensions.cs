@@ -24,12 +24,76 @@ namespace Extensions.net
         }
 
         /// <summary>
+        /// Adds n number of doubles to the target integer.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="add"></param>
+        /// <returns></returns>
+        public static double AddExt(this double num, params double[] add)
+        {
+            for (int i = 0; i < add.Length; i++)
+            {
+                num += add[i];
+            }
+
+            return num;
+        }
+
+        /// <summary>
+        /// Adds n number of decimals to the target integer.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="add"></param>
+        /// <returns></returns>
+        public static decimal AddExt(this decimal num, params decimal[] add)
+        {
+            for (int i = 0; i < add.Length; i++)
+            {
+                num += add[i];
+            }
+
+            return num;
+        }
+
+        /// <summary>
         /// Subtracts n number of integers to the target integer. 
         /// </summary>
         /// <param name="num"></param>
         /// <param name="sub"></param>
         /// <returns></returns>
         public static int SubtractExt(this int num, params int[] sub)
+        {
+            for (int i = 0; i < sub.Length; i++)
+            {
+                num -= sub[i];
+            }
+
+            return num;
+        }
+
+        /// <summary>
+        /// Subtracts n number of doubles to the target integer. 
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="sub"></param>
+        /// <returns></returns>
+        public static double SubtractExt(this double num, params double[] sub)
+        {
+            for (int i = 0; i < sub.Length; i++)
+            {
+                num -= sub[i];
+            }
+
+            return num;
+        }
+
+        /// <summary>
+        /// Subtracts n number of decimals to the target integer. 
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="sub"></param>
+        /// <returns></returns>
+        public static decimal SubtractExt(this decimal num, params decimal[] sub)
         {
             for (int i = 0; i < sub.Length; i++)
             {
@@ -56,12 +120,76 @@ namespace Extensions.net
         }
 
         /// <summary>
+        /// Multiplies n number of doubles to the target integer.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="mul"></param>
+        /// <returns></returns>
+        public static double MultiplyExt(this double num, params double[] mul)
+        {
+            for (int i = 0; i < mul.Length; i++)
+            {
+                num *= mul[i];
+            }
+
+            return num;
+        }
+
+        /// <summary>
+        /// Multiplies n number of decimals to the target integer.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="mul"></param>
+        /// <returns></returns>
+        public static decimal MultiplyExt(this decimal num, params decimal[] mul)
+        {
+            for (int i = 0; i < mul.Length; i++)
+            {
+                num *= mul[i];
+            }
+
+            return num;
+        }
+
+        /// <summary>
         /// Divides n number of integers to the target integer.
         /// </summary>
         /// <param name="num"></param>
         /// <param name="div"></param>
         /// <returns></returns>
         public static int DivideExt(this int num, params int[] div)
+        {
+            for (int i = 0; i < div.Length; i++)
+            {
+                num /= div[i];
+            }
+
+            return num;
+        }
+
+        /// <summary>
+        /// Divides n number of doubles to the target integer.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="div"></param>
+        /// <returns></returns>
+        public static double DivideExt(this double num, params double[] div)
+        {
+            for (int i = 0; i < div.Length; i++)
+            {
+                num /= div[i];
+            }
+
+            return num;
+        }
+
+        /// <summary>
+        /// Divides n number of integers to the target integer.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="div"></param>
+        /// <returns></returns>
+        public static decimal DivideExt(this decimal num, params decimal[] div)
         {
             for (int i = 0; i < div.Length; i++)
             {
@@ -637,5 +765,83 @@ namespace Extensions.net
         /// <param name="d"></param>
         /// <returns></returns>
         public static double TruncateExt(this double d) => Math.Truncate(d);
+
+        /// <summary>
+        /// Calculates the area of a circle when the extended number is the radius.
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <returns></returns>
+        public static double AreaOfCircleExt(this double radius) => Math.PI * Math.Pow(radius, 2);
+
+        /// <summary>
+        /// Calculates the area of a circle when the extended number is the radius.
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <returns></returns>
+        public static double AreaOfCircleExt(this int radius) => Math.PI * Math.Pow(radius, 2);
+
+        /// <summary>
+        /// Calculates the area of a triangle wher the extended double is the base, and the double parameter is the height.
+        /// </summary>
+        /// <param name="b"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public static double AreaOfTriangleExt(this double b, double height) => (b * height) / 2;
+
+        /// <summary>
+        /// Calculates the area of a triangle wher the extended int is the base, and the int parameter is the height.
+        /// </summary>
+        /// <param name="b"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public static double AreaOfTriangleExt(this int b, int height) => (b * height) / 2;
+
+        /// <summary>
+        /// Calculates the circumference of a circle when the extended number is the radius.
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <returns></returns>
+        public static double CircumferenceOfCircleExt(this double radius) => (2 * Math.PI) * radius;
+
+        /// <summary>
+        /// Calculates the circumference of a circle when the extended number is the radius.
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <returns></returns>
+        public static double CircumferenceOfCircleExt(this int radius) => (2 * Math.PI) * radius;
+
+        /// <summary>
+        /// Calculates the length of a circle arc where the extended value is the radius and the paramater is the central angle.
+        /// Central angle is is degrees.
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <param name="centralAngle"></param>
+        /// <returns></returns>
+        public static double ArcLengthExt(this double radius, double centralAngle) => 2 * Math.PI * radius * (centralAngle / 360);
+
+        /// <summary>
+        /// Calculates the length of a circle arc where the extended value is the radius and the paramater is the central angle.
+        /// Central angle is is degrees.
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <param name="centralAngle"></param>
+        /// <returns></returns>
+        public static double ArcLengthExt(this int radius, int centralAngle) => 2 * Math.PI * radius * ((double)centralAngle / 360);
+
+        /// <summary>
+        /// Calculates the hypotenus of a triangle where leg1 is the extended value and leg2 is the parameter.
+        /// </summary>
+        /// <param name="leg1"></param>
+        /// <param name="leg2"></param>
+        /// <returns></returns>
+        public static double HypotenuseExt(this double leg1, double leg2) => Math.Sqrt(Math.Pow(leg1, 2) + Math.Pow(leg2, 2));
+
+        /// <summary>
+        /// Calculates the hypotenus of a triangle where leg1 is the extended value and leg2 is the parameter. 
+        /// </summary>
+        /// <param name="leg1"></param>
+        /// <param name="leg2"></param>
+        /// <returns></returns>
+        public static double HypotenuseExt(this int leg1, int leg2) => Math.Sqrt(Math.Pow(leg1, 2) + Math.Pow(leg2, 2));
     }
 }

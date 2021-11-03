@@ -74,8 +74,7 @@ namespace Extensions.net
         /// <param name="text">Text.</param>
         public static float ToFloatExt<T>(this T obj) where T : IConvertible
         {
-            float f = -1;
-            if (float.TryParse(obj.ToString(), out f))
+            if (float.TryParse(obj.ToString(), out float f))
             {
                 return f;
             }
@@ -92,8 +91,7 @@ namespace Extensions.net
         /// <param name="text">Text.</param>
         public static long ToLongExt<T>(this T obj) where T : IConvertible
         {
-            long l = -1;
-            if (long.TryParse(obj.ToString(), out l))
+            if (long.TryParse(obj.ToString(), out long l))
             {
                 return l;
             }
@@ -110,8 +108,7 @@ namespace Extensions.net
         /// <param name="text">Text.</param>
         public static short ToShortExt<T>(this T obj) where T : IConvertible
         {
-            short s = -1;
-            if (short.TryParse(obj.ToString(), out s))
+            if (short.TryParse(obj.ToString(), out short s))
             {
                 return s;
             }
@@ -171,13 +168,11 @@ namespace Extensions.net
 
             if (obj.GetType().IsSerializable)
             {
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    BinaryFormatter f = new BinaryFormatter();
-                    f.Serialize(ms, obj);
-                    ms.Position = 0;
-                    newObj = (T)f.Deserialize(ms);
-                }
+                using MemoryStream ms = new ();
+                BinaryFormatter f = new ();
+                f.Serialize(ms, obj);
+                ms.Position = 0;
+                newObj = (T)f.Deserialize(ms);
             }
 
             return newObj;
@@ -194,7 +189,7 @@ namespace Extensions.net
         {
             string strObj = obj.ToString();
             byte[] bytes = strObj.GetBytesExt();
-            MemoryStream ms = new MemoryStream(bytes);
+            MemoryStream ms = new(bytes);
 
             return ms;
         }
@@ -227,7 +222,7 @@ namespace Extensions.net
 
         /// <summary>
         /// Creates a new IEnumerable of the same type as the extended type and repeats the value of the extended times based on the integral parameter.
-        /// Maps to Enumerable.Repeat.
+        /// Maps to Enumerable.Repeat
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
@@ -241,7 +236,7 @@ namespace Extensions.net
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
-        public static void TraceExt<T>(this T obj) => System.Diagnostics.Trace.Write(obj);
+        public static void TraceExt<T>(this T obj) => Trace.Write(obj);
 
         /// <summary>
         /// Write's the value of a string or the ToString method and category specified to the Trace Listener.

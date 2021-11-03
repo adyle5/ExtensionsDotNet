@@ -14,6 +14,16 @@ namespace Extensions.net.core.tests
             int a = 5;
             int b = 3;
             Assert.Equal(a + b, a.AddExt(b));
+
+            double c = 5.5;
+            double d = 3.3;
+
+            Assert.Equal(c + d, c.AddExt(d));
+
+            decimal e = 5.5M;
+            decimal f = 3.3M;
+
+            Assert.Equal(e + f, e.AddExt(f));
         }
 
 
@@ -23,6 +33,16 @@ namespace Extensions.net.core.tests
             int a = 5;
             int b = 3;
             Assert.Equal(a - b, a.SubtractExt(b));
+
+            double c = 5.5;
+            double d = 3.3;
+
+            Assert.Equal(c - d, c.SubtractExt(d));
+
+            decimal e = 5.5M;
+            decimal f = 3.3M;
+
+            Assert.Equal(e - f, e.SubtractExt(f));
         }
 
 
@@ -32,6 +52,16 @@ namespace Extensions.net.core.tests
             int a = 5;
             int b = 3;
             Assert.Equal(a * b, a.MultiplyExt(b));
+
+            double c = 5.5;
+            double d = 3.3;
+
+            Assert.Equal(c * d, c.MultiplyExt(d));
+
+            decimal e = 5.5M;
+            decimal f = 3.3M;
+
+            Assert.Equal(e * f, e.MultiplyExt(f));
         }
 
 
@@ -41,6 +71,16 @@ namespace Extensions.net.core.tests
             int a = 5;
             int b = 3;
             Assert.Equal(a / b, a.DivideExt(b));
+
+            double c = 5.5;
+            double d = 3.3;
+
+            Assert.Equal(c / d, c.DivideExt(d));
+
+            decimal e = 5.5M;
+            decimal f = 3.3M;
+
+            Assert.Equal(e / f, e.DivideExt(f));
         }
 
 
@@ -353,6 +393,89 @@ namespace Extensions.net.core.tests
         {
             double d = 123.456;
             Assert.Equal(Math.Truncate(d), d.TruncateExt());
+        }
+
+        [Fact]
+        public void AreaOfCircle()
+        {
+            double radius = 5.2;
+            double expected = 84.94867;
+            double actual = Math.Round(radius.AreaOfCircleExt(), 5);
+
+            Assert.Equal(expected, actual);
+
+            int radius2 = 7;
+            expected = 153.93804;
+            actual = Math.Round(radius2.AreaOfCircleExt(), 5);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void AreaOfTriangle()
+        {
+            double theBase = 10;
+            double height = 5;
+
+            double expected = 25;
+            double actual = theBase.AreaOfTriangleExt(height);
+
+            Assert.Equal(expected, actual);
+
+            int theBase2 = 10;
+            int height2 = 5;
+
+            expected = 25;
+            actual = theBase2.AreaOfTriangleExt(height2);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void CircumferenceOfCircle()
+        {
+            double radius = 3.5;
+            double expected = 21.99;
+            double actual = Math.Round(radius.CircumferenceOfCircleExt(), 2);
+            Assert.Equal(expected, actual);
+
+            int radius2 = 3;
+            expected = 18.85;
+            actual = Math.Round(radius2.CircumferenceOfCircleExt(), 2);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void ArcLength()
+        {
+            double radius = 5;
+            double centralAngle = 75;
+            double expected = 6.54498;
+
+            double actual = Math.Round(radius.ArcLengthExt(centralAngle), 5);
+
+            Assert.Equal(expected, actual);
+
+            int radius2 = 5;
+            int centralAngle2 = 75;
+            actual = Math.Round(radius2.ArcLengthExt(centralAngle2), 5);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Hypotenuse()
+        {
+            double a = 5;
+            double b = 4.5;
+            double c = 6.73;
+
+            Assert.Equal(c, Math.Round(a.HypotenuseExt(b), 2));
+
+            int a2 = 5;
+            int b2 = 7;
+            c = 8.6;
+
+            Assert.Equal(c, Math.Round(a2.HypotenuseExt(b2), 1));
         }
     }
 }

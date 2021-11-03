@@ -33,7 +33,7 @@ namespace Extensions.net
         /// </summary>
         /// <param name="ticks"></param>
         /// <returns></returns>
-        public static DateTime ToDateTimeExt(this long ticks) => new DateTime(ticks);
+        public static DateTime ToDateTimeExt(this long ticks) => new(ticks);
 
         /// <summary>
         /// Checks if a nullable integer is null or is less than one.

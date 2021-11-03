@@ -24,7 +24,7 @@ namespace Extensions.net
         public static char ToUpperInvariantExt(this char c) => char.ToUpperInvariant(c);
 
         /// <summary>
-        /// Returns true if extended char is uppercase letter, otherwise returns false;
+        /// Returns true if extended char is uppercase letter, otherwise returns false.
         /// Maps to char.IsUpper
         /// </summary>
         /// <param name="c"></param>
@@ -41,14 +41,14 @@ namespace Extensions.net
 
         /// <summary>
         /// Returns invariant lowercase of extended char.
-        /// Maps to char.ToLower
+        /// Maps to char.ToLowerInvariant
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
         public static char ToLowerInvariantExt(this char c) => char.ToLowerInvariant(c);
 
         /// <summary>
-        /// Returns true if extended char is lowercase letter, otherwise returns false;
+        /// Returns true if extended char is lowercase letter, otherwise returns false.
         /// Maps to char.IsLower
         /// </summary>
         /// <param name="c"></param>
@@ -73,7 +73,7 @@ namespace Extensions.net
 
         /// <summary>
         /// Returns true if extended char is a decimal digit, otherwise returns false.
-        /// Maps to char.IsDigitExt
+        /// Maps to char.IsDigit
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
@@ -81,7 +81,7 @@ namespace Extensions.net
 
         /// <summary>
         /// Returns true if extended char is a letter, otherwise returns false.
-        /// Maps to char.IsLetterExt
+        /// Maps to char.IsLetter
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
@@ -152,14 +152,14 @@ namespace Extensions.net
         public static bool IsLowSurrogateExt(this char c) => char.IsLowSurrogate(c);
 
         /// <summary>
-        /// Returns true if the extended char is the smallest possible char value, otherwise returns false;
+        /// Returns true if the extended char is the smallest possible char value, otherwise returns false.
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
         public static bool IsMinValueExt(this char c) => c == char.MinValue;
 
         /// <summary>
-        /// Returns true if the extended char is the largest possible char value, otherwise returns false;
+        /// Returns true if the extended char is the largest possible char value, otherwise returns false.
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>

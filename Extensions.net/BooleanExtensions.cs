@@ -47,7 +47,7 @@ namespace Extensions.net
         public static void AssertExt(this bool condition, string shortMessage) => Trace.Assert(condition, shortMessage);
 
         /// <summary>
-        /// If extended object's condition is false, will output provided message to the trace listener.
+        /// If extended object's condition is false, will output provided messages to the trace listener.
         /// Maps to Trace.Assert
         /// </summary>
         /// <param name="condition"></param>

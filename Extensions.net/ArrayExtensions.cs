@@ -697,5 +697,26 @@ namespace Extensions.net
         {
             return arr.GroupBy(x => x).Where(x => x.Count() > 1).Select(x => x.Key).Distinct().ToArray();
         }
+
+        /// <summary>
+        /// Returns a random value from an array.
+        /// If the array is null or empty, will throw an ArgumentNullException.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public static T RandomExt<T>(this T[] arr)
+        {
+            if (arr != null && arr.Length > 0)
+            {
+                Random random = new ();
+                int num = random.Next(arr.Length);
+                return arr[num];
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+        }
     }
 }

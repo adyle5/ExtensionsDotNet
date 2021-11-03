@@ -66,5 +66,27 @@ namespace Extensions.net.core.tests
 
             Assert.NotEqual(expected, x.ComputeHash256Ext());
         }
+
+        [Fact]
+        public void GenerateRandomBytes()
+        {
+            byte[] bytes = new byte[64];
+            byte[] bytesCopied = bytes.DeepCopyExt();
+            Assert.Equal(bytes, bytesCopied);
+
+            bytes.GenerateRandomBytesExt();
+            Assert.NotEqual(bytes, bytesCopied);
+        }
+
+        [Fact]
+        public void GenerateRandomNonZeroBytes()
+        {
+            byte[] bytes = new byte[64];
+            byte[] bytesCopied = bytes.DeepCopyExt();
+            Assert.Equal(bytes, bytesCopied);
+
+            bytes.GenerateRandomNonZeroBytesExt();
+            Assert.NotEqual(bytes, bytesCopied);
+        }
     }
 }

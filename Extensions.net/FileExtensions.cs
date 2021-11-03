@@ -15,13 +15,9 @@ namespace Extensions.net
         /// <param name="path"></param>
         public static void WriteToFileExt(this string text, string path)
         {
-            using (var f = File.Create(path))
-            {
-                using (StreamWriter sw = new StreamWriter(f))
-                {
-                    sw.Write(text);
-                }
-            }
+            using var f = File.Create(path);
+            using StreamWriter sw = new(f);
+            sw.Write(text);
         }
 
         /// <summary>
@@ -31,20 +27,15 @@ namespace Extensions.net
         /// <param name="compressedFilePath"></param>
         public static void WriteToGZippedFileExt(this string text, string compressedFilePath)
         {
-            using (MemoryStream uncompressedStream = new MemoryStream(text.GetBytesExt()))
-            {
-                using (FileStream compressedStream = File.Create(compressedFilePath))
-                {
-                    using (GZipStream gZipStream = new GZipStream(compressedStream, CompressionMode.Compress))
-                    {
-                        uncompressedStream.CopyTo(gZipStream);
-                    }
-                }
-            }
+            using MemoryStream uncompressedStream = new (text.GetBytesExt());
+            using FileStream compressedStream = File.Create(compressedFilePath);
+            using GZipStream gZipStream = new (compressedStream, CompressionMode.Compress);
+            uncompressedStream.CopyTo(gZipStream);
         }
 
         /// <summary>
         /// Reads a GZipped compressed file and returns the content as a decompressed string
+        /// If file does not exit, will throw a FileNotFoundException.
         /// </summary>
         /// <param name="compressedFilePath"></param>
         /// <returns></returns>
@@ -53,17 +44,13 @@ namespace Extensions.net
             string decompressedString = "";
             using (FileStream compressedStream = File.Open(compressedFilePath, FileMode.Open))
             {
-                using (var decompressedStream = new GZipStream(compressedStream, CompressionMode.Decompress))
-                {
-                    using (var ms = new MemoryStream())
-                    {
-                        decompressedStream.CopyTo(ms);
+                using var decompressedStream = new GZipStream(compressedStream, CompressionMode.Decompress);
+                using MemoryStream ms = new();
+                decompressedStream.CopyTo(ms);
 
-                        var bytes = ms.ToArray();
+                var bytes = ms.ToArray();
 
-                        decompressedString = bytes.GetStringExt();
-                    }
-                }
+                decompressedString = bytes.GetStringExt();
             }
 
             return decompressedString;
@@ -76,10 +63,8 @@ namespace Extensions.net
         /// <param name="path"></param>
         public static void AppendToFileExt(this string text, string path)
         {
-            using (var f = File.AppendText(path))
-            {
-                f.WriteLine(text);
-            }
+            using var f = File.AppendText(path);
+            f.WriteLine(text);
         }
     }
 }

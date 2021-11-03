@@ -185,8 +185,7 @@ namespace Extensions.net.core.tests
             Assert.Equal("Input string was not in a correct format.", formatEx.Message);
 
             string three = Double.MaxValue.ToString();
-            OverflowException overflowEx = Assert.Throws<OverflowException>(() => three.ToSingleExt());
-            Assert.Equal("Value was either too large or too small for a Single.", overflowEx.Message);
+            Assert.Equal(Double.PositiveInfinity, three.ToSingleExt());
 
             string strMax = Single.MaxValue.ToString();
             //First call might skew results, so let's get it out of the way.
@@ -209,7 +208,7 @@ namespace Extensions.net.core.tests
 
             string t2 = "is true";
             FormatException formatEx = Assert.Throws<FormatException>(() => t2.ToBooleanExt());
-            Assert.Equal("String was not recognized as a valid Boolean.", formatEx.Message);
+            Assert.Equal("String 'is true' was not recognized as a valid Boolean.", formatEx.Message);
 
             int i = 1;
             Assert.Equal(Convert.ToBoolean(i), i.ToBooleanExt());
@@ -373,10 +372,8 @@ namespace Extensions.net.core.tests
 
             using (Stream stream = s.ToStreamExt())
             {
-                using (StreamReader sr = new StreamReader(stream))
-                {
-                    Assert.Equal(s, sr.ReadToEnd());
-                }
+                using StreamReader sr = new (stream);
+                Assert.Equal(s, sr.ReadToEnd());
             }
 
             int[] arr = { 1, 2, 3, 4, 5 };
@@ -392,7 +389,7 @@ namespace Extensions.net.core.tests
             int key = 1;
             string value = "red";
 
-            var expected = new KeyValuePair<int, string>(key, value);
+            KeyValuePair<int, string> expected = new (key, value);
             Assert.Equal(expected, key.ToKeyValuePairExt(value));
         }
 
@@ -402,7 +399,7 @@ namespace Extensions.net.core.tests
             int key = 1;
             string value = "red";
 
-            var expected = new KeyValuePair<int, string>(key, value);
+            KeyValuePair<int, string> expected = new (key, value);
             Assert.Equal(expected, value.ToKeyValuePair2Ext(key));
         }
 
@@ -483,223 +480,223 @@ namespace Extensions.net.core.tests
 
         #region "Private Methods"
 
-        private long ConvertInt32DotNet(string str1)
+        private static long ConvertInt32DotNet(string str1)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            var tc1 = Convert.ToInt32(str1);
+            Convert.ToInt32(str1);
             sw.Stop();
             return sw.ElapsedTicks;
         }
 
-        private long ConvertInt32Ext(string str1)
+        private static long ConvertInt32Ext(string str1)
         {
             Stopwatch sw = Stopwatch.StartNew();
             sw.Start();
-            var tc2 = str1.ToInt32Ext();
+            str1.ToInt32Ext();
             sw.Stop();
             return sw.ElapsedTicks;
         }
 
-        private long ConvertUInt32DotNet(string str1)
+        private static long ConvertUInt32DotNet(string str1)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            var tc1 = Convert.ToUInt32(str1);
+            Convert.ToUInt32(str1);
             sw.Stop();
             return sw.ElapsedTicks;
         }
 
-        private long ConvertUInt32Ext(string str1)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            sw.Start();
-            var tc2 = str1.ToUInt32Ext();
-            sw.Stop();
-            return sw.ElapsedTicks;
-        }
-
-        private long ConvertInt16DotNet(string str1)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            var tc1 = Convert.ToInt16(str1);
-            sw.Stop();
-            return sw.ElapsedTicks;
-        }
-
-        private long ConvertInt16Ext(string str1)
+        private static long ConvertUInt32Ext(string str1)
         {
             Stopwatch sw = Stopwatch.StartNew();
             sw.Start();
-            var tc2 = str1.ToInt16Ext();
+            str1.ToUInt32Ext();
             sw.Stop();
             return sw.ElapsedTicks;
         }
 
-        private long ConvertUInt16DotNet(string str1)
+        private static long ConvertInt16DotNet(string str1)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            var tc1 = Convert.ToUInt16(str1);
+            Convert.ToInt16(str1);
             sw.Stop();
             return sw.ElapsedTicks;
         }
 
-        private long ConvertUInt16Ext(string str1)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            sw.Start();
-            var tc2 = str1.ToUInt16Ext();
-            sw.Stop();
-            return sw.ElapsedTicks;
-        }
-
-        private long ConvertInt64DotNet(string str1)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            var tc1 = Convert.ToInt64(str1);
-            sw.Stop();
-            return sw.ElapsedTicks;
-        }
-
-        private long ConvertInt64Ext(string str1)
+        private static long ConvertInt16Ext(string str1)
         {
             Stopwatch sw = Stopwatch.StartNew();
             sw.Start();
-            var tc2 = str1.ToInt64Ext();
+            str1.ToInt16Ext();
             sw.Stop();
             return sw.ElapsedTicks;
         }
 
-        private long ConvertUInt64DotNet(string str1)
+        private static long ConvertUInt16DotNet(string str1)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            var tc1 = Convert.ToUInt64(str1);
+            Convert.ToUInt16(str1);
             sw.Stop();
             return sw.ElapsedTicks;
         }
 
-        private long ConvertUInt64Ext(string str1)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            sw.Start();
-            var tc2 = str1.ToUInt64Ext();
-            sw.Stop();
-            return sw.ElapsedTicks;
-        }
-
-        private long ConvertDoubleDotNet(string str1)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            var tc1 = Convert.ToDouble(str1);
-            sw.Stop();
-            return sw.ElapsedTicks;
-        }
-
-        private long ConvertDoubleExt(string str1)
+        private static long ConvertUInt16Ext(string str1)
         {
             Stopwatch sw = Stopwatch.StartNew();
             sw.Start();
-            var tc2 = str1.ToDoubleExt();
+            str1.ToUInt16Ext();
             sw.Stop();
             return sw.ElapsedTicks;
         }
 
-        private long ConvertSingleDotNet(string str1)
+        private static long ConvertInt64DotNet(string str1)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            var tc1 = Convert.ToSingle(str1);
+            Convert.ToInt64(str1);
             sw.Stop();
             return sw.ElapsedTicks;
         }
 
-        private long ConvertSingleExt(string str1)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            sw.Start();
-            var tc2 = str1.ToSingleExt();
-            sw.Stop();
-            return sw.ElapsedTicks;
-        }
-
-        private long ConvertBooleanDotNet(string str1)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            var tc1 = Convert.ToBoolean(str1);
-            sw.Stop();
-            return sw.ElapsedTicks;
-        }
-
-        private long ConvertBooleanExt(string str1)
+        private static long ConvertInt64Ext(string str1)
         {
             Stopwatch sw = Stopwatch.StartNew();
             sw.Start();
-            var tc2 = str1.ToBooleanExt();
+            str1.ToInt64Ext();
             sw.Stop();
             return sw.ElapsedTicks;
         }
 
-        private long ConvertByteDotNet(string str1)
+        private static long ConvertUInt64DotNet(string str1)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            var tc1 = Convert.ToByte(str1);
+            Convert.ToUInt64(str1);
             sw.Stop();
             return sw.ElapsedTicks;
         }
 
-        private long ConvertByteExt(string str1)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            sw.Start();
-            var tc2 = str1.ToByteExt();
-            sw.Stop();
-            return sw.ElapsedTicks;
-        }
-
-        private long ConvertCharDotNet(string str1)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            var tc1 = Convert.ToChar(str1);
-            sw.Stop();
-            return sw.ElapsedTicks;
-        }
-
-        private long ConvertCharExt(string str1)
+        private static long ConvertUInt64Ext(string str1)
         {
             Stopwatch sw = Stopwatch.StartNew();
             sw.Start();
-            var tc2 = str1.ToCharExt();
+            str1.ToUInt64Ext();
             sw.Stop();
             return sw.ElapsedTicks;
         }
 
-        private long ConvertDecimalDotNet(string str1)
+        private static long ConvertDoubleDotNet(string str1)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            var tc1 = Convert.ToDecimal(str1);
+            Convert.ToDouble(str1);
             sw.Stop();
             return sw.ElapsedTicks;
         }
 
-        private long ConvertDecimalExt(string str1)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            sw.Start();
-            var tc2 = str1.ToDecimalExt();
-            sw.Stop();
-            return sw.ElapsedTicks;
-        }
-
-        private long ConvertSByteDotNet(string str1)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            var tc1 = Convert.ToSByte(str1);
-            sw.Stop();
-            return sw.ElapsedTicks;
-        }
-
-        private long ConvertSByteExt(string str1)
+        private static long ConvertDoubleExt(string str1)
         {
             Stopwatch sw = Stopwatch.StartNew();
             sw.Start();
-            var tc2 = str1.ToSByteExt();
+            str1.ToDoubleExt();
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private static long ConvertSingleDotNet(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            Convert.ToSingle(str1);
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private static long ConvertSingleExt(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            sw.Start();
+            str1.ToSingleExt();
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private static long ConvertBooleanDotNet(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            Convert.ToBoolean(str1);
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private static long ConvertBooleanExt(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            sw.Start();
+            str1.ToBooleanExt();
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private static long ConvertByteDotNet(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            Convert.ToByte(str1);
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private static long ConvertByteExt(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            sw.Start();
+            str1.ToByteExt();
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private static long ConvertCharDotNet(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            Convert.ToChar(str1);
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private static long ConvertCharExt(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            sw.Start();
+            str1.ToCharExt();
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private static long ConvertDecimalDotNet(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            Convert.ToDecimal(str1);
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private static long ConvertDecimalExt(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            sw.Start();
+            str1.ToDecimalExt();
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private static long ConvertSByteDotNet(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            Convert.ToSByte(str1);
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private static long ConvertSByteExt(string str1)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            sw.Start();
+            str1.ToSByteExt();
             sw.Stop();
             return sw.ElapsedTicks;
         }

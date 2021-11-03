@@ -35,7 +35,7 @@ namespace Extensions.net.core.tests
         public void DateTime()
         {
             long l = 123456789;
-            DateTime d = new DateTime(l);
+            DateTime d = new (l);
             Assert.Equal(d, l.ToDateTimeExt());
         }
 

@@ -82,7 +82,7 @@ namespace Extensions.net
         {
             if (toAdd != null)
             {
-                StringBuilder sb = new StringBuilder(text);
+                StringBuilder sb = new(text);
                 for (int i = 0; i < toAdd.Length; i++)
                 {
                     sb.Append(toAdd[i]);
@@ -97,6 +97,7 @@ namespace Extensions.net
         }
 
         /// <summary>
+        /// [deprecated] This method is now deprecated and may be removed in future versions. Do not use.
         /// Maps to string.Copy.
         /// Deep copy.
         /// </summary>
@@ -189,6 +190,13 @@ namespace Extensions.net
         /// <param name="text"></param>
         /// <returns></returns>
         public static byte[] FromBase64StringExt(this string text) => Convert.FromBase64String(text);
+
+        /// <summary>
+        /// Converts a base64 string into a standard string using default encoding.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static string FromBase64String2Ext(this string text) => Convert.FromBase64String(text).GetStringExt();
 
         /// <summary>
         /// Converts a standard string into a base64 encoded string.
@@ -289,6 +297,7 @@ namespace Extensions.net
         public static byte[] GetBytesUtf8Ext(this string s) => Encoding.UTF8.GetBytes(s);
 
         /// <summary>
+        /// [deprecated] This method is now deprecated and may be removed in future versions. Use GetBytesUtf8Ext instead.
         /// Maps to Encoding.UTF7.GetBytes
         /// </summary>
         /// <param name="s"></param>
@@ -446,7 +455,7 @@ namespace Extensions.net
         /// <returns></returns>
         public static string DuplicateExt(this string text, int length)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             for (int i = 0; i < length; i++)
             {
@@ -648,7 +657,7 @@ namespace Extensions.net
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static Uri ToUriExt(this string url) => new Uri(url);
+        public static Uri ToUriExt(this string url) => new(url);
 
         /// <summary>
         /// Creates an HttpWebRequest from the value in the string.

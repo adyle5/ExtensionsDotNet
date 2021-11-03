@@ -457,7 +457,7 @@ namespace Extensions.net.core.tests
         {
             int[] arr1 = { 100, 45, 57, 85, 203, 125, 30, 10, 45, 155, 35, 45 };
             int[] arr2 = { 100, 45, 57, 85, 203, 125, 30, 10, 45, 155, 35, 45 };
-            Action<int> action = new Action<int>((val) => Debug.Write(val));
+            Action<int> action = new ((val) => Debug.Write(val));
             Array.ForEach(arr1, action);
             arr2.ForEachExt(action);
             Assert.Equal(arr1, arr2);
@@ -487,7 +487,7 @@ namespace Extensions.net.core.tests
         public void ToArraySegment()
         {
             int[] arr = { 1, 2, 3, 4, 5, 6, 7 };
-            ArraySegment<int> expected = new ArraySegment<int>(arr, 1, 3);
+            ArraySegment<int> expected = new (arr, 1, 3);
             Assert.Equal(expected, arr.ToArraySegmentExt(1, 3));
         }
 
@@ -521,42 +521,56 @@ namespace Extensions.net.core.tests
             Assert.Equal(arr2, arr.DuplicatesExt());
         }
 
+        [Fact]
+        public void Random()
+        {
+            string[] arr = { "apples", "oranges", "bananas", "peaches", "apples", "pears", "bananas", "kiwis" };
+            string actual = arr.RandomExt();
+            actual.TraceInformationExt();
+
+            Assert.NotNull(actual);
+
+            string[] arr2 = null;
+
+            Assert.Throws<ArgumentNullException>(() => arr2.RandomExt());
+        }
+
         #region "Private Methods"
-        private long BinarySearchDotNet(int[] arr1, int target)
+        private static long BinarySearchDotNet(int[] arr1, int target)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            var tc1 = Array.BinarySearch(arr1, target);
+            Array.BinarySearch(arr1, target);
             sw.Stop();
             return sw.ElapsedTicks;
         }
 
-        private long BinarySearchExt(int[] arr1, int target)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            sw.Start();
-            var tc2 = arr1.BinarySearchExt(target);
-            sw.Stop();
-            return sw.ElapsedTicks;
-        }
-
-        private long BinarySearchDotNet(int[] arr1, int target, int index, int length)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            var tc1 = Array.BinarySearch(arr1, index, length, target);
-            sw.Stop();
-            return sw.ElapsedTicks;
-        }
-
-        private long BinarySearchExt(int[] arr1, int target, int index, int length)
+        private static long BinarySearchExt(int[] arr1, int target)
         {
             Stopwatch sw = Stopwatch.StartNew();
             sw.Start();
-            var tc2 = arr1.BinarySearchExt(index, length, target);
+            arr1.BinarySearchExt(target);
             sw.Stop();
             return sw.ElapsedTicks;
         }
 
-        private long SortDotNet(DateTime[] arr)
+        private static long BinarySearchDotNet(int[] arr1, int target, int index, int length)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            Array.BinarySearch(arr1, index, length, target);
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private static long BinarySearchExt(int[] arr1, int target, int index, int length)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            sw.Start();
+            arr1.BinarySearchExt(index, length, target);
+            sw.Stop();
+            return sw.ElapsedTicks;
+        }
+
+        private static long SortDotNet(DateTime[] arr)
         {
             Stopwatch sw = Stopwatch.StartNew();
             Array.Sort(arr);
@@ -564,7 +578,7 @@ namespace Extensions.net.core.tests
             return sw.ElapsedTicks;
         }
 
-        private long SortExt(DateTime[] arr)
+        private static long SortExt(DateTime[] arr)
         {
             Stopwatch sw = Stopwatch.StartNew();
             sw.Start();

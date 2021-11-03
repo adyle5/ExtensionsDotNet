@@ -48,6 +48,7 @@ namespace Extensions.net.core.tests
         }
 
         [Fact]
+        [Obsolete(message: "Not recommended for use. Use UTF8 instead.")]
         public void GetBytesUtf7()
         {
             char[] arr = { 'a', 'b', 'c', 'd', 'e' };
@@ -119,10 +120,11 @@ namespace Extensions.net.core.tests
         }
 
         [Fact]
+        [Obsolete(message: "Not recommended for use. Use UTF8 instead.")]
         public void GetStringUTF7()
         {
             byte[] bytes = new byte[] { 100, 52, 3, 65, 76, 12 };
-            string expected = System.Text.Encoding.UTF7.GetString(bytes);
+            string expected = Encoding.UTF7.GetString(bytes);
             Assert.Equal(expected, bytes.GetStringUTF7Ext());
         }
 
@@ -159,19 +161,19 @@ namespace Extensions.net.core.tests
         }
 
         #region "Private Methods"
-        private long ConvertB64StringDotNet(byte[] b1)
+        private static long ConvertB64StringDotNet(byte[] b1)
         {
             Stopwatch sw = Stopwatch.StartNew();
-            var tc1 = Convert.ToBase64String(b1);
+            Convert.ToBase64String(b1);
             sw.Stop();
             return sw.ElapsedTicks;
         }
 
-        private long ConvertB64Ext(byte[] b1)
+        private static long ConvertB64Ext(byte[] b1)
         {
             Stopwatch sw = Stopwatch.StartNew();
             sw.Start();
-            var tc2 = b1.ToBase64StringExt();
+            b1.ToBase64StringExt();
             sw.Stop();
             return sw.ElapsedTicks;
         }
