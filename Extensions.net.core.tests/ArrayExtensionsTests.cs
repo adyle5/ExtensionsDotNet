@@ -6,11 +6,19 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Extensions.net.core.tests
 {
     public class ArrayExtensionsTests
     {
+        ITestOutputHelper output;
+
+        public ArrayExtensionsTests(ITestOutputHelper output)
+        {
+            this.output = output;
+        }
+
         [Fact]
         public void Sort()
         {
@@ -83,7 +91,15 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = BinarySearchDotNet(arr2, target, index, length), () => actualElapsed = BinarySearchExt(arr2, target, index, length));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
+            try
+            {
+                Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
+            }
+            catch (Xunit.Sdk.XunitException e)
+            {
+                output.WriteLine(e.Message);
+                output.WriteLine((expectedElapsed - actualElapsed).ToString());
+            }           
         }
 
 
