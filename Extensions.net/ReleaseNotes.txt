@@ -141,7 +141,7 @@ IsLowSurrogateExt
 IsMinValueExt
 IsMaxValueExt
 
-1.1.0.1
+1.1.0.2
 
 Updated Test project to target .NET 5.
 
