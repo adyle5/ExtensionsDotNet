@@ -32,9 +32,8 @@ namespace Extensions.net
         /// <param name="bytes"></param>
         public static void GenerateRandomBytesExt(this byte[] bytes)
         {
-            var rng = RandomNumberGenerator.Create();
+            using var rng = RandomNumberGenerator.Create();
             rng.GetBytes(bytes);
-            rng.Dispose();
         }
 
         /// <summary>
@@ -44,9 +43,8 @@ namespace Extensions.net
         /// <param name="bytes"></param>
         public static void GenerateRandomNonZeroBytesExt(this byte[] bytes)
         {
-            var rng = RandomNumberGenerator.Create();
+            using var rng = RandomNumberGenerator.Create();
             rng.GetNonZeroBytes(bytes);
-            rng.Dispose();
         }
     }
 }

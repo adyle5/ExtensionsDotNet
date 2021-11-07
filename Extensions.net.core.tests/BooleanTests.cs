@@ -1,6 +1,7 @@
 ﻿// Copyright © 2021 Adrian Gabor
 // Refer to license.txt for usage and permission information 
 
+using System.Diagnostics;
 using Xunit;
 
 namespace Extensions.net.core.tests
@@ -72,18 +73,56 @@ namespace Extensions.net.core.tests
         [Fact]
         public void AssertTrace()
         {
-            bool condition = 2 > 3;
+            var testListener = new TestListener();
+            string expected = $"Message: short message, Detailed Message: detailed message";
+            Trace.Listeners.Clear();
+            Trace.Listeners.Add(testListener);
 
-            var ex1 = Record.Exception(() => condition.AssertExt());
-            Assert.Null(ex1);
+            try
+            {
+                bool condition = 2 > 3;
 
-            string shortMessage = "short message";
-            var ex2 = Record.Exception(() => condition.AssertExt(shortMessage));
-            Assert.Null(ex2);
+                var ex1 = Record.Exception(() => condition.AssertExt());
+                Assert.Null(ex1);
 
-            string detailedMessage = "detailed message";
-            var ex3 = Record.Exception(() => condition.AssertExt(shortMessage, detailedMessage));
-            Assert.Null(ex3);
+                string shortMessage = "short message";
+                var ex2 = Record.Exception(() => condition.AssertExt(shortMessage));
+                Assert.Null(ex2);
+
+                string detailedMessage = "detailed message";
+                var ex3 = Record.Exception(() => condition.AssertExt(shortMessage, detailedMessage));
+                Assert.Null(ex3);
+
+                testListener.AssertUiEnabled = true;
+                Trace.Fail(shortMessage, detailedMessage);
+
+                string actual = testListener.FailString;
+                Assert.Equal(expected, actual);
+            }
+            finally
+            {
+                Trace.Listeners.Clear();
+                Trace.Listeners.Add(testListener);
+            }
+        }
+    }
+
+    class TestListener : DefaultTraceListener
+    {
+        private void FailMessage(string message, string detailMessage)
+        {
+            FailString = $"Message: {message}, Detailed Message: {detailMessage}";
+        }
+
+        public string FailString { get; private set; } = string.Empty;
+
+        public override void Fail(string message, string detailMessage)
+        {
+            WriteLine(message, detailMessage);
+            if (AssertUiEnabled)
+            {
+                FailMessage(message, detailMessage);
+            }
         }
     }
 }

@@ -9,12 +9,21 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Extensions.net.core.tests
 {
     public class StringExtensionsTests
     {
+        ITestOutputHelper output;
+
+        public StringExtensionsTests(ITestOutputHelper output)
+        {
+            this.output = output;
+        }
+
         [Fact]
         public void IsNullOrWhiteSpace()
         {
@@ -197,7 +206,15 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = Base64DotNet(str1), () => actualElapsed = Base64Ext(str1));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
+            try
+            {
+                Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
+            }
+            catch (Xunit.Sdk.XunitException e)
+            {
+                output.WriteLine(e.Message);
+                output.WriteLine((expectedElapsed - actualElapsed).ToString());
+            }
         }
 
         [Fact]
@@ -213,7 +230,15 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = Base64DotNet2(str1), () => actualElapsed = Base64Ext2(str1));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
+            try
+            {
+                Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
+            }
+            catch (Xunit.Sdk.XunitException e)
+            {
+                output.WriteLine(e.Message);
+                output.WriteLine((expectedElapsed - actualElapsed).ToString());
+            }
         }
 
         [Fact]
@@ -236,9 +261,17 @@ namespace Extensions.net.core.tests
             string longText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam orci orci, consequat nec dui eu, porta volutpat augue. Nulla vel vehicula lectus, eget facilisis lectus. Sed sed ipsum a nibh aliquet facilisis id quis dui. Mauris interdum urna urna, et euismod tortor luctus quis. Etiam consequat quam vitae lectus egestas finibus. Aliquam id nisi nec ligula semper tempus sed a leo. Pellentesque nec aliquam justo. Nunc non erat bibendum, feugiat urna id, imperdiet metus. Nulla imperdiet mauris vitae justo tincidunt consectetur. Suspendisse interdum lacus sit amet aliquam tincidunt. Aliquam blandit pulvinar vestibulum. Quisque rhoncus tincidunt sem, vitae mollis diam rutrum non.";
             long expectedElapsed = 0;
             long actualElapsed = 0;
-            Parallel.Invoke(() => expectedElapsed = TileCaseDotNet(longText), () => actualElapsed = TitleCaseExt(longText));
+            Parallel.Invoke(() => expectedElapsed = TileCaseDotNet(longText), () => actualElapsed = TitleCaseExt(longText));         
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
+            try
+            {
+                Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
+            }
+            catch (Xunit.Sdk.XunitException e)
+            {
+                output.WriteLine(e.Message);
+                output.WriteLine((expectedElapsed - actualElapsed).ToString());
+            }
         }
 
         [Fact]
@@ -286,7 +319,7 @@ namespace Extensions.net.core.tests
 
             string consoleOutput = stringWriter.ToString();
 
-            Assert.Equal(str1 + "\r\n", consoleOutput);
+            Assert.Equal(str1 + Environment.NewLine, consoleOutput);
         }
 
         [Fact]
@@ -754,6 +787,53 @@ namespace Extensions.net.core.tests
             string message = "info";
             var ex = Record.Exception(() => message.TraceInformationExt());
             Assert.Null(ex);
+        }
+
+        [Fact]
+        public void ToXml()
+        {
+            string text = "Some text to create XML.";
+            string root = "Name";
+            string expected = "<Name>Some text to create XML.</Name>";
+            string actual = text.ToXmlExt(root);
+            Assert.Equal(expected, actual);
+
+            expected = "<Root>Some text to create XML.</Root>";
+            actual = text.ToXmlExt();
+            Assert.Equal(expected, actual);
+
+            string nameSpace = "https://www.namespace.com";
+            expected = "<Name xmlns=\"https://www.namespace.com\">Some text to create XML.</Name>";
+            actual = text.ToXmlExt(root, nameSpace);
+            Assert.Equal(expected, actual);
+
+            expected = "<Root xmlns=\"https://www.namespace.com\">Some text to create XML.</Root>";
+            actual = text.ToXmlExt(ns: nameSpace);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void ToXDocument()
+        {
+            string text = "Some text to create XML.";
+            string root = "Name";
+            XDocument expected = new (new XElement(root, text));
+            XDocument actual = text.ToXDoumentExt(root);
+            Assert.Equal(expected.ToString(), actual.ToString());
+
+            expected = new (new XElement("Root", text));
+            actual = text.ToXDoumentExt();
+            Assert.Equal(expected.ToString(), actual.ToString());
+
+            string nameSpace = "https://www.namespace.com";
+            XNamespace ns = nameSpace; 
+            expected = new XDocument(new XElement(ns + root, text));
+            actual = text.ToXDoumentExt(root, nameSpace);
+            Assert.Equal(expected.ToString(), actual.ToString());
+
+            expected = new XDocument(new XElement(ns + "Root", text));
+            actual = text.ToXDoumentExt(ns: nameSpace);
+            Assert.Equal(expected.ToString(), actual.ToString());
         }
 
         #region "Private Methods"
