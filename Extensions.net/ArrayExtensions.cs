@@ -3,6 +3,8 @@
 
 using System;
 using System.Linq;
+using System.Text;
+using System.Xml.Linq;
 
 namespace Extensions.net
 {
@@ -660,7 +662,7 @@ namespace Extensions.net
         /// <param name="offset"></param>
         /// <param name="length"></param>
         /// <returns></returns>
-        public static ArraySegment<T> ToArraySegmentExt<T>(this T[] arr, int offset, int length) => new ArraySegment<T>(arr, offset, length);
+        public static ArraySegment<T> ToArraySegmentExt<T>(this T[] arr, int offset, int length) => new (arr, offset, length);
 
         /// <summary>
         /// Returns a splice of an array into a new array.
@@ -684,7 +686,9 @@ namespace Extensions.net
         /// <typeparam name="T"></typeparam>
         /// <param name="arr"></param>
         /// <param name="newSize"></param>
+#pragma warning disable IDE0060 // Remove unused parameter
         public static void ResizeExt<T>(this T[] arr, ref T[] sameArray, int newSize) => Array.Resize(ref sameArray, newSize);
+#pragma warning restore IDE0060 // Remove unused parameter
 
         /// <summary>
         /// Returns all the duplicate values in an array in a new array.
@@ -715,8 +719,98 @@ namespace Extensions.net
             }
             else
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(arr));
             }
+        }
+
+        /// <summary>
+        /// Returns a string as Xml from the extended array, were each item of the array is an element in the xml string.
+        /// First paramater is a required element name.
+        /// Root name is optional. If not supplied to the method, the root element will be Root.
+        /// Namespace is optional.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <param name="elementName"></param>
+        /// <param name="root"></param>
+        /// <param name="ns"></param>
+        /// <returns></returns>
+        public static string ToXmlExt<T>(this T[] arr, string elementName, string root = "Root", string ns = "")
+        {
+            XNamespace nspace = ns;
+
+            XDocument xDocument = new(
+                new XElement(nspace + root));
+
+            foreach (var item in arr)
+            {
+                xDocument.Root.Add(new XElement(nspace + elementName, item.ToString()));
+            }
+
+            return xDocument.ToString();
+        }
+
+        /// <summary>
+        /// Returns an XDocument from the extended array, were each item of the array is an element in the XDocument.
+        /// Root name is optional. If not supplied to the method, the root element will be Root.
+        /// Namespace is optional.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static XDocument ToXDocumentExt<T>(this T[] arr, string elementName, string root = "Root", string ns = "")
+        {
+            XNamespace nspace = ns;
+
+            XDocument xDocument = new(
+               new XElement(nspace + root));
+
+            foreach (var item in arr)
+            {
+                xDocument.Root.Add(new XElement(nspace + elementName, item.ToString()));
+            }
+
+            return xDocument;
+        }
+
+        /// <summary>
+        /// Converts the extended array to a Json array string.
+        /// If the array is not strings, will write the ToString result of each item.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public static string ToJsonExt<T>(this T[] arr)
+        {
+            if (arr!=null)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("[\"");
+                sb.Append(string.Join("\",\"", arr));
+                sb.Append("\"]");
+
+                return sb.ToString();
+            }
+
+            throw new ArgumentNullException(nameof(arr));
+        }
+
+        /// Converts the extended array to a Json string with a property that holds an array.
+        /// If the array is not strings, will write the ToString result of each item.
+        public static string ToJsonExt<T>(this T[] arr, string propertyName)
+        {
+            if (arr != null)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("{");
+                sb.Append($"\"{propertyName}\":[\"");
+                sb.Append(string.Join("\",\"", arr));
+                sb.Append("\"]");
+                sb.Append("}");
+
+                return sb.ToString();
+            }
+
+            throw new ArgumentNullException(nameof(arr));
         }
     }
 }

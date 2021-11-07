@@ -6,11 +6,18 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Extensions.net.core.tests
 {
     public class ByteExtensionsTests
     {
+        ITestOutputHelper output;
+        public ByteExtensionsTests(ITestOutputHelper output)
+        {
+            this.output = output;
+        }
+
         [Fact]
         public void ToBase64String()
         {
@@ -21,7 +28,15 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = ConvertB64StringDotNet(bytes), () => actualElapsed = ConvertB64Ext(bytes));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
+            try
+            {
+                Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
+            }
+            catch (Xunit.Sdk.XunitException e)
+            {
+                output.WriteLine(e.Message);
+                output.WriteLine((expectedElapsed - actualElapsed).ToString());
+            }
         }
 
         [Fact]

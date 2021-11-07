@@ -169,6 +169,8 @@ HypotenuseExt
 
 String Extensions:
 FromBase64String2Ext - Converts a base64 string into a standard string using default encoding.
+ToXmExt
+ToXDoumentExt
 
 Cryptography Extensions:
 GenerateRandomBytesExt
@@ -176,3 +178,6 @@ GenerateRandomNonZeroBytesExt
 
 Array Extensions:
 RandomExt
+ToXmlExt
+ToXDocumentExt
+ToJsonExt

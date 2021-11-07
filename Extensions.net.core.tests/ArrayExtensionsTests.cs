@@ -3,13 +3,22 @@
 
 using System;
 using System.Diagnostics;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Extensions.net.core.tests
 {
     public class ArrayExtensionsTests
     {
+        ITestOutputHelper output;
+
+        public ArrayExtensionsTests(ITestOutputHelper output)
+        {
+            this.output = output;
+        }
+
         [Fact]
         public void Sort()
         {
@@ -41,7 +50,15 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = SortDotNet(arr7), () => actualElapsed = SortExt(arr8));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
+            try
+            {
+                Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
+            }
+            catch (Xunit.Sdk.XunitException e)
+            {
+                output.WriteLine(e.Message);
+                output.WriteLine((expectedElapsed - actualElapsed).ToString());
+            }
         }
 
         [Fact]
@@ -60,7 +77,15 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = BinarySearchDotNet(arr2, target), () => actualElapsed = BinarySearchExt(arr2, target));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
+            try
+            {
+                Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
+            }
+            catch (Xunit.Sdk.XunitException e)
+            {
+                output.WriteLine(e.Message);
+                output.WriteLine((expectedElapsed - actualElapsed).ToString());
+            }
         }
 
         [Fact]
@@ -82,7 +107,15 @@ namespace Extensions.net.core.tests
             long actualElapsed = 0;
             Parallel.Invoke(() => expectedElapsed = BinarySearchDotNet(arr2, target, index, length), () => actualElapsed = BinarySearchExt(arr2, target, index, length));
 
-            Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
+            try
+            {
+                Assert.True(Math.Abs(expectedElapsed - actualElapsed) < Consts.TEST_TICKS);
+            }
+            catch (Xunit.Sdk.XunitException e)
+            {
+                output.WriteLine(e.Message);
+                output.WriteLine((expectedElapsed - actualElapsed).ToString());
+            }           
         }
 
 
@@ -533,6 +566,69 @@ namespace Extensions.net.core.tests
             string[] arr2 = null;
 
             Assert.Throws<ArgumentNullException>(() => arr2.RandomExt());
+        }
+
+
+        [Fact]
+        public void ToXml()
+        {
+            string[] arr = { "apples", "oranges", "bananas", "peaches", "apples", "pears", "bananas", "kiwis" };
+            string root = "Colors";
+            string elementName = "Color";
+            string expected = $"<Colors>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>oranges</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>peaches</Color>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>pears</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>kiwis</Color>{Environment.NewLine}</Colors>";
+            string actual = arr.ToXmlExt(elementName, root);
+            Assert.Equal(expected, actual);
+
+            expected = $"<Root>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>oranges</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>peaches</Color>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>pears</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>kiwis</Color>{Environment.NewLine}</Root>";
+            actual = arr.ToXmlExt(elementName);
+            Assert.Equal(expected, actual);
+
+            string nameSpace = "https://www.namespace.com";
+            expected = $"<Colors xmlns=\"https://www.namespace.com\">{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>oranges</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>peaches</Color>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>pears</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>kiwis</Color>{Environment.NewLine}</Colors>";
+            actual = arr.ToXmlExt(elementName, root, nameSpace);
+            Assert.Equal(expected, actual);
+
+            expected = $"<Root xmlns=\"https://www.namespace.com\">{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>oranges</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>peaches</Color>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>pears</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>kiwis</Color>{Environment.NewLine}</Root>";
+            actual = arr.ToXmlExt(elementName, ns: nameSpace);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void ToXDocument()
+        {
+            string[] arr = { "apples", "oranges", "bananas", "peaches", "apples", "pears", "bananas", "kiwis" };
+            string root = "Colors";
+            string elementName = "Color";
+            string expected = $"<Colors>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>oranges</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>peaches</Color>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>pears</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>kiwis</Color>{Environment.NewLine}</Colors>";
+            string actual = arr.ToXDocumentExt(elementName, root).ToString();
+            Assert.Equal(expected, actual);
+
+            expected = $"<Root>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>oranges</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>peaches</Color>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>pears</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>kiwis</Color>{Environment.NewLine}</Root>";
+            actual = arr.ToXDocumentExt(elementName).ToString();
+            Assert.Equal(expected, actual);
+
+            string nameSpace = "https://www.namespace.com";
+            expected = $"<Colors xmlns=\"https://www.namespace.com\">{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>oranges</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>peaches</Color>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>pears</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>kiwis</Color>{Environment.NewLine}</Colors>";
+            actual = arr.ToXDocumentExt(elementName, root, nameSpace).ToString();
+            Assert.Equal(expected, actual);
+
+            expected = $"<Root xmlns=\"https://www.namespace.com\">{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>oranges</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>peaches</Color>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>pears</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>kiwis</Color>{Environment.NewLine}</Root>";
+            actual = arr.ToXDocumentExt(elementName, ns: nameSpace).ToString();
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void ToJson()
+        {
+            string[] arr = { "apples", "oranges", "bananas", "peaches", "apples", "pears", "bananas", "kiwis" };
+            string expected = JsonSerializer.Serialize(arr);
+            string actual = arr.ToJsonExt();
+            Assert.Equal(expected, actual);
+
+            string name = "colors";
+            actual = arr.ToJsonExt(name);
+            expected = @"{""colors"":[""apples"",""oranges"",""bananas"",""peaches"",""apples"",""pears"",""bananas"",""kiwis""]}";
+            Assert.Equal(expected, actual);
         }
 
         #region "Private Methods"
