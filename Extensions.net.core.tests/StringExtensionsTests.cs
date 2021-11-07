@@ -287,7 +287,7 @@ namespace Extensions.net.core.tests
 
             string consoleOutput = stringWriter.ToString();
 
-            Assert.Equal(str1 + "\r\n", consoleOutput);
+            Assert.Equal(str1 + Environment.NewLine, consoleOutput);
         }
 
         [Fact]

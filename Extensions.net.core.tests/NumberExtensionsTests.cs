@@ -2,6 +2,8 @@
 // Refer to license.txt for usage and permission information 
 
 using System;
+using System.Globalization;
+using System.Threading;
 using Xunit;
 
 namespace Extensions.net.core.tests
@@ -399,6 +401,9 @@ namespace Extensions.net.core.tests
         [Fact]
         public void ToCurrency()
         {
+            CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
+
             double d = 1.99;
             decimal dec = 1.99M;
             float f = 1.99F;
@@ -411,11 +416,16 @@ namespace Extensions.net.core.tests
             int i = 1;
             expected = "$1.00";
             Assert.Equal(expected, i.ToCurrencyExt());
+
+            Thread.CurrentThread.CurrentCulture = currentCulture;
         }
 
         [Fact]
         public void ToPercent()
         {
+            CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
+
             double d = .23;
             decimal dec = .23M;
             float f = .23F;
@@ -437,6 +447,8 @@ namespace Extensions.net.core.tests
             Assert.Equal(expected, d.ToPercentExt());
             Assert.Equal(expected, dec.ToPercentExt());
             Assert.Equal(expected, f.ToPercentExt());
+
+            Thread.CurrentThread.CurrentCulture = currentCulture;
         }
 
         [Fact]

@@ -543,20 +543,20 @@ namespace Extensions.net.core.tests
             string[] arr = { "apples", "oranges", "bananas", "peaches", "apples", "pears", "bananas", "kiwis" };
             string root = "Colors";
             string elementName = "Color";
-            string expected = "<Colors>\r\n  <Color>apples</Color>\r\n  <Color>oranges</Color>\r\n  <Color>bananas</Color>\r\n  <Color>peaches</Color>\r\n  <Color>apples</Color>\r\n  <Color>pears</Color>\r\n  <Color>bananas</Color>\r\n  <Color>kiwis</Color>\r\n</Colors>";
+            string expected = $"<Colors>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>oranges</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>peaches</Color>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>pears</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>kiwis</Color>{Environment.NewLine}</Colors>";
             string actual = arr.ToXmlExt(elementName, root);
             Assert.Equal(expected, actual);
 
-            expected = "<Root>\r\n  <Color>apples</Color>\r\n  <Color>oranges</Color>\r\n  <Color>bananas</Color>\r\n  <Color>peaches</Color>\r\n  <Color>apples</Color>\r\n  <Color>pears</Color>\r\n  <Color>bananas</Color>\r\n  <Color>kiwis</Color>\r\n</Root>";
+            expected = $"<Root>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>oranges</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>peaches</Color>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>pears</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>kiwis</Color>{Environment.NewLine}</Root>";
             actual = arr.ToXmlExt(elementName);
             Assert.Equal(expected, actual);
 
             string nameSpace = "https://www.namespace.com";
-            expected = "<Colors xmlns=\"https://www.namespace.com\">\r\n  <Color>apples</Color>\r\n  <Color>oranges</Color>\r\n  <Color>bananas</Color>\r\n  <Color>peaches</Color>\r\n  <Color>apples</Color>\r\n  <Color>pears</Color>\r\n  <Color>bananas</Color>\r\n  <Color>kiwis</Color>\r\n</Colors>";
+            expected = $"<Colors xmlns=\"https://www.namespace.com\">{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>oranges</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>peaches</Color>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>pears</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>kiwis</Color>{Environment.NewLine}</Colors>";
             actual = arr.ToXmlExt(elementName, root, nameSpace);
             Assert.Equal(expected, actual);
 
-            expected = "<Root xmlns=\"https://www.namespace.com\">\r\n  <Color>apples</Color>\r\n  <Color>oranges</Color>\r\n  <Color>bananas</Color>\r\n  <Color>peaches</Color>\r\n  <Color>apples</Color>\r\n  <Color>pears</Color>\r\n  <Color>bananas</Color>\r\n  <Color>kiwis</Color>\r\n</Root>";
+            expected = $"<Root xmlns=\"https://www.namespace.com\">{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>oranges</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>peaches</Color>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>pears</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>kiwis</Color>{Environment.NewLine}</Root>";
             actual = arr.ToXmlExt(elementName, ns: nameSpace);
             Assert.Equal(expected, actual);
         }
@@ -567,20 +567,20 @@ namespace Extensions.net.core.tests
             string[] arr = { "apples", "oranges", "bananas", "peaches", "apples", "pears", "bananas", "kiwis" };
             string root = "Colors";
             string elementName = "Color";
-            string expected = "<Colors>\r\n  <Color>apples</Color>\r\n  <Color>oranges</Color>\r\n  <Color>bananas</Color>\r\n  <Color>peaches</Color>\r\n  <Color>apples</Color>\r\n  <Color>pears</Color>\r\n  <Color>bananas</Color>\r\n  <Color>kiwis</Color>\r\n</Colors>";
+            string expected = $"<Colors>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>oranges</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>peaches</Color>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>pears</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>kiwis</Color>{Environment.NewLine}</Colors>";
             string actual = arr.ToXDocumentExt(elementName, root).ToString();
             Assert.Equal(expected, actual);
 
-            expected = "<Root>\r\n  <Color>apples</Color>\r\n  <Color>oranges</Color>\r\n  <Color>bananas</Color>\r\n  <Color>peaches</Color>\r\n  <Color>apples</Color>\r\n  <Color>pears</Color>\r\n  <Color>bananas</Color>\r\n  <Color>kiwis</Color>\r\n</Root>";
+            expected = $"<Root>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>oranges</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>peaches</Color>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>pears</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>kiwis</Color>{Environment.NewLine}</Root>";
             actual = arr.ToXDocumentExt(elementName).ToString();
             Assert.Equal(expected, actual);
 
             string nameSpace = "https://www.namespace.com";
-            expected = "<Colors xmlns=\"https://www.namespace.com\">\r\n  <Color>apples</Color>\r\n  <Color>oranges</Color>\r\n  <Color>bananas</Color>\r\n  <Color>peaches</Color>\r\n  <Color>apples</Color>\r\n  <Color>pears</Color>\r\n  <Color>bananas</Color>\r\n  <Color>kiwis</Color>\r\n</Colors>";
+            expected = $"<Colors xmlns=\"https://www.namespace.com\">{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>oranges</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>peaches</Color>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>pears</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>kiwis</Color>{Environment.NewLine}</Colors>";
             actual = arr.ToXDocumentExt(elementName, root, nameSpace).ToString();
             Assert.Equal(expected, actual);
 
-            expected = "<Root xmlns=\"https://www.namespace.com\">\r\n  <Color>apples</Color>\r\n  <Color>oranges</Color>\r\n  <Color>bananas</Color>\r\n  <Color>peaches</Color>\r\n  <Color>apples</Color>\r\n  <Color>pears</Color>\r\n  <Color>bananas</Color>\r\n  <Color>kiwis</Color>\r\n</Root>";
+            expected = $"<Root xmlns=\"https://www.namespace.com\">{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>oranges</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>peaches</Color>{Environment.NewLine}  <Color>apples</Color>{Environment.NewLine}  <Color>pears</Color>{Environment.NewLine}  <Color>bananas</Color>{Environment.NewLine}  <Color>kiwis</Color>{Environment.NewLine}</Root>";
             actual = arr.ToXDocumentExt(elementName, ns: nameSpace).ToString();
             Assert.Equal(expected, actual);
         }
