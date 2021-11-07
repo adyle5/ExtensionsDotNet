@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace Extensions.net
 {
@@ -735,5 +736,39 @@ namespace Extensions.net
         /// </summary>
         /// <param name="message"></param>
         public static void TraceInformationExt(this string message) => Trace.TraceInformation(message);
+
+        /// <summary>
+        /// Returns a string as Xml from the extended string.
+        /// Root name is optional. If not supplied to the method, the root element will be Root.
+        /// Namespace is optional.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static string ToXmlExt(this string text, string root = "Root", string ns = "")
+        {
+            XNamespace nspace = ns;
+
+            XDocument xDocument = new (
+                new XElement(nspace + root, text));
+
+            return xDocument.ToString();
+        }
+
+        /// <summary>
+        /// Returns an XDocument from the extended string.
+        /// Root name is optional. If not supplied to the method, the root element will be Root.
+        /// Namespace is optional.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static XDocument ToXDoumentExt(this string text, string root = "Root", string ns = "")
+        {
+            XNamespace nspace = ns;
+
+            XDocument xDocument = new (
+                new XElement(nspace + root, text));
+            
+            return xDocument;
+        }
     }
 }
