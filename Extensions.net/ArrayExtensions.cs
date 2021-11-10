@@ -784,7 +784,7 @@ namespace Extensions.net
         {
             if (arr!=null)
             {
-                StringBuilder sb = new StringBuilder();
+                StringBuilder sb = new ();
                 sb.Append("[\"");
                 sb.Append(string.Join("\",\"", arr));
                 sb.Append("\"]");
@@ -808,7 +808,7 @@ namespace Extensions.net
         {
             if (arr != null)
             {
-                StringBuilder sb = new StringBuilder();
+                StringBuilder sb = new ();
                 sb.Append("{");
                 sb.Append($"\"{propertyName}\":[\"");
                 sb.Append(string.Join("\",\"", arr));

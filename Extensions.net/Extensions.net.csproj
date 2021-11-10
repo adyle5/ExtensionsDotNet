@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -27,12 +27,24 @@ Cryptography Extensions:
 ToAESEncryptedBytesExt
 ToAESDecryptedStringExt</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/adyle5/ExtensionsDotNet</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/adyle5/ExtensionsDotNet/wiki</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/adyle5/ExtensionsDotNet</PackageProjectUrl>
     <AssemblyVersion>1.1.0.3</AssemblyVersion>
     <FileVersion>1.1.0.3</FileVersion>
     <Product>ExtensionsDotNet</Product>
+  </PropertyGroup>
+	
+  <PropertyGroup>
+	<!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+	<PublishRepositoryUrl>true</PublishRepositoryUrl>
+	<!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
+	<EmbedUntrackedSources>true</EmbedUntrackedSources>
+	<!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+	
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
 
   <ItemGroup>
@@ -44,6 +56,14 @@ ToAESDecryptedStringExt</PackageReleaseNotes>
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+	<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

@@ -17,7 +17,7 @@ namespace Extensions.net.core.tests
 {
     public class StringExtensionsTests
     {
-        ITestOutputHelper output;
+        readonly ITestOutputHelper output;
 
         public StringExtensionsTests(ITestOutputHelper output)
         {
