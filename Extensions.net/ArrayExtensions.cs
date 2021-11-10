@@ -752,6 +752,7 @@ namespace Extensions.net
 
         /// <summary>
         /// Returns an XDocument from the extended array, were each item of the array is an element in the XDocument.
+        /// First paramater is a required element name.
         /// Root name is optional. If not supplied to the method, the root element will be Root.
         /// Namespace is optional.
         /// </summary>
@@ -794,8 +795,15 @@ namespace Extensions.net
             throw new ArgumentNullException(nameof(arr));
         }
 
+        /// <summary>
         /// Converts the extended array to a Json string with a property that holds an array.
         /// If the array is not strings, will write the ToString result of each item.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <param name="propertyName"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public static string ToJsonExt<T>(this T[] arr, string propertyName)
         {
             if (arr != null)

@@ -818,21 +818,21 @@ namespace Extensions.net.core.tests
             string text = "Some text to create XML.";
             string root = "Name";
             XDocument expected = new (new XElement(root, text));
-            XDocument actual = text.ToXDoumentExt(root);
+            XDocument actual = text.ToXDocumentExt(root);
             Assert.Equal(expected.ToString(), actual.ToString());
 
             expected = new (new XElement("Root", text));
-            actual = text.ToXDoumentExt();
+            actual = text.ToXDocumentExt();
             Assert.Equal(expected.ToString(), actual.ToString());
 
             string nameSpace = "https://www.namespace.com";
             XNamespace ns = nameSpace; 
             expected = new XDocument(new XElement(ns + root, text));
-            actual = text.ToXDoumentExt(root, nameSpace);
+            actual = text.ToXDocumentExt(root, nameSpace);
             Assert.Equal(expected.ToString(), actual.ToString());
 
             expected = new XDocument(new XElement(ns + "Root", text));
-            actual = text.ToXDoumentExt(ns: nameSpace);
+            actual = text.ToXDocumentExt(ns: nameSpace);
             Assert.Equal(expected.ToString(), actual.ToString());
         }
 

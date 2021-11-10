@@ -761,7 +761,7 @@ namespace Extensions.net
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        public static XDocument ToXDoumentExt(this string text, string root = "Root", string ns = "")
+        public static XDocument ToXDocumentExt(this string text, string root = "Root", string ns = "")
         {
             XNamespace nspace = ns;
 
