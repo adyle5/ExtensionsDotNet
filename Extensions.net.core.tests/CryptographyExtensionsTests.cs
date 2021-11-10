@@ -88,5 +88,29 @@ namespace Extensions.net.core.tests
             bytes.GenerateRandomNonZeroBytesExt();
             Assert.NotEqual(bytes, bytesCopied);
         }
+
+        [Fact]
+        public void ToAESEncryptedBytes()
+        {
+            string text = "This is a test";
+
+            var (EncryptedBytes, Key, IV) = text.ToAESEncryptedBytesExt();
+            string decrypted = EncryptedBytes.ToAESDecryptedStringExt(Key, IV);
+            string expected = text;
+
+            Assert.Equal(expected, decrypted);
+        }
+
+        [Fact]
+        public void ToAESDecryptedString()
+        {
+            string text = "This is a test";
+
+            var (EncryptedBytes, Key, IV) = text.ToAESEncryptedBytesExt();
+            string decrypted = EncryptedBytes.ToAESDecryptedStringExt(Key, IV);
+            string expected = text;
+
+            Assert.Equal(expected, decrypted);
+        }
     }
 }

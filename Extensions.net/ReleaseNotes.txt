@@ -152,7 +152,7 @@ Marked CopyExt and all UTF7 extensions as deprecated.
 Code maintenance.
 
 Added new versions of 
-AddExt, 
+AddExt,
 SubstractExt, 
 MultiplyExt, and 
 DivideExt 
@@ -181,3 +181,13 @@ RandomExt
 ToXmlExt
 ToXDocumentExt
 ToJsonExt
+
+1.1.0.3
+
+Fix typo in name of ToXDocumentExt
+
+New Extensions
+
+Cryptography Extensions:
+ToAESEncryptedBytesExt
+ToAESDecryptedStringExt

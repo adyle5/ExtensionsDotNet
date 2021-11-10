@@ -1,13 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
-    <Version>1.1.0.2</Version>
+    <Version>1.1.0.3</Version>
     <Authors>adyle5</Authors>
     <Copyright>Adrian Gabor</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageTags>extensions, helpers, helper methods</PackageTags>
+    <PackageTags>extensions; helpers; helper methods; csharp; dotnet</PackageTags>
     <PackageId>ExtensionsDotNet</PackageId>
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl />
@@ -17,51 +17,24 @@
 Visit our wiki at https://github.com/adyle5/ExtensionsDotNet/wiki for a list of available methods and samples.
 
 To send feedback, suggestions, or report an issue, please visit https://www.nuget.org/packages/ExtensionsDotNet/ and click on "Contact owner."</Description>
-    <PackageReleaseNotes>1.1.0.2
+    <PackageReleaseNotes>1.1.0.3
 
-Updated Test project to target .NET 5.
-
-Fixed tests that no longer passed once target framework was upgraded.
-
-Marked CopyExt and all UTF7 extensions as deprecated.
-
-Code maintenance.
-
-Added new versions of 
-AddExt, 
-SubstractExt, 
-MultiplyExt, and 
-DivideExt 
-for double and decimal types.
+Fix typo in name of ToXDocumentExt
 
 New Extensions
 
-Math Extensions:
-AreaCircleExt
-AreaOfTriangleExt
-CircumferenceOfCircle
-ArcLengthExt
-HypotenuseExt
-
-String Extensions:
-FromBase64String2Ext - Converts a base64 string into a standard string using default encoding.
-ToXmExt
-ToXDoumentExt
-
 Cryptography Extensions:
-GenerateRandomBytesExt
-GenerateRandomNonZeroBytesExt
-
-Array Extensions:
-RandomExt
-ToXmlExt
-ToXDocumentExt
-ToJsonExt</PackageReleaseNotes>
+ToAESEncryptedBytesExt
+ToAESDecryptedStringExt</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/adyle5/ExtensionsDotNet</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/adyle5/ExtensionsDotNet/wiki</PackageProjectUrl>
-    <AssemblyVersion>1.1.0.2</AssemblyVersion>
-    <FileVersion>1.1.0.2</FileVersion>
+    <PackageProjectUrl>https://github.com/adyle5/ExtensionsDotNet</PackageProjectUrl>
+    <AssemblyVersion>1.1.0.3</AssemblyVersion>
+    <FileVersion>1.1.0.3</FileVersion>
     <Product>ExtensionsDotNet</Product>
+  </PropertyGroup>
+	
+  <PropertyGroup>
+	<!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
@@ -75,6 +48,10 @@ ToJsonExt</PackageReleaseNotes>
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

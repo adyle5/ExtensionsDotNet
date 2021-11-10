@@ -12,7 +12,7 @@ namespace Extensions.net.core.tests
 {
     public class ArrayExtensionsTests
     {
-        ITestOutputHelper output;
+        readonly ITestOutputHelper output;
 
         public ArrayExtensionsTests(ITestOutputHelper output)
         {
