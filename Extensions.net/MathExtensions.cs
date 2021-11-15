@@ -1135,5 +1135,69 @@ namespace Extensions.net
 
             return (side1 * side2 * side3) / 3.0;
         }
+
+        /// <summary>
+        /// Calculates the edge of a cube.
+        /// </summary>
+        /// <param name="edge"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static double VolumeOfCubeExt(this int edge)
+        {
+            if (edge <= 0)
+                throw new ArgumentOutOfRangeException(nameof(edge), "edge of cube must be greater than or equal to zero");
+
+            return Math.Pow(edge, 3);
+        }
+
+        /// <summary>
+        /// Calculates the edge of a cube.
+        /// </summary>
+        /// <param name="edge"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static double VolumeOfCubeExt(this double edge)
+        {
+            if (edge <= 0)
+                throw new ArgumentOutOfRangeException(nameof(edge), "edge of cube must be greater than or equal to zero");
+
+            return Math.Pow(edge, 3);
+        }
+
+        /// <summary>
+        /// Returns the area of a cylinder where the extended value is the radius and the parameter is the height.
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static double AreaOfCylinderExt(this int radius, int height)
+        {
+            if (radius <= 0)
+                throw new ArgumentOutOfRangeException(nameof(radius), "radius of cube must be greater than or equal to zero");
+
+            if (height <= 0)
+                throw new ArgumentOutOfRangeException(nameof(height), "height of cube must be greater than or equal to zero");
+
+            return (2 * Math.PI * radius * height) + (2 * Math.PI * Math.Pow(radius, 2));
+        }
+
+        /// <summary>
+        /// Returns the area of a cylinder where the extended value is the radius and the parameter is the height.
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static double AreaOfCylinderExt(this double radius, double height)
+        {
+            if (radius <= 0)
+                throw new ArgumentOutOfRangeException(nameof(radius), "radius of cube must be greater than or equal to zero");
+
+            if (height <= 0)
+                throw new ArgumentOutOfRangeException(nameof(height), "height of cube must be greater than or equal to zero");
+
+            return (2 * Math.PI * radius * height) + (2 * Math.PI * Math.Pow(radius, 2));
+        }
     }
 }

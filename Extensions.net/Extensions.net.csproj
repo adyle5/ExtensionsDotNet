@@ -12,12 +12,47 @@
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl />
     <PackageLicenseFile>license.txt</PackageLicenseFile>
-    <Description>The missing extensions library. Type a dot after your object instance for a list of helper functions that allow you to perform common and complex tasks. Features over 200 extension methods.
+    <Description>The missing extensions library. Type a dot after your object instance for a list of helper functions that allow you to perform common and complex tasks. Features over 250 extension.
 
 Visit our wiki at https://github.com/adyle5/ExtensionsDotNet/wiki for a list of available methods and samples.
 
 To send feedback, suggestions, or report an issue, please visit https://www.nuget.org/packages/ExtensionsDotNet/ and click on "Contact owner."</Description>
-    <PackageReleaseNotes>1.2.0
+    <PackageReleaseNotes>
+		1.2.0
+
+		Migrate:
+		ToAESEncryptedBytesExt -> ToAesCAPIEncryptedBytesExt
+		ToAESDecryptedStringExt -> ToAesCAPIDecryptedStringExt
+
+		New Extensions
+
+		Cryptography Extensions:
+		ToAesManagedEncryptedBytesExt
+		ToAesManagedDecryptedStringExt
+		ToDesCAPIEncryptedBytesExt
+		ToDesCAPIDecryptedStringExt
+		ToTripleDesEncryptedBytesExt
+		ToTripleDesDecryptedStringExt
+
+		String Extensions:
+		ShuffleExt
+		ScrubExt
+
+		Number Extensions:
+		ShuffleExt
+		ToListExt
+		VolumeOfCylinderExt
+		VolumeOfSphereExt
+		VolumeOfConeExt
+		AreaOfRectangle
+		AreaOfTrapezoidExt
+		VolumeOfPyramidExt
+		VolumeOfCubeExt
+		AreaOfCylinderExt
+
+		Array Extensions:
+		IsNullOrEmptyExt
+		ShuffleExt
 
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/adyle5/ExtensionsDotNet</RepositoryUrl>

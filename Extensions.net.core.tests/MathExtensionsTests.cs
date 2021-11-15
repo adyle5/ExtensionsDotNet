@@ -648,5 +648,44 @@ namespace Extensions.net.core.tests
             height2 = -1;
             Assert.Throws<ArgumentOutOfRangeException>(() => length2.VolumeOfPyramidExt(width2, height2));
         }
+
+        [Fact]
+        public void VolumeOfCube()
+        {
+            int edge = 3;
+            double expected = 27;
+            double actual = edge.VolumeOfCubeExt();
+            Assert.Equal(expected, actual);
+
+            edge = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => edge.VolumeOfCubeExt());
+
+            double edge2 = 3.5;
+            expected = 42.875;
+            actual = edge2.VolumeOfCubeExt().RoundExt(3);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void AreaOfCylinder()
+        {
+            int radius = 5;
+            int height = 7;
+            double expected = 376.99112;
+            double actual = radius.AreaOfCylinderExt(height).RoundExt(5);
+            Assert.Equal(expected, actual);
+
+            double radius2 = 5.2;
+            double height2 = 7.9;
+            expected = 428.01058;
+            actual = radius2.AreaOfCylinderExt(height2).RoundExt(5);
+            Assert.Equal(expected, actual);
+
+            radius = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => radius.AreaOfCylinderExt(height));
+
+            height2 = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => radius2.AreaOfCylinderExt(height2));
+        }
     }
 }

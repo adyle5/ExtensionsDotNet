@@ -221,6 +221,8 @@ VolumeOfConeExt
 AreaOfRectangle
 AreaOfTrapezoidExt
 VolumeOfPyramidExt
+VolumeOfCubeExt
+AreaOfCylinderExt
 
 Array Extensions:
 IsNullOrEmptyExt
