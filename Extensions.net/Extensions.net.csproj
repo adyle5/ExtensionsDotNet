@@ -29,8 +29,6 @@ To send feedback, suggestions, or report an issue, please visit https://www.nuge
 		Cryptography Extensions:
 		ToAesManagedEncryptedBytesExt
 		ToAesManagedDecryptedStringExt
-		ToDesCAPIEncryptedBytesExt
-		ToDesCAPIDecryptedStringExt
 		ToTripleDesEncryptedBytesExt
 		ToTripleDesDecryptedStringExt
 

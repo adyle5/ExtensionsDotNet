@@ -160,29 +160,5 @@ namespace Extensions.net.core.tests
 
             Assert.Equal(expected, decrypted);
         }
-
-        [Fact]
-        public void ToDesCAPIEncryptedBytes()
-        {
-            string text = "This is a test";
-
-            var (EncryptedBytes, Key, IV) = text.ToDesCAPIEncryptedBytesExt();
-            string decrypted = EncryptedBytes.ToDesCAPIDecryptedStringExt(Key, IV);
-            string expected = text;
-
-            Assert.Equal(expected, decrypted);
-        }
-
-        [Fact]
-        public void ToDesCAPIDecryptedString()
-        {
-            string text = "This is a test";
-
-            var (EncryptedBytes, Key, IV) = text.ToDesCAPIEncryptedBytesExt();
-            string decrypted = EncryptedBytes.ToDesCAPIDecryptedStringExt(Key, IV);
-            string expected = text;
-
-            Assert.Equal(expected, decrypted);
-        }
     }
 }

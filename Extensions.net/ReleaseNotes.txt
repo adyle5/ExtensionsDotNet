@@ -203,8 +203,6 @@ New Extensions
 Cryptography Extensions:
 ToAesManagedEncryptedBytesExt
 ToAesManagedDecryptedStringExt
-ToDesCAPIEncryptedBytesExt
-ToDesCAPIDecryptedStringExt
 ToTripleDesEncryptedBytesExt
 ToTripleDesDecryptedStringExt
 
