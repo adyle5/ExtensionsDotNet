@@ -90,24 +90,72 @@ namespace Extensions.net.core.tests
         }
 
         [Fact]
-        public void ToAESEncryptedBytes()
+        public void ToAesCAPIEncryptedBytesExt()
         {
             string text = "This is a test";
 
-            var (EncryptedBytes, Key, IV) = text.ToAESEncryptedBytesExt();
-            string decrypted = EncryptedBytes.ToAESDecryptedStringExt(Key, IV);
+            var (EncryptedBytes, Key, IV) = text.ToAesCAPIEncryptedBytesExt();
+            string decrypted = EncryptedBytes.ToAesCAPIDecryptedStringExt(Key, IV);
             string expected = text;
 
             Assert.Equal(expected, decrypted);
         }
 
         [Fact]
-        public void ToAESDecryptedString()
+        public void ToAesCAPIDecryptedString()
         {
             string text = "This is a test";
 
-            var (EncryptedBytes, Key, IV) = text.ToAESEncryptedBytesExt();
-            string decrypted = EncryptedBytes.ToAESDecryptedStringExt(Key, IV);
+            var (EncryptedBytes, Key, IV) = text.ToAesCAPIEncryptedBytesExt();
+            string decrypted = EncryptedBytes.ToAesCAPIDecryptedStringExt(Key, IV);
+            string expected = text;
+
+            Assert.Equal(expected, decrypted);
+        }
+
+        [Fact]
+        public void ToAesManagedEncryptedBytes()
+        {
+            string text = "This is a test";
+
+            var (EncryptedBytes, Key, IV) = text.ToAesManagedEncryptedBytesExt();
+            string decrypted = EncryptedBytes.ToAesManagedDecryptedStringExt(Key, IV);
+            string expected = text;
+
+            Assert.Equal(expected, decrypted);
+        }
+
+        [Fact]
+        public void ToAesManagedDecryptedString()
+        {
+            string text = "This is a test";
+
+            var (EncryptedBytes, Key, IV) = text.ToAesManagedEncryptedBytesExt();
+            string decrypted = EncryptedBytes.ToAesManagedDecryptedStringExt(Key, IV);
+            string expected = text;
+
+            Assert.Equal(expected, decrypted);
+        }
+
+        [Fact]
+        public void ToTripleDesEncryptedBytes()
+        {
+            string text = "This is a test";
+
+            var (EncryptedBytes, Key, IV) = text.ToTripleDesEncryptedBytesExt();
+            string decrypted = EncryptedBytes.ToTripleDesDecryptedStringExt(Key, IV);
+            string expected = text;
+
+            Assert.Equal(expected, decrypted);
+        }
+
+        [Fact]
+        public void ToTripleDesDecryptedString()
+        {
+            string text = "This is a test";
+
+            var (EncryptedBytes, Key, IV) = text.ToTripleDesEncryptedBytesExt();
+            string decrypted = EncryptedBytes.ToTripleDesDecryptedStringExt(Key, IV);
             string expected = text;
 
             Assert.Equal(expected, decrypted);

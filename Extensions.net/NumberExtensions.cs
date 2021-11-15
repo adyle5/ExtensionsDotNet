@@ -374,5 +374,36 @@ namespace Extensions.net
         /// <param name="count"></param>
         /// <returns></returns>
         public static IEnumerable<int> ToRangeExt(this int num, int count) => System.Linq.Enumerable.Range(num, count);
+
+        /// <summary>
+        /// Rearranges the individual numbers in an integer.
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static int ShuffleExt(this int number)
+        {
+            if (number <= 9)
+                return number;
+
+            string numString = number.ToString();
+            string shuffledString = numString.ShuffleExt();
+            return shuffledString.ToInt32Ext();
+        }
+
+        /// <summary>
+        /// Creates a list of integers from the individual numbers in the extended int.
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static List<int> ToListExt(this int number)
+        {
+            List<int> lsInt = new ();
+            foreach (char cc in Math.Abs(number).ToString().ToCharArray())
+            {
+                lsInt.Add(cc.ToString().ToInt32Ext());
+            }
+
+            return lsInt;
+        }
     }
 }

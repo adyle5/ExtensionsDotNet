@@ -12,7 +12,7 @@ namespace Extensions.net.core.tests
 {
     public class ByteExtensionsTests
     {
-        ITestOutputHelper output;
+        readonly ITestOutputHelper output;
         public ByteExtensionsTests(ITestOutputHelper output)
         {
             this.output = output;

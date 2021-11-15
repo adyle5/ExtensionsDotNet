@@ -408,6 +408,12 @@ namespace Extensions.net.core.tests
             expected = 153.93804;
             actual = Math.Round(radius2.AreaOfCircleExt(), 5);
             Assert.Equal(expected, actual);
+
+            radius = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => radius.AreaOfCircleExt());
+
+            radius2 = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => radius2.AreaOfCircleExt());
         }
 
         [Fact]
@@ -428,6 +434,39 @@ namespace Extensions.net.core.tests
             actual = theBase2.AreaOfTriangleExt(height2);
 
             Assert.Equal(expected, actual);
+
+            theBase = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => theBase.AreaOfTriangleExt(height));
+
+            height2 = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => theBase2.AreaOfTriangleExt(height2));
+        }
+
+        [Fact]
+        public void AreaOfRectangle()
+        {
+            int length = 3;
+            int width = 4;
+            double expected = length * width;
+            double actual = length.AreaOfRectangleExt(width);
+            Assert.Equal(expected, actual);
+            actual = width.AreaOfRectangleExt(length);
+            Assert.Equal(expected, actual);
+
+            length = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => length.AreaOfRectangleExt(width));
+
+            double length2 = 3.5;
+            double width2 = 5.7;
+            expected = length2 * width2;
+            actual = length2.AreaOfRectangleExt(width2);
+            Assert.Equal(expected, actual);
+            actual = width2.AreaOfRectangleExt(length2);
+            Assert.Equal(expected, actual);
+
+            width2 = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => length2.AreaOfRectangleExt(width2));
+
         }
 
         [Fact]
@@ -442,6 +481,9 @@ namespace Extensions.net.core.tests
             expected = 18.85;
             actual = Math.Round(radius2.CircumferenceOfCircleExt(), 2);
             Assert.Equal(expected, actual);
+
+            radius = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => radius.CircumferenceOfCircleExt());
         }
 
         [Fact]
@@ -460,6 +502,12 @@ namespace Extensions.net.core.tests
             actual = Math.Round(radius2.ArcLengthExt(centralAngle2), 5);
 
             Assert.Equal(expected, actual);
+
+            radius = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => radius.ArcLengthExt(centralAngle));
+
+            centralAngle2 = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => radius2.ArcLengthExt(centralAngle2));
         }
 
         [Fact]
@@ -476,6 +524,168 @@ namespace Extensions.net.core.tests
             c = 8.6;
 
             Assert.Equal(c, Math.Round(a2.HypotenuseExt(b2), 1));
+
+            a = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => a.HypotenuseExt(b));
+
+            b2 = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => a2.HypotenuseExt(b2));
+        }
+
+        [Fact]
+        public void VolumeOfCylinder()
+        {
+            int rad = 2;
+            int height = 6;
+            double expected = 75.39822;
+            double actual = rad.VolumeOfCylinderExt(height).RoundExt(5);
+            Assert.Equal(expected, actual);
+
+            double rad2 = 3.4;
+            double height2 = 7.98;
+            expected = 289.80815;
+            actual = rad2.VolumeOfCylinderExt(height2).RoundExt(5);
+            Assert.Equal(expected, actual);
+
+            rad = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => rad.VolumeOfCylinderExt(height));
+
+            height2 = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => rad2.VolumeOfCylinderExt(height2));
+        }
+
+        [Fact]
+        public void VolumeOfSphere()
+        {
+            int rad = 2;
+            double expected = 33.51032;
+            double actual = rad.VolumeOfSphereExt().RoundExt(5);
+            Assert.Equal(expected, actual);
+
+            double rad2 = 3.4;
+            expected = 164.63621;
+            actual = rad2.VolumeOfSphereExt().RoundExt(5);
+            Assert.Equal(expected, actual);
+
+            rad = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => rad.VolumeOfSphereExt());
+
+            rad2 = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => rad2.VolumeOfSphereExt());
+        }
+
+        [Fact]
+        public void VolumeOfCone()
+        {
+            int rad = 2;
+            int height = 6;
+            double expected = 25.13274;
+            double actual = rad.VolumeOfConeExt(height).RoundExt(5);
+            Assert.Equal(expected, actual);
+
+            double rad2 = 3.4;
+            double height2 = 7.98;
+            expected = 96.60272;
+            actual = rad2.VolumeOfConeExt(height2).RoundExt(5);
+            Assert.Equal(expected, actual);
+
+            rad = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => rad.VolumeOfConeExt(height));
+
+            height2 = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => rad2.VolumeOfConeExt(height2));
+        }
+
+        [Fact]
+        public void AreaOfTrapezoid()
+        {
+            int a = 3;
+            int b = 4;
+            int height = 5;
+            double expected = 17.5;
+            double actual = height.AreaOfTrapezoidExt(a, b);
+            Assert.Equal(expected, actual);
+
+            double a2 = 3.1;
+            double b2 = 4.2;
+            double height2 = 5.3;
+            expected = 19.345;
+            actual = height2.AreaOfTrapezoidExt(a2, b2).RoundExt(3);
+            Assert.Equal(expected, actual);
+
+            a = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => height.AreaOfTrapezoidExt(a, b));
+
+            b2 = -1.2;
+            Assert.Throws<ArgumentOutOfRangeException>(() => height2.AreaOfTrapezoidExt(a2, b2));
+        }
+
+        [Fact]
+        public void VolumeOfPyramid()
+        {
+            int length = 3;
+            int width = 4;
+            int height = 5;
+
+            double expected = 20;
+            double actual = length.VolumeOfPyramidExt(width, height);
+            Assert.Equal(expected, actual);
+
+            length = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => length.VolumeOfPyramidExt(width, height));
+
+            double length2 = 3;
+            double width2 = 4;
+            double height2 = 5;
+
+            actual = length2.VolumeOfPyramidExt(width2, height2);
+            Assert.Equal(expected, actual);
+
+            width2 = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => length2.VolumeOfPyramidExt(width2, height2));
+
+            width2 = 5;
+            height2 = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => length2.VolumeOfPyramidExt(width2, height2));
+        }
+
+        [Fact]
+        public void VolumeOfCube()
+        {
+            int edge = 3;
+            double expected = 27;
+            double actual = edge.VolumeOfCubeExt();
+            Assert.Equal(expected, actual);
+
+            edge = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => edge.VolumeOfCubeExt());
+
+            double edge2 = 3.5;
+            expected = 42.875;
+            actual = edge2.VolumeOfCubeExt().RoundExt(3);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void AreaOfCylinder()
+        {
+            int radius = 5;
+            int height = 7;
+            double expected = 376.99112;
+            double actual = radius.AreaOfCylinderExt(height).RoundExt(5);
+            Assert.Equal(expected, actual);
+
+            double radius2 = 5.2;
+            double height2 = 7.9;
+            expected = 428.01058;
+            actual = radius2.AreaOfCylinderExt(height2).RoundExt(5);
+            Assert.Equal(expected, actual);
+
+            radius = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => radius.AreaOfCylinderExt(height));
+
+            height2 = -1;
+            Assert.Throws<ArgumentOutOfRangeException>(() => radius2.AreaOfCylinderExt(height2));
         }
     }
 }

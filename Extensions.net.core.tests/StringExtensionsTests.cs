@@ -122,7 +122,7 @@ namespace Extensions.net.core.tests
         [Obsolete(message: "String.Copy no longer recommended by Microsoft.")]
         public void Copy()
         {
-            string str1 = "fubar";
+            string str1 = "fubar";           
             Assert.Equal(string.Copy(str1), str1.CopyExt());
             Assert.Equal(string.Copy(str1), str1.CopyExt());
         }
@@ -834,6 +834,48 @@ namespace Extensions.net.core.tests
             expected = new XDocument(new XElement(ns + "Root", text));
             actual = text.ToXDocumentExt(ns: nameSpace);
             Assert.Equal(expected.ToString(), actual.ToString());
+        }
+
+        [Fact]
+        public void Shuffle()
+        {
+            string text = "abcdefghijklmnop";
+            string actual = text.ShuffleExt();
+            Assert.NotEqual(text, actual);
+            Assert.Equal(text.Length, actual.Length);
+
+            text = "abc";
+            string[] expected = { "abc", "acb", "bac", "bca", "cab", "cba" };
+            actual = text.ShuffleExt();
+            Assert.True(expected.ContainsExt(actual));
+
+            text = "This is a test";
+            int expected2 = 4;
+            int actual2 = text.ShuffleExt().Split(' ').Length;
+            Assert.Equal(expected2, actual2);
+            Assert.NotEqual(text, text.ShuffleExt());
+        }
+
+        [Fact]
+        public void Scrub()
+        {
+            string text = "P@ssw0rd#";
+            string expected = "*********";
+            Assert.Equal(expected, text.ScrubExt());
+
+            Assert.Equal(expected, text.ScrubExt(length: -1));
+
+            expected = "P@ss*****";
+            Assert.Equal(expected, text.ScrubExt(length: 5));
+
+            expected = "P########";
+            Assert.Equal(expected, text.ScrubExt('#', 8));
+
+            expected = "#########";
+            Assert.Equal(expected, text.ScrubExt('#'));
+
+            expected = "P@ssw0rd#";
+            Assert.Equal(expected, text.ScrubExt(length: 0));
         }
 
         #region "Private Methods"
