@@ -631,6 +631,19 @@ namespace Extensions.net.core.tests
             Assert.Equal(expected, actual);
         }
 
+        [Fact]
+        public void IsNullOrEmpty()
+        {
+            string[] arr1 = { "one", "two", "three" };
+            Assert.False(arr1.IsNullOrEmptyExt());
+
+            string[] arr2 = null;
+            Assert.True(arr2.IsNullOrEmptyExt());
+
+            string[] arr3 = Array.Empty<string>();
+            Assert.True(arr3.IsNullOrEmptyExt());
+        }
+
         #region "Private Methods"
         private static long BinarySearchDotNet(int[] arr1, int target)
         {

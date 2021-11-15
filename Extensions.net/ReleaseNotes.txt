@@ -191,3 +191,37 @@ New Extensions
 Cryptography Extensions:
 ToAESEncryptedBytesExt
 ToAESDecryptedStringExt
+
+1.2.0
+
+Migrate:
+ToAESEncryptedBytesExt -> ToAesCAPIEncryptedBytesExt
+ToAESDecryptedStringExt -> ToAesCAPIDecryptedStringExt
+
+New Extensions
+
+Cryptography Extensions:
+ToAesManagedEncryptedBytesExt
+ToAesManagedDecryptedStringExt
+ToDesCAPIEncryptedBytesExt
+ToDesCAPIDecryptedStringExt
+ToTripleDesEncryptedBytesExt
+ToTripleDesDecryptedStringExt
+
+String Extensions:
+ShuffleExt
+ScrubExt
+
+Number Extensions:
+ShuffleExt
+ToListExt
+VolumeOfCylinderExt
+VolumeOfSphereExt
+VolumeOfConeExt
+AreaOfRectangle
+AreaOfTrapezoidExt
+VolumeOfPyramidExt
+
+Array Extensions:
+IsNullOrEmptyExt
+ShuffleExt

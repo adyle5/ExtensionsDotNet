@@ -30,7 +30,7 @@ namespace Extensions.net.core.tests
         [Fact]
         public void IsLeapDay()
         {
-            DateTime dt = new DateTime(2020, 2, 29);
+            DateTime dt = new (2020, 2, 29);
             Assert.True(dt.IsLeapDayExt());
         }
 
@@ -48,7 +48,7 @@ namespace Extensions.net.core.tests
         [Fact]
         public void WeekOfYear()
         {
-            DateTime dt = new DateTime(2020, 1, 27);
+            DateTime dt = new (2020, 1, 27);
 
             int expected = 5;
             int actual = dt.WeekOfYearExt();

@@ -770,5 +770,60 @@ namespace Extensions.net
             
             return xDocument;
         }
+
+        /// <summary>
+        /// Rearranges the letters in a string. Letters are shuffled within word groupings, so if a string has 3 word groupings it will remain 3 word groupings.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static string ShuffleExt(this string text)
+        {
+            if (text.IsNullOrWhiteSpaceExt())
+                return text;
+
+            StringBuilder stringBuilder = new ();
+            string[] split = text.Split(' ');
+            foreach (string s in split)
+            {
+                string[] arr = new string[s.Length];
+                Random rnd = new ();
+
+                for (int m = 0; m < s.Length; m++)
+                {
+                    bool cont = true;
+                    while (cont)
+                    {
+                        int randomNum = rnd.Next(s.Length);
+                        if (arr[randomNum] == null)
+                        {
+                            arr[randomNum] = s[m].ToString();
+                            cont = false;
+                        }
+                    }
+                }
+
+                stringBuilder.Append($"{string.Concat(arr)} ");
+            }               
+
+            return stringBuilder.ToString().TrimEnd();
+        }
+
+        /// <summary>
+        /// Replaces text with a dummy character for storing sensitive data. 
+        /// Contains two optional parameters. 
+        /// The first parameter character is the char used to replace the text. If not provided, it will use an asterisk. 
+        /// The second parameter length is an int that specifies how many characters you want to replace. If left blank or a negative int is passed in will replace the entire string.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static string ScrubExt(this string text, char character = '*', int? length = null)
+        {
+            if (length == null || length < 0)
+                length = text.Length;
+
+            string scrub = new (character, (int)length);
+            return string.Concat(text.Substring(0, text.Length - scrub.Length), scrub);
+        }
     }
 }

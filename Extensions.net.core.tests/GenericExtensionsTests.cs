@@ -13,7 +13,7 @@ namespace Extensions.net.core.tests
 {
     public class GenericExtensionsTests
     {
-        ITestOutputHelper output;
+        readonly ITestOutputHelper output;
 
         public GenericExtensionsTests(ITestOutputHelper output)
         {

@@ -10,7 +10,7 @@ namespace Extensions.net.core.tests
         [Fact]
         public void ToList()
         {
-            ABC abc = new ABC();
+            ABC abc = new ();
 
             string expected = "A,B,C";
             string actual = string.Join(',', abc.ToListExt());
@@ -20,7 +20,7 @@ namespace Extensions.net.core.tests
         [Fact]
         public void GetName()
         {
-            ABC abc = new ABC();
+            ABC abc = new ();
 
             string expected = "C";
             string actual = abc.GetNameExt(2);
@@ -30,7 +30,7 @@ namespace Extensions.net.core.tests
         [Fact]
         public void GetNames()
         {
-            ABC abc = new ABC();
+            ABC abc = new ();
 
             string[] expected = { "A", "B", "C" };
             string[] actual = abc.GetNamesExt();

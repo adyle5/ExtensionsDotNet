@@ -2,6 +2,7 @@
 // Refer to license.txt for usage and permission information 
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using Xunit;
@@ -459,6 +460,24 @@ namespace Extensions.net.core.tests
 
             var expected = System.Linq.Enumerable.Range(num, count);
             Assert.Equal(expected, num.ToRangeExt(count));
+        }
+
+        [Fact]
+        public void Shuffle()
+        {
+            int number = 123456789;
+            int actual = number.ShuffleExt();
+            Assert.NotEqual(number, actual);
+            Assert.Equal(number.ToString().Length, actual.ToString().Length);
+        }
+
+        [Fact]
+        public void ToList()
+        {
+            int number = 123456789;
+            List<int> expected = new() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            List<int> actual = number.ToListExt();
+            Assert.Equal(expected, actual);
         }
     }
 }

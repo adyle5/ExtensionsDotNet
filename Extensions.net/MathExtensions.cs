@@ -771,14 +771,26 @@ namespace Extensions.net
         /// </summary>
         /// <param name="radius"></param>
         /// <returns></returns>
-        public static double AreaOfCircleExt(this double radius) => Math.PI * Math.Pow(radius, 2);
+        public static double AreaOfCircleExt(this double radius)
+        {
+            if (radius <= 0)
+                throw new ArgumentOutOfRangeException(nameof(radius), "radius must be greater than or equal to zero");
+
+            return Math.PI * Math.Pow(radius, 2);
+        }
 
         /// <summary>
         /// Calculates the area of a circle when the extended number is the radius.
         /// </summary>
         /// <param name="radius"></param>
         /// <returns></returns>
-        public static double AreaOfCircleExt(this int radius) => Math.PI * Math.Pow(radius, 2);
+        public static double AreaOfCircleExt(this int radius)
+        {
+            if (radius <= 0)
+                throw new ArgumentOutOfRangeException(nameof(radius), "radius must be greater than or equal to zero");
+
+            return Math.PI * Math.Pow(radius, 2);
+        }
 
         /// <summary>
         /// Calculates the area of a triangle wher the extended double is the base, and the double parameter is the height.
@@ -786,7 +798,16 @@ namespace Extensions.net
         /// <param name="b"></param>
         /// <param name="height"></param>
         /// <returns></returns>
-        public static double AreaOfTriangleExt(this double b, double height) => (b * height) / 2;
+        public static double AreaOfTriangleExt(this double b, double height)
+        {
+            if (b <= 0)
+                throw new ArgumentOutOfRangeException(nameof(b), "base must be greater than or equal to zero");
+
+            if (height <= 0)
+                throw new ArgumentOutOfRangeException(nameof(height), "height must be greater than or equal to zero");
+
+            return (b * height) / 2;
+        }
 
         /// <summary>
         /// Calculates the area of a triangle wher the extended int is the base, and the int parameter is the height.
@@ -794,21 +815,78 @@ namespace Extensions.net
         /// <param name="b"></param>
         /// <param name="height"></param>
         /// <returns></returns>
-        public static double AreaOfTriangleExt(this int b, int height) => (b * height) / 2;
+        public static double AreaOfTriangleExt(this int b, int height)
+        {
+            if (b <= 0)
+                throw new ArgumentOutOfRangeException(nameof(b), "base must be greater than or equal to zero");
+
+            if (height <= 0)
+                throw new ArgumentOutOfRangeException(nameof(height), "height must be greater than or equal to zero");
+
+            return (b * height) / 2;
+        }
+
+        /// <summary>
+        /// Calculates the area of a rectangle where the extended number is the length and the parameter is the width.
+        /// Works the other way around too.
+        /// </summary>
+        /// <param name="length"></param>
+        /// <param name="width"></param>
+        /// <returns></returns>
+        public static double AreaOfRectangleExt(this int length, int width)
+        {
+            if (length <= 0)
+                throw new ArgumentOutOfRangeException(nameof(length), "length must be greater than or equal to zero");
+
+            if (width <= 0)
+                throw new ArgumentOutOfRangeException(nameof(width), "width must be greater than or equal to zero");
+
+            return length * width;
+        }
+
+        /// <summary>
+        /// Calculates the area of a rectangle where the extended number is the length and the parameter is the width.
+        /// Works the other way around too. 
+        /// </summary>
+        /// <param name="length"></param>
+        /// <param name="width"></param>
+        /// <returns></returns>
+        public static double AreaOfRectangleExt(this double length, double width)
+        {
+            if (length <= 0)
+                throw new ArgumentOutOfRangeException(nameof(length), "length must be greater than or equal to zero");
+
+            if (width <= 0)
+                throw new ArgumentOutOfRangeException(nameof(width), "width must be greater than or equal to zero");
+
+            return length * width;
+        }
 
         /// <summary>
         /// Calculates the circumference of a circle when the extended number is the radius.
         /// </summary>
         /// <param name="radius"></param>
         /// <returns></returns>
-        public static double CircumferenceOfCircleExt(this double radius) => (2 * Math.PI) * radius;
+        public static double CircumferenceOfCircleExt(this double radius)
+        {
+            if (radius <= 0)
+                throw new ArgumentOutOfRangeException(nameof(radius), "radius must be greater than or equal to zero");
+
+            return (2 * Math.PI) * radius;
+        }
 
         /// <summary>
         /// Calculates the circumference of a circle when the extended number is the radius.
         /// </summary>
         /// <param name="radius"></param>
         /// <returns></returns>
-        public static double CircumferenceOfCircleExt(this int radius) => (2 * Math.PI) * radius;
+        public static double CircumferenceOfCircleExt(this int radius)
+        {
+            if (radius <= 0)
+                throw new ArgumentOutOfRangeException(nameof(radius), "radius must be greater than or equal to zero");
+
+            return (2 * Math.PI) * radius;
+        }
 
         /// <summary>
         /// Calculates the length of a circle arc where the extended value is the radius and the paramater is the central angle.
@@ -817,7 +895,16 @@ namespace Extensions.net
         /// <param name="radius"></param>
         /// <param name="centralAngle"></param>
         /// <returns></returns>
-        public static double ArcLengthExt(this double radius, double centralAngle) => 2 * Math.PI * radius * (centralAngle / 360);
+        public static double ArcLengthExt(this double radius, double centralAngle)
+        {
+            if (radius <= 0)
+                throw new ArgumentOutOfRangeException(nameof(radius), "radius must be greater than or equal to zero");
+
+            if (centralAngle <= 0)
+                throw new ArgumentOutOfRangeException(nameof(centralAngle), "central angle must be greater than or equal to zero");
+
+            return 2 * Math.PI * radius * (centralAngle / 360);
+        }
 
         /// <summary>
         /// Calculates the length of a circle arc where the extended value is the radius and the paramater is the central angle.
@@ -826,7 +913,16 @@ namespace Extensions.net
         /// <param name="radius"></param>
         /// <param name="centralAngle"></param>
         /// <returns></returns>
-        public static double ArcLengthExt(this int radius, int centralAngle) => 2 * Math.PI * radius * ((double)centralAngle / 360);
+        public static double ArcLengthExt(this int radius, int centralAngle)
+        {
+            if (radius <= 0)
+                throw new ArgumentOutOfRangeException(nameof(radius), "radius must be greater than or equal to zero");
+
+            if (centralAngle <= 0)
+                throw new ArgumentOutOfRangeException(nameof(centralAngle), "central angle must be greater than or equal to zero");
+
+            return  2 * Math.PI * radius * ((double)centralAngle / 360);
+        }
 
         /// <summary>
         /// Calculates the hypotenus of a triangle where leg1 is the extended value and leg2 is the parameter.
@@ -834,7 +930,16 @@ namespace Extensions.net
         /// <param name="leg1"></param>
         /// <param name="leg2"></param>
         /// <returns></returns>
-        public static double HypotenuseExt(this double leg1, double leg2) => Math.Sqrt(Math.Pow(leg1, 2) + Math.Pow(leg2, 2));
+        public static double HypotenuseExt(this double leg1, double leg2)
+        {
+            if (leg1 <= 0)
+                throw new ArgumentOutOfRangeException(nameof(leg1), "side must be greater than or equal to zero");
+
+            if (leg2 <= 0)
+                throw new ArgumentOutOfRangeException(nameof(leg2), "side must be greater than or equal to zero");
+
+            return Math.Sqrt(Math.Pow(leg1, 2) + Math.Pow(leg2, 2));
+        }
 
         /// <summary>
         /// Calculates the hypotenus of a triangle where leg1 is the extended value and leg2 is the parameter. 
@@ -842,6 +947,193 @@ namespace Extensions.net
         /// <param name="leg1"></param>
         /// <param name="leg2"></param>
         /// <returns></returns>
-        public static double HypotenuseExt(this int leg1, int leg2) => Math.Sqrt(Math.Pow(leg1, 2) + Math.Pow(leg2, 2));
+        public static double HypotenuseExt(this int leg1, int leg2)
+        {
+            if (leg1 <= 0)
+                throw new ArgumentOutOfRangeException(nameof(leg1), "side must be greater than or equal to zero");
+
+            if (leg2 <= 0)
+                throw new ArgumentOutOfRangeException(nameof(leg2), "side must be greater than or equal to zero");
+
+            return Math.Sqrt(Math.Pow(leg1, 2) + Math.Pow(leg2, 2));
+        }        
+
+        /// <summary>
+        /// Calculates the volume of a cylinder.
+        /// Extended value is the radius of the base and parameter is the height of the cylinder.
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public static double VolumeOfCylinderExt(this int radius, int height) 
+        {
+            if (radius <= 0)
+                throw new ArgumentOutOfRangeException(nameof(radius), "radius must be greater than or equal to zero");
+
+            if (height <= 0)
+                throw new ArgumentOutOfRangeException(nameof(height), "height must be greater than or equal to zero");
+
+            return Math.PI * Math.Pow(radius, 2) * height; 
+        }
+
+        /// <summary>
+        /// Calculates the volume of a cylinder.
+        /// Extended value is the radius of the base and parameter is the height of the cylinder.
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public static double VolumeOfCylinderExt(this double radius, double height)
+        {
+            if (radius <= 0)
+                throw new ArgumentOutOfRangeException(nameof(radius), "radius must be greater than or equal to zero");
+
+            if (height <= 0)
+                throw new ArgumentOutOfRangeException(nameof(height), "height must be greater than or equal to zero");
+
+            return Math.PI * Math.Pow(radius, 2) * height;
+        }
+
+        /// <summary>
+        /// Calculates the volume of a sphere where the extended value is the radius.
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <returns></returns>
+        public static double VolumeOfSphereExt(this int radius)
+        {
+            if (radius <= 0)
+                throw new ArgumentOutOfRangeException(nameof(radius), "radius must be greater than or equal to zero");
+
+            return (4.0 / 3.0) * Math.PI * Math.Pow(radius, 3);
+        }
+
+        /// <summary>
+        /// Calculates the volume of a sphere where the extended value is the radius. 
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <returns></returns>
+        public static double VolumeOfSphereExt(this double radius)
+        {
+            if (radius <= 0)
+                throw new ArgumentOutOfRangeException(nameof(radius), "radius must be greater than or equal to zero");
+
+            return (4.0 / 3.0) * Math.PI * Math.Pow(radius, 3);
+        }
+
+        /// <summary>
+        /// Calculates the volume of a cone where the entended number is the radius and the paramater is the height.
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public static double VolumeOfConeExt(this int radius, int height)
+        {
+            if (radius <= 0)
+                throw new ArgumentOutOfRangeException(nameof(radius), "radius must be greater than or equal to zero");
+
+            if (height <= 0)
+                throw new ArgumentOutOfRangeException(nameof(height), "height must be greater than or equal to zero");
+
+            return Math.PI * (Math.Pow(radius, 2) * (height / 3.0));
+        }
+
+        /// <summary>
+        /// Calculates the volume of a cone where the entended number is the radius and the paramater is the height. 
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public static double VolumeOfConeExt(this double radius, double height) 
+        {
+            if (radius <= 0)
+                throw new ArgumentOutOfRangeException(nameof(radius), "radius must be greater than or equal to zero");
+
+            if (height <= 0)
+                throw new ArgumentOutOfRangeException(nameof(height), "height must be greater than or equal to zero");
+
+            return Math.PI * (Math.Pow(radius, 2) * (height / 3.0)); 
+        }
+
+        /// <summary>
+        /// Calculates the area of a trapezoid where the extended value is the height and paramaters a & b are the bases.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public static double AreaOfTrapezoidExt(this int height, int a, int b)
+        {
+            if (height <= 0)
+                throw new ArgumentOutOfRangeException(nameof(height), "height must be greater than or equal to zero");
+
+            if (a <= 0)
+                throw new ArgumentOutOfRangeException(nameof(a), "a must be greater than or equal to zero");
+
+            if (b <= 0)
+                throw new ArgumentOutOfRangeException(nameof(b), "b must be greater than or equal to zero");
+
+            return (a + b) / 2.0 * height;
+        }
+
+        /// <summary>
+        /// Calculates the area of a trapezoid where the extended value is the height and paramaters a & b are the bases. 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public static double AreaOfTrapezoidExt(this double height, double a, double b)
+        {
+            if (height <= 0)
+                throw new ArgumentOutOfRangeException(nameof(height), "height must be greater than or equal to zero");
+
+            if (a <= 0)
+                throw new ArgumentOutOfRangeException(nameof(a), "a must be greater than or equal to zero");
+
+            if (b <= 0)
+                throw new ArgumentOutOfRangeException(nameof(b), "b must be greater than or equal to zero");
+
+            return (a + b) / 2.0 * height;
+        }
+
+        /// <summary>
+        /// Returns the volume of a pyramid where the extended value is one side of the pyramid and the parameters are the other side and the height.
+        /// Also works when the width is the extended value and the length is the first parameter.
+        /// </summary>
+        /// <param name="side1"></param>
+        /// <param name="side2"></param>
+        /// <param name="side3"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static double VolumeOfPyramidExt(this int length, int width, int height)
+        {
+            if (length <= 0)
+                throw new ArgumentOutOfRangeException(nameof(length), "length must be greater than or equal to zero");
+
+            if (width <= 0)
+                throw new ArgumentOutOfRangeException(nameof(width), "width must be greater than or equal to zero");
+
+            if (height <= 0)
+                throw new ArgumentOutOfRangeException(nameof(height), "height must be greater than or equal to zero");
+
+            return (length * width * height) / 3.0;
+        }
+
+        /// <summary>
+        /// Returns the volume of a pyramid where the extended value is one side of the pyramid and the parameters are the other side and the height. 
+        /// Also works when the width is the extended value and the length is the first parameter.
+        /// </summary>
+        /// <param name="side1"></param>
+        /// <param name="side2"></param>
+        /// <param name="side3"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static double VolumeOfPyramidExt(this double side1, double side2, double side3)
+        {
+            if (side1 <= 0 || side2 <= 0 || side3 <= 0)
+                throw new ArgumentOutOfRangeException(nameof(side1), "length, width, and height must be greater than or equal to zero");
+
+            return (side1 * side2 * side3) / 3.0;
+        }
     }
 }

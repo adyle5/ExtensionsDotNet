@@ -50,17 +50,20 @@ namespace Extensions.net
         }
 
         /// <summary>
-        /// 
+        /// Symmetic encryption of a string using AesCryptoServiceProvider.
+        /// Returns a tuple that includes the EncryptedBytes, Key, IV
+        /// All three objects in the tuple are byte arrays.
+        /// The key and initialization vector are needed to decrypt the byte array  back into a string.
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static (byte[] EncryptedBytes, byte[] Key, byte[] IV) ToAESEncryptedBytesExt(this string text)
+        public static (byte[] EncryptedBytes, byte[] Key, byte[] IV) ToAesCAPIEncryptedBytesExt(this string text)
         {
             if (string.IsNullOrEmpty(text))
                 throw new ArgumentNullException(nameof(text));
 
-            using Aes aes = Aes.Create();
+            using AesCryptoServiceProvider aes = new();
 
             using ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
 
@@ -81,14 +84,15 @@ namespace Extensions.net
         }
 
         /// <summary>
-        /// 
+        /// Symmetic decryption of a byte array back to a string using using AesCryptoServiceProvider and the provided key and initialization vector.
+        /// The key and initialization vector (IV) were generated when the string was originally encrypted and needed to be stored for decryption.
         /// </summary>
         /// <param name="cipher"></param>
         /// <param name="key"></param>
         /// <param name="iv"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static string ToAESDecryptedStringExt(this byte[] cipher, byte[] key, byte[] iv)
+        public static string ToAesCAPIDecryptedStringExt(this byte[] cipher, byte[] key, byte[] iv)
         {
             if (cipher == null || cipher.Length == 0)
                 throw new ArgumentNullException(nameof(cipher));
@@ -100,7 +104,7 @@ namespace Extensions.net
                 throw new ArgumentNullException(nameof(iv));
 
 
-            using Aes aes = Aes.Create();
+            using AesCryptoServiceProvider aes = new();
             aes.Key = key;
             aes.IV = iv;
 
@@ -109,6 +113,205 @@ namespace Extensions.net
             using MemoryStream ms = new (cipher);
             using CryptoStream cs = new (ms, decryptor, CryptoStreamMode.Read);
             using StreamReader sr = new (cs);
+            return sr.ReadToEnd();
+        }
+
+        /// <summary>
+        /// Symmetic encryption of a string using AesManaged.
+        /// Returns a tuple that includes the EncryptedBytes, Key, IV
+        /// All three objects in the tuple are byte arrays.
+        /// The key and initialization vector are needed to decrypt the byte array  back into a string.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static (byte[] EncryptedBytes, byte[] Key, byte[] IV) ToAesManagedEncryptedBytesExt(this string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                throw new ArgumentNullException(nameof(text));
+
+            using AesManaged aes = new ();
+
+            using ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+
+            using MemoryStream ms = new();
+            using CryptoStream cs = new(ms, encryptor, CryptoStreamMode.Write);
+            using StreamWriter sw = new(cs);
+
+            sw.Write(text);
+            sw.Flush();
+
+            cs.FlushFinalBlock();
+
+            byte[] encrypted = ms.ToArray();
+
+            // Returns a tuple that includes the encrypted bytes, aes key and aes initialization vector
+            // The key and IV are needed to decrypt.
+            return (encrypted, aes.Key, aes.IV);
+        }
+
+        /// <summary>
+        /// Symmetic decryption of a byte array back to a string using using AesManaged and the provided key and initialization vector.
+        /// The key and initialization vector (IV) were generated when the string was originally encrypted and needed to be stored for decryption.
+        /// </summary>
+        /// <param name="cipher"></param>
+        /// <param name="key"></param>
+        /// <param name="iv"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static string ToAesManagedDecryptedStringExt(this byte[] cipher, byte[] key, byte[] iv)
+        {
+            if (cipher == null || cipher.Length == 0)
+                throw new ArgumentNullException(nameof(cipher));
+
+            if (key == null || key.Length == 0)
+                throw new ArgumentNullException(nameof(key));
+
+            if (iv == null || iv.Length == 0)
+                throw new ArgumentNullException(nameof(iv));
+
+
+            using AesManaged aes = new ();
+            aes.Key = key;
+            aes.IV = iv;
+
+            ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+
+            using MemoryStream ms = new(cipher);
+            using CryptoStream cs = new(ms, decryptor, CryptoStreamMode.Read);
+            using StreamReader sr = new(cs);
+            return sr.ReadToEnd();
+        }
+
+        /// <summary>
+        /// Symmetic encryption of a string using TripleDES.
+        /// Returns a tuple that includes the EncryptedBytes, Key, IV
+        /// All three objects in the tuple are byte arrays.
+        /// The key and initialization vector are needed to decrypt the byte array  back into a string.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static (byte[] EncryptedBytes, byte[] Key, byte[] IV) ToTripleDesEncryptedBytesExt(this string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                throw new ArgumentNullException(nameof(text));
+
+            using TripleDES des = TripleDES.Create();
+
+            using ICryptoTransform encryptor = des.CreateEncryptor(des.Key, des.IV);
+
+            using MemoryStream ms = new();
+            using CryptoStream cs = new(ms, encryptor, CryptoStreamMode.Write);
+            using StreamWriter sw = new(cs);
+
+            sw.Write(text);
+            sw.Flush();
+
+            cs.FlushFinalBlock();
+
+            byte[] encrypted = ms.ToArray();
+
+            // Returns a tuple that includes the encrypted bytes, des key and des initialization vector
+            // The key and IV are needed to decrypt.
+            return (encrypted, des.Key, des.IV);
+        }
+
+        /// <summary>
+        /// Symmetic decryption of a byte array back to a string using using TripleDES and the provided key and initialization vector.
+        /// The key and initialization vector (IV) were generated when the string was originally encrypted and needed to be stored for decryption. 
+        /// </summary>
+        /// <param name="cipher"></param>
+        /// <param name="key"></param>
+        /// <param name="iv"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static string ToTripleDesDecryptedStringExt(this byte[] cipher, byte[] key, byte[] iv)
+        {
+            if (cipher == null || cipher.Length == 0)
+                throw new ArgumentNullException(nameof(cipher));
+
+            if (key == null || key.Length == 0)
+                throw new ArgumentNullException(nameof(key));
+
+            if (iv == null || iv.Length == 0)
+                throw new ArgumentNullException(nameof(iv));
+
+            using TripleDES des = TripleDES.Create();
+            des.Key = key;
+            des.IV = iv;
+
+            ICryptoTransform decryptor = des.CreateDecryptor(des.Key, des.IV);
+
+            using MemoryStream ms = new(cipher);
+            using CryptoStream cs = new(ms, decryptor, CryptoStreamMode.Read);
+            using StreamReader sr = new(cs);
+            return sr.ReadToEnd();
+        }
+
+        /// <summary>
+        /// Symmetic encryption of a string using DESCryptoServiceProvider.
+        /// Returns a tuple that includes the EncryptedBytes, Key, IV
+        /// All three objects in the tuple are byte arrays.
+        /// The key and initialization vector are needed to decrypt the byte array  back into a string. 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static (byte[] EncryptedBytes, byte[] Key, byte[] IV) ToDesCAPIEncryptedBytesExt(this string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                throw new ArgumentNullException(nameof(text));
+
+            using DESCryptoServiceProvider des = new();
+
+            using ICryptoTransform encryptor = des.CreateEncryptor(des.Key, des.IV);
+
+            using MemoryStream ms = new();
+            using CryptoStream cs = new(ms, encryptor, CryptoStreamMode.Write);
+            using StreamWriter sw = new(cs);
+
+            sw.Write(text);
+            sw.Flush();
+
+            cs.FlushFinalBlock();
+
+            byte[] encrypted = ms.ToArray();
+
+            // Returns a tuple that includes the encrypted bytes, des key and des initialization vector
+            // The key and IV are needed to decrypt.
+            return (encrypted, des.Key, des.IV);
+        }
+
+        /// <summary>
+        /// Symmetic decryption of a byte array back to a string using using DESCryptoServiceProvider and the provided key and initialization vector.
+        /// The key and initialization vector (IV) were generated when the string was originally encrypted and needed to be stored for decryption. 
+        /// </summary>
+        /// <param name="cipher"></param>
+        /// <param name="key"></param>
+        /// <param name="iv"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static string ToDesCAPIDecryptedStringExt(this byte[] cipher, byte[] key, byte[] iv)
+        {
+            if (cipher == null || cipher.Length == 0)
+                throw new ArgumentNullException(nameof(cipher));
+
+            if (key == null || key.Length == 0)
+                throw new ArgumentNullException(nameof(key));
+
+            if (iv == null || iv.Length == 0)
+                throw new ArgumentNullException(nameof(iv));
+
+            using DESCryptoServiceProvider des = new ();
+            des.Key = key;
+            des.IV = iv;
+
+            ICryptoTransform decryptor = des.CreateDecryptor(des.Key, des.IV);
+
+            using MemoryStream ms = new(cipher);
+            using CryptoStream cs = new(ms, decryptor, CryptoStreamMode.Read);
+            using StreamReader sr = new(cs);
             return sr.ReadToEnd();
         }
     }

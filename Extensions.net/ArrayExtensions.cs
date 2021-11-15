@@ -820,5 +820,43 @@ namespace Extensions.net
 
             throw new ArgumentNullException(nameof(arr));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmptyExt<T>(this T[] arr) => arr == null || arr.Length == 0;
+
+        /// <summary>
+        /// Rearranges the objects in an array.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public static T[] ShuffleExt<T>(this T[] arr)
+        {
+            if (arr.IsNullOrEmptyExt())
+                return arr;
+
+            T[] arr2 = new T[arr.Length];
+            Random rnd = new();
+            for (int m = 0; m < arr.Length; m++)
+            {
+                bool cont = true;
+                while (cont)
+                {
+                    int randomNum = rnd.Next(arr.Length);
+                    if (arr2[randomNum] == null)
+                    {
+                        arr2[randomNum] = arr[m];
+                        cont = false;
+                    }
+                }
+            }
+
+            return arr2;
+        }
     }
 }
