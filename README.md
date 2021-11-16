@@ -2,7 +2,7 @@
 
 ExtensionsDotNet is a .NET library written in C# and hosted on [NUGET](https://www.nuget.org/packages/ExtensionsDotNet/) that makes writing code easier and productive by providing simple extension methods to perform common tasks.
 
-ExtensionsDotNet is written against the .NET Standard 2.0 specifications and is supported in the following versions of .NET (and higher). For more information .NET Standard, visit the (Microsoft Docs)[https://docs.microsoft.com/en-us/dotnet/standard/net-standard].
+ExtensionsDotNet is written against the .NET Standard 2.0 specifications and is supported in the following versions of .NET (and higher). For more information .NET Standard, visit the [Microsoft Docs](https://docs.microsoft.com/en-us/dotnet/standard/net-standard).
 
 | Impelmentation | Version |
 | -------------- | ------- |
