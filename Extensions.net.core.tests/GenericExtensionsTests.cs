@@ -591,6 +591,38 @@ namespace Extensions.net.core.tests
             Assert.Null(ex2);
         }
 
+        [Fact]
+        public void ToConsole()
+        {
+            string text = "Lorem ipsum";
+            var ex1 = Record.Exception(() => text.ToConsoleExt());
+            Assert.Null(ex1);
+
+            bool b = true;
+            ex1 = Record.Exception(() => b.ToConsoleExt());
+            Assert.Null(ex1);
+
+            int i = 5;
+            ex1 = Record.Exception(() => i.ToConsoleExt());
+            Assert.Null(ex1);
+        }
+
+        [Fact]
+        public void ToConsoleLine()
+        {
+            string text = "Lorem ipsum";
+            var ex1 = Record.Exception(() => text.ToConsoleLineExt());
+            Assert.Null(ex1);
+
+            bool b = true;
+            ex1 = Record.Exception(() => b.ToConsoleLineExt());
+            Assert.Null(ex1);
+
+            int i = 5;
+            ex1 = Record.Exception(() => i.ToConsoleLineExt());
+            Assert.Null(ex1);
+        }
+
         #region "Private Methods"
 
         private static long ConvertInt32DotNet(string str1)

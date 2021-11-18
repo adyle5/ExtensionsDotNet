@@ -479,5 +479,14 @@ namespace Extensions.net.core.tests
             List<int> actual = number.ToListExt();
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void ToInt64Bits()
+        {
+            double value = 123.456;
+            double expected = BitConverter.DoubleToInt64Bits(value);
+            double actual = value.ToInt64BitsExt();
+            Assert.Equal(expected, actual);
+        }
     }
 }

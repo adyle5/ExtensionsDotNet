@@ -405,5 +405,13 @@ namespace Extensions.net
 
             return lsInt;
         }
+
+        /// <summary>
+        /// Maps to BitConverter.DoubleToInt64Bits
+        /// Converts the extended double to a 64 bit signed integer (lon).
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static long ToInt64BitsExt(this double value) => BitConverter.DoubleToInt64Bits(value);
     }
 }

@@ -452,8 +452,8 @@ namespace Extensions.net.core.tests
         [Fact]
         public void Capitalize()
         {
-            string s = "this is a test string.";
-            string expected = "This is a test string.";
+            string s = "testing testing t.t testing testing. sentence 2.";
+            string expected = "Testing testing t.t testing testing. Sentence 2.";
 
             Assert.Equal(expected, s.CapitalizeExt());
 
@@ -876,6 +876,44 @@ namespace Extensions.net.core.tests
 
             expected = "P@ssw0rd#";
             Assert.Equal(expected, text.ScrubExt(length: 0));
+        }
+
+        [Fact]
+        public void Tab()
+        {
+            string test = "Test";
+            string expected = $"\t\t\t\t\t{test}";
+            string actual = test.TabExt(5);
+            Assert.Equal(expected, actual);
+
+            string testNull = null;
+            expected = "\t\t\t\t\t";
+            actual = testNull.TabExt(5);
+            Assert.Equal(expected, actual);
+
+            string testEmpty = null;
+            expected = "\t\t\t\t\t";
+            actual = testEmpty.TabExt(5);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Line()
+        {
+            string test = "Test";
+            string expected = "Test\r\n\r\n\r\n\r\n\r\n";
+            string actual = test.LineExt(5);
+            Assert.Equal(expected,actual);
+
+            string testNull = null;
+            expected = "\r\n\r\n\r\n\r\n\r\n";
+            actual = testNull.LineExt(5);
+            Assert.Equal(expected, actual);
+
+            string testEmpty = "";
+            expected = "\r\n\r\n\r\n\r\n\r\n";
+            actual = testEmpty.LineExt(5);
+            Assert.Equal(expected, actual);
         }
 
         #region "Private Methods"

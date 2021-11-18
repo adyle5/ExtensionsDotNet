@@ -301,5 +301,21 @@ namespace Extensions.net
         /// <param name="condition"></param>
         /// <param name="category"></param>
         public static void TraceLineIfExt<T>(this T obj, bool condition, string category) => Trace.WriteLineIf(condition, obj, category);
+
+        /// <summary>
+        /// Write's the value of a string or the ToString method to the console.
+        /// Map of Console.Write
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        public static void ToConsoleExt<T>(this T obj) => Console.Write(obj);
+
+        /// <summary>
+        /// Write's the value of a string or the ToString method to a new line in the console.
+        /// Map of Console.WriteLine 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        public static void ToConsoleLineExt<T>(this T obj) => Console.WriteLine(obj);
     }
 }

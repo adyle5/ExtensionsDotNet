@@ -225,3 +225,16 @@ AreaOfCylinderExt
 Array Extensions:
 IsNullOrEmptyExt
 ShuffleExt
+
+1.3.0
+
+Modified CapitalizeExt to handle in sentence periods.
+
+New Extensions
+
+Number Extensions:
+ToInt64BitsExt
+
+String Extensions:
+TabExt
+LineExt
