@@ -4,6 +4,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System;
+using System.Text;
 
 namespace Extensions.net
 {
@@ -39,5 +40,16 @@ namespace Extensions.net
         /// <param name="enum"></param>
         /// <returns></returns>
         public static string[] GetNamesExt(this Enum @enum) => Enum.GetNames(@enum.GetType());
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="enum"></param>
+        /// <returns></returns>
+        public static string ToStringExt(this Enum @enum)
+        {
+            string[] names = @enum.GetNamesExt();
+            return names.JoinExt(", ");
+        }
     }
 }

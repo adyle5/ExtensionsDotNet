@@ -822,7 +822,7 @@ namespace Extensions.net
         }
 
         /// <summary>
-        /// 
+        /// Returns true if the extended array is null or empty.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="arr"></param>
@@ -840,7 +840,8 @@ namespace Extensions.net
             if (arr.IsNullOrEmptyExt())
                 return arr;
 
-            T[] arr2 = new T[arr.Length];
+            var list = new System.Collections.Generic.List<T>();
+
             Random rnd = new();
             for (int m = 0; m < arr.Length; m++)
             {
@@ -848,15 +849,15 @@ namespace Extensions.net
                 while (cont)
                 {
                     int randomNum = rnd.Next(arr.Length);
-                    if (arr2[randomNum] == null)
+                    if (!list.Contains(arr[randomNum]))
                     {
-                        arr2[randomNum] = arr[m];
+                        list.Add(arr[randomNum]);
                         cont = false;
                     }
                 }
             }
 
-            return arr2;
+            return list.ToArray<T>();
         }
     }
 }

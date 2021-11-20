@@ -3,6 +3,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit;
@@ -642,6 +643,28 @@ namespace Extensions.net.core.tests
 
             string[] arr3 = Array.Empty<string>();
             Assert.True(arr3.IsNullOrEmptyExt());
+        }
+
+        [Fact]
+        public void Shuffle()
+        {
+            int[] arr1 = { 1, 2, 3 };
+            int[] shuffled = arr1.ShuffleExt();
+
+            int[] variation1 = { 1, 3, 2 };
+            int[] variation2 = { 2, 3, 1 };
+            int[] variation3 = { 2, 1, 3 };
+            int[] variation4 = { 3, 2, 1 };
+            int[] variation5 = { 3, 1, 2 };
+
+            bool match = 
+                 shuffled.SequenceEqual(arr1) ||
+                 shuffled.SequenceEqual(variation1) ||   shuffled.SequenceEqual(variation2) ||
+                 shuffled.SequenceEqual(variation3) ||
+                 shuffled.SequenceEqual(variation4)||
+                 shuffled.SequenceEqual(variation5);
+
+            Assert.True(match);
         }
 
         #region "Private Methods"

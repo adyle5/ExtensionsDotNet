@@ -38,7 +38,7 @@ namespace Extensions.net.core.tests
         }
 
         [Fact]
-        public void TestIsNullOrEmpty()
+        public void IsNullOrEmpty()
         {
             string str1 = "";
             Assert.Equal(string.IsNullOrEmpty(str1), str1.IsNullOrEmptyExt());
@@ -48,6 +48,32 @@ namespace Extensions.net.core.tests
 
             string str3 = "Not empty";
             Assert.Equal(string.IsNullOrEmpty(str3), str3.IsNullOrEmptyExt());
+        }
+
+        [Fact]
+        public void IsNotNullOrWhiteSpace()
+        {
+            string str1 = "";
+            Assert.Equal(!string.IsNullOrWhiteSpace(str1), str1.IsNotNullOrWhiteSpaceExt());
+
+            string str2 = "Not whitespace";
+            Assert.Equal(!string.IsNullOrWhiteSpace(str2), str2.IsNotNullOrWhiteSpaceExt());
+
+            string str3 = " ";
+            Assert.Equal(!string.IsNullOrWhiteSpace(str3), str3.IsNotNullOrWhiteSpaceExt());
+        }
+
+        [Fact]
+        public void IsNotNullOrEmpty()
+        {
+            string str1 = "";
+            Assert.Equal(!string.IsNullOrEmpty(str1), str1.IsNotNullOrEmptyExt());
+
+            string str2 = " ";
+            Assert.Equal(!string.IsNullOrEmpty(str2), str2.IsNotNullOrEmptyExt());
+
+            string str3 = "Not empty";
+            Assert.Equal(!string.IsNullOrEmpty(str3), str3.IsNotNullOrEmptyExt());
         }
 
         [Fact]
@@ -902,17 +928,17 @@ namespace Extensions.net.core.tests
         {
             string test = "Test";
             string expected = "Test\r\n\r\n\r\n\r\n\r\n";
-            string actual = test.LineExt(5);
+            string actual = test.LineBreakExt(5);
             Assert.Equal(expected,actual);
 
             string testNull = null;
             expected = "\r\n\r\n\r\n\r\n\r\n";
-            actual = testNull.LineExt(5);
+            actual = testNull.LineBreakExt(5);
             Assert.Equal(expected, actual);
 
             string testEmpty = "";
             expected = "\r\n\r\n\r\n\r\n\r\n";
-            actual = testEmpty.LineExt(5);
+            actual = testEmpty.LineBreakExt(5);
             Assert.Equal(expected, actual);
         }
 

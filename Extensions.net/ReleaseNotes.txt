@@ -213,6 +213,8 @@ ScrubExt
 Number Extensions:
 ShuffleExt
 ToListExt
+
+Math Extensions:
 VolumeOfCylinderExt
 VolumeOfSphereExt
 VolumeOfConeExt
@@ -228,6 +230,9 @@ ShuffleExt
 
 1.3.0
 
+Bug Fixes:
+ShuffleExt in Array Extensions.
+
 Modified CapitalizeExt to handle in sentence periods.
 
 New Extensions
@@ -237,4 +242,9 @@ ToInt64BitsExt
 
 String Extensions:
 TabExt
-LineExt
+LineBreakExt
+IsNotNullOrWhiteSpaceExt
+IsNotNullOrEmptyExt
+
+EnumerationExtensions:
+ToStringExt

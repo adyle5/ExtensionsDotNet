@@ -31,6 +31,20 @@ namespace Extensions.net
         public static bool IsNullOrEmptyExt(this string text) => string.IsNullOrEmpty(text);
 
         /// <summary>
+        /// Uses string.IsNullOrWhiteSpace
+        /// </summary>
+        /// <returns><c>false</c>, if string null or white space, <c>true</c> otherwise.</returns>
+        /// <param name="text">Text.</param>
+        public static bool IsNotNullOrWhiteSpaceExt(this string text) => !string.IsNullOrWhiteSpace(text);
+
+        /// <summary>
+        /// Uses string.IsNullOrEmpty
+        /// </summary>
+        /// <returns><c>false</c>, if string null or empty, <c>true</c> otherwise.</returns>
+        /// <param name="text">Text.</param>
+        public static bool IsNotNullOrEmptyExt(this string text) => !string.IsNullOrEmpty(text);
+
+        /// <summary>
         /// Maps to string.<paramref name="compareTo"/>, sets the String comparison to Invariant Culture Ignore Case.
         /// </summary>
         /// <returns>The value that comes first alphabeltically. If the same returns an empty string. Ignores case.</returns>
@@ -840,7 +854,7 @@ namespace Extensions.net
         /// <param name="text"></param>
         /// <param name="numOfLines"></param>
         /// <returns></returns>
-        public static string LineExt(this string text, int numOfLines)
+        public static string LineBreakExt(this string text, int numOfLines)
         {
             char[] arr = new char[numOfLines];
             arr.ResizeExt(ref arr, numOfLines * 2);

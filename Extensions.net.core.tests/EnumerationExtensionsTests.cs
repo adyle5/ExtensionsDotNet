@@ -37,6 +37,15 @@ namespace Extensions.net.core.tests
             Assert.Equal(expected, actual);
         }
 
+        [Fact]
+        public void ToStringExt()
+        {
+            ABC abc = new();
+            string expected = "A, B, C";
+            string actual = abc.ToStringExt();
+            Assert.Equal(expected, actual);
+        }
+
         private enum ABC { A = 0, B = 1, C = 2 }
     }
 }
