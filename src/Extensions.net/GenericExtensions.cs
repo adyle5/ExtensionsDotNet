@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 
 namespace Extensions.net
 {
@@ -16,7 +17,17 @@ namespace Extensions.net
         /// </summary>
         /// <returns>The int32 ext.</returns>
         /// <param name="text">Text.</param>
-        public static int ToInt32Ext<T>(this T obj) where T : IConvertible => Convert.ToInt32(obj);
+        public static int ToIntExt<T>(this T obj) where T : IConvertible => Convert.ToInt32(obj);
+
+        /// <summary>
+        /// [Deprecated]
+        /// DO NOT USE!
+        /// This extensions has been replaced with ToIntExt and will be removed inn a future release.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static int ToInt32Ext<T>(this T obj) where T : IConvertible => obj.ToIntExt();
 
         /// <summary>
         /// Maps to Covert.ToUInt32
@@ -317,5 +328,45 @@ namespace Extensions.net
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         public static void ToConsoleLineExt<T>(this T obj) => Console.WriteLine(obj);
+
+        /// <summary>
+        /// Returns a StringBuilder where the extended object is the beginning of the StringBuilder and one or more objects parameters are appended to the StringBuilder.
+        /// All objects must be of type char, bool, ulong, uint, byte, string, float, ushort object, decimal, short, int, long, or double.
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="appends"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static StringBuilder ToStringBuilderExt(this object obj, params object[] appends)
+        {
+            if (obj is null)
+                throw new ArgumentNullException(nameof(obj));
+
+            if (!Util.StringBuilderTypeCheck(obj))
+                throw new ArgumentException("Extended object must be of type char, bool, ulong, uint, byte, string, float, ushort object, decimal, short, int, long, or double.");
+
+            for (int i = 0; i < appends.Length; i++)
+            {
+                if (!Util.StringBuilderTypeCheck(appends[i]))
+                    throw new ArgumentException("appended value must be of type char, bool, ulong, uint, byte, string, float, ushort object, decimal, short, int, long, or double.");
+            }
+
+            StringBuilder sb = new ();
+            sb.Append(obj);
+            foreach (object append in appends)
+            {
+                sb.Append(append);
+            }
+
+            return sb;
+        }
+
+        /// <summary>
+        /// Maps to Convert.IsDBNull
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static bool IsDBNullExt(this object obj) => Convert.IsDBNull(obj);
     }
 }

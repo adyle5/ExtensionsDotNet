@@ -2,6 +2,7 @@
 // Refer to license.txt for usage and permission information 
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.Json;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Extensions.net.core.tests
+namespace Extensions.net.core.tests.UnitTests
 {
     public class ArrayExtensionsTests
     {
@@ -119,6 +120,17 @@ namespace Extensions.net.core.tests
             }           
         }
 
+        [Fact]
+        public void Clear()
+        {
+            int[] arr1 = { 1, 2, 3, 4, 5 };
+            arr1.ClearExt(0, arr1.Length);
+
+            foreach (int i in arr1)
+            {
+                Assert.True(i == 0);
+            }    
+        }
 
         [Fact]
         public void CopyDeep()
@@ -132,6 +144,22 @@ namespace Extensions.net.core.tests
             Array.Copy(arr1, arr3, arr3.Length);
 
             Assert.True(Object.ReferenceEquals(arr3[0], arr1[0])); // strings point to the same memory loc.
+
+            TestClass one = new(1, "One", 9.99M);
+            TestClass two = new(2, "Two", 5.99M);
+            TestClass three = new(3, "Three", 11.99M);
+
+            TestClass[] arr4 = { one, two, three };
+            TestClass[] arr5 = arr4.CopyDeepExt();
+
+            Assert.False(Object.ReferenceEquals(arr4[0], arr5[0])); // strings do not point to the same memory loc.
+            Assert.False(Object.ReferenceEquals(arr4[0].Name, arr5[0].Name)); // strings do not point to the same memory loc.
+
+            TestClass[] arr6 = new TestClass[arr4.Length];
+            Array.Copy(arr4, arr6, arr4.Length);
+
+            Assert.True(Object.ReferenceEquals(arr4[0], arr6[0])); // strings do not point to the same memory loc.
+            Assert.True(Object.ReferenceEquals(arr4[0].Name, arr6[0].Name)); // strings do not point to the same memory loc.
         }
 
         [Fact]
@@ -150,6 +178,15 @@ namespace Extensions.net.core.tests
 
             Assert.Throws<OverflowException>(() => arr2.CopyDeepExt(10, 10));
 
+            TestClass one = new(1, "One", 9.99M);
+            TestClass two = new(2, "Two", 5.99M);
+            TestClass three = new(3, "Three", 11.99M);
+
+            TestClass[] arr4 = { one, two, three };
+            TestClass[] arr5 = arr4.CopyDeepExt(1, 2);
+
+            Assert.False(Object.ReferenceEquals(arr4[0], arr5[0])); // strings do not point to the same memory loc.
+            Assert.False(Object.ReferenceEquals(arr4[0].Name, arr5[0].Name)); // strings do not point to the same memory loc.
         }
 
         [Fact]
@@ -190,7 +227,17 @@ namespace Extensions.net.core.tests
             Assert.True(arr2.Length == 5);
             Assert.Equal(new string[] { "one", "two", "three", "four", "five" }, arr2);
             Assert.True(Object.ReferenceEquals(arr1[0], arr2[0]));
-            Assert.Throws<ArgumentOutOfRangeException>(() => arr2.InsertDeepExt("ten", 10));
+            Assert.Throws<ArgumentOutOfRangeException>(() => arr2.InsertExt("ten", 10));
+
+            TestClass one = new(1, "One", 9.99M);
+            TestClass two = new(2, "Two", 5.99M);
+            TestClass three = new(3, "Three", 11.99M);
+
+            TestClass[] arr5 = { one, two, three };
+            TestClass four = new(4, "Four", 8.99M);
+            TestClass[] arr6 = arr5.InsertExt(four, arr5.Length);
+
+            Assert.True(Object.ReferenceEquals(arr5[0].Name, arr6[0].Name)); // point to the same memory loc.
         }
 
         [Fact]
@@ -205,6 +252,24 @@ namespace Extensions.net.core.tests
             Assert.Equal(new string[] { "one", "two", "three", "four", "five" }, arr2);
             Assert.False(Object.ReferenceEquals(arr1[0], arr2[0]));
             Assert.Throws<ArgumentOutOfRangeException>(() => arr2.InsertDeepExt("ten", 10));
+
+            string[] arr3 = { "one", "two", "three", "four", "five" };
+            string[] arr4 = arr3.InsertDeepExt("six", arr3.Length);
+            string[] expected = { "one", "two", "three", "four", "five", "six" };
+            Assert.Equal(expected, arr4);
+
+            string[] expected2 = { "zero", "one", "two", "three", "four", "five" };
+            Assert.Equal(expected2, arr3.InsertDeepExt("zero", 0));
+
+            TestClass one = new (1, "One", 9.99M);
+            TestClass two = new (2, "Two", 5.99M);
+            TestClass three = new (3, "Three", 11.99M);
+
+            TestClass[] arr5 = { one, two, three };
+            TestClass four = new(4, "Four", 8.99M);
+            TestClass[] arr6 = arr5.InsertDeepExt(four, arr5.Length);
+
+            Assert.False(Object.ReferenceEquals(arr5[0].Name, arr6[0].Name)); // strings do not point to the same memory loc.
         }
 
         [Fact]
@@ -295,6 +360,63 @@ namespace Extensions.net.core.tests
 
             decimal[] arr4 = null;
             Assert.Throws<NullReferenceException>(() => arr4.MedianExt());
+        }
+
+        [Fact]
+        public void ModeInt()
+        {
+            int[] arr1 = { -1, 1, 1, 2, 3, 3, 3, 4, 5, 6, 6, 7, 9, 11 };
+            int expected = 3;
+            int actual = arr1.ModeExt().First();
+            Assert.Equal(expected, actual);
+
+            int[] arr2 = { -1, 1, 1, 2, 3, 3, 3, 4, 5, 6, 6, 7, 9, 9, 9, 11 };
+            List<int> modes = arr2.ModeExt();
+            Assert.True(modes.Any() && modes.Count == 2);
+            Assert.Contains(3, modes);
+            Assert.Contains(9, modes);
+
+            int[] arr3 = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            List<int> modes2 = arr3.ModeExt();
+            Assert.True(modes2.Count == 0);
+        }
+
+        [Fact]
+        public void ModeDouble()
+        {
+            double[] arr1 = { -1, 1, 1, 2, 3, 3, 3, 4, 5, 6, 6, 7, 9, 11 };
+            double expected = 3;
+            double actual = arr1.ModeExt().First();
+            Assert.Equal(expected, actual);
+
+            double[] arr2 = { -1, 1, 1, 2, 3, 3, 3, 4, 5, 6, 6, 7, 9, 9, 9, 11 };
+            List<double> modes = arr2.ModeExt();
+            Assert.True(modes.Any() && modes.Count == 2);
+            Assert.Contains(3, modes);
+            Assert.Contains(9, modes);
+
+            double[] arr3 = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            List<double> modes2 = arr3.ModeExt();
+            Assert.True(modes2.Count == 0);
+        }
+
+        [Fact]
+        public void ModeDecimal()
+        {
+            decimal[] arr1 = { -1M, 1M, 1M, 2M, 3M, 3M, 3M, 4M, 5M, 6M, 6M, 7M, 9M, 11M };
+            decimal expected = 3;
+            decimal actual = arr1.ModeExt().First();
+            Assert.Equal(expected, actual);
+
+            decimal[] arr2 = { -1M, 1M, 1M, 2M, 3M, 3M, 3M, 4M, 5M, 6M, 6M, 7M, 9M, 9M, 9M, 11M };
+            List<decimal> modes = arr2.ModeExt();
+            Assert.True(modes.Any() && modes.Count == 2);
+            Assert.Contains(3, modes);
+            Assert.Contains(9, modes);
+
+            decimal[] arr3 = { 1M, 2M, 3M, 4M, 5M, 6M, 7M, 8M, 9M };
+            List<decimal> modes2 = arr3.ModeExt();
+            Assert.True(modes2.Count == 0);
         }
 
         [Fact]
@@ -569,6 +691,14 @@ namespace Extensions.net.core.tests
             Assert.Throws<ArgumentNullException>(() => arr2.RandomExt());
         }
 
+        [Fact]
+        public void ToXmlSerialize()
+        {
+            string[] arr1 = { "one", "two", "four", "five" };
+            string expected = "<?xml version=\"1.0\" encoding=\"utf-16\"?><ArrayOfString xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><string>one</string><string>two</string><string>four</string><string>five</string></ArrayOfString>";
+            string actual = arr1.ToXmlSerializeExt();
+            Assert.Equal(expected, actual);
+        }
 
         [Fact]
         public void ToXml()
@@ -720,5 +850,20 @@ namespace Extensions.net.core.tests
         }
 
         #endregion
+    }
+
+    [Serializable]
+    class TestClass
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+
+        public TestClass(int id, string name, decimal price)
+        {
+            ID = id;
+            Name = name;
+            Price = price;
+        }
     }
 }

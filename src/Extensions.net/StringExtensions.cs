@@ -578,7 +578,7 @@ namespace Extensions.net
 
             foreach (char c in text)
             {
-                if (c.ToInt32Ext() > 126)
+                if (c.ToIntExt() > 126)
                 {
                     return false;
                 }
@@ -601,7 +601,7 @@ namespace Extensions.net
 
             foreach (char c in text)
             {
-                if (c.ToInt32Ext() < 97 || c.ToInt32Ext() > 122)
+                if (c.ToIntExt() < 97 || c.ToIntExt() > 122)
                 {
                     return false;
                 }
@@ -624,7 +624,7 @@ namespace Extensions.net
 
             foreach (char c in text)
             {
-                if (c.ToInt32Ext() < 65 || c.ToInt32Ext() > 90)
+                if (c.ToIntExt() < 65 || c.ToIntExt() > 90)
                 {
                     return false;
                 }

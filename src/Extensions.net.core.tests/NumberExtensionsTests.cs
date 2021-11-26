@@ -7,7 +7,7 @@ using System.Globalization;
 using System.Threading;
 using Xunit;
 
-namespace Extensions.net.core.tests
+namespace Extensions.net.core.tests.UnitTests
 {
     public class NumberExtensionsTests
     {
@@ -487,6 +487,142 @@ namespace Extensions.net.core.tests
             double expected = BitConverter.DoubleToInt64Bits(value);
             double actual = value.ToInt64BitsExt();
             Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void IsGreaterThan()
+        {
+            int i = 5;
+            int[] arr1 = { 1, 2, 3, 4 };
+            Assert.True(i.IsGreaterThanExt(arr1));
+
+            int[] arr2 = { 1, 2, 3, 4, 5 };
+            Assert.False(i.IsGreaterThanExt(arr2));
+
+            int[] arr3 = { 1, 2, 3, 4, 6 };
+            Assert.False(i.IsGreaterThanExt(arr3));
+
+            double d = 5.3;
+            double[] arr4 = { 1.1, 2.5, 3.7, 4.9 };
+            Assert.True(d.IsGreaterThanExt(arr4));
+
+            double[] arr5 = { 1.1, 2.5, 3.7, 4.9, 5.3 };
+            Assert.False(d.IsGreaterThanExt(arr5));
+
+            double[] arr6 = { 1.1, 2.5, 3.7, 4.9, 6.3 };
+            Assert.False(d.IsGreaterThanExt(arr6));
+
+            decimal dec = 5.3M;
+            decimal[] arr7 = { 1.1M, 2.5M, 3.7M, 4.9M };
+            Assert.True(dec.IsGreaterThanExt(arr7));
+
+            decimal[] arr8 = { 1.1M, 2.5M, 3.7M, 4.9M, 5.3M };
+            Assert.False(dec.IsGreaterThanExt(arr8));
+
+            decimal[] arr9 = { 1.1M, 2.5M, 3.7M, 4.9M, 6.3M };
+            Assert.False(dec.IsGreaterThanExt(arr9));
+        }
+
+        [Fact]
+        public void IsGreaterThanEqualTo()
+        {
+            int i = 5;
+            int[] arr1 = { 1, 2, 3, 4 };
+            Assert.True(i.IsGreaterThanEqualToExt(arr1));
+
+            int[] arr2 = { 1, 2, 3, 4, 5 };
+            Assert.True(i.IsGreaterThanEqualToExt(arr2));
+
+            int[] arr3 = { 1, 2, 3, 4, 6 };
+            Assert.False(i.IsGreaterThanEqualToExt(arr3));
+
+            double d = 5.3;
+            double[] arr4 = { 1.1, 2.5, 3.7, 4.9 };
+            Assert.True(d.IsGreaterThanEqualToExt(arr4));
+
+            double[] arr5 = { 1.1, 2.5, 3.7, 4.9, 5.3 };
+            Assert.True(d.IsGreaterThanEqualToExt(arr5));
+
+            double[] arr6 = { 1.1, 2.5, 3.7, 4.9, 6.3 };
+            Assert.False(d.IsGreaterThanEqualToExt(arr6));
+
+            decimal dec = 5.3M;
+            decimal[] arr7 = { 1.1M, 2.5M, 3.7M, 4.9M };
+            Assert.True(dec.IsGreaterThanExt(arr7));
+
+            decimal[] arr8 = { 1.1M, 2.5M, 3.7M, 4.9M, 5.3M };
+            Assert.True(dec.IsGreaterThanEqualToExt(arr8));
+
+            decimal[] arr9 = { 1.1M, 2.5M, 3.7M, 4.9M, 6.3M };
+            Assert.False(dec.IsGreaterThanEqualToExt(arr9));
+        }
+
+        [Fact]
+        public void IsLessThan()
+        {
+            int i = 1;
+            int[] arr1 = { 2, 3, 4, 5 };
+            Assert.True(i.IsLessThanExt(arr1));
+
+            int[] arr2 = { 1, 2, 3, 4, 5 };
+            Assert.False(i.IsLessThanExt(arr2));
+
+            int[] arr3 = { -1, 2, 3, 4, 6 };
+            Assert.False(i.IsLessThanExt(arr3));
+
+            double d = 1.1;
+            double[] arr4 = { 2.5, 3.7, 4.9, 5.3 };
+            Assert.True(d.IsLessThanExt(arr4));
+
+            double[] arr5 = { 1.1, 2.5, 3.7, 4.9, 5.3 };
+            Assert.False(d.IsLessThanExt(arr5));
+
+            double[] arr6 = { -1.1, 2.5, 3.7, 4.9, 6.3 };
+            Assert.False(d.IsLessThanExt(arr6));
+
+            decimal dec = 1.1M;
+            decimal[] arr7 = { 2.5M, 3.7M, 4.9M, 5.3M };
+            Assert.True(dec.IsLessThanExt(arr7));
+
+            decimal[] arr8 = { 1.1M, 2.5M, 3.7M, 4.9M, 5.3M };
+            Assert.False(dec.IsLessThanExt(arr8));
+
+            decimal[] arr9 = { -1.1M, 2.5M, 3.7M, 4.9M, 6.3M };
+            Assert.False(dec.IsLessThanExt(arr9));
+        }
+
+        [Fact]
+        public void IsLessThanEqualTo()
+        {
+            int i = 1;
+            int[] arr1 = { 2, 3, 4, 5 };
+            Assert.True(i.IsLessThanEqualToExt(arr1));
+
+            int[] arr2 = { 1, 2, 3, 4, 5 };
+            Assert.True(i.IsLessThanEqualToExt(arr2));
+
+            int[] arr3 = { -1, 2, 3, 4, 6 };
+            Assert.False(i.IsLessThanEqualToExt(arr3));
+
+            double d = 1.1;
+            double[] arr4 = { 2.5, 3.7, 4.9, 5.3 };
+            Assert.True(d.IsLessThanEqualToExt(arr4));
+
+            double[] arr5 = { 1.1, 2.5, 3.7, 4.9, 5.3 };
+            Assert.True(d.IsLessThanEqualToExt(arr5));
+
+            double[] arr6 = { -1.1, 2.5, 3.7, 4.9, 6.3 };
+            Assert.False(d.IsLessThanEqualToExt(arr6));
+
+            decimal dec = 1.1M;
+            decimal[] arr7 = { 2.5M, 3.7M, 4.9M, 5.3M };
+            Assert.True(dec.IsLessThanEqualToExt(arr7));
+
+            decimal[] arr8 = { 1.1M, 2.5M, 3.7M, 4.9M, 5.3M };
+            Assert.True(dec.IsLessThanEqualToExt(arr8));
+
+            decimal[] arr9 = { -1.1M, 2.5M, 3.7M, 4.9M, 6.3M };
+            Assert.False(dec.IsLessThanEqualToExt(arr9));
         }
     }
 }

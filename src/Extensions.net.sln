@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2046
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions.net", "Extensions.net\Extensions.net.csproj", "{BE50E1B2-00C0-4F34-9AAE-8D5B646A9AC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions.net", "Extensions.net\Extensions.net.csproj", "{BE50E1B2-00C0-4F34-9AAE-8D5B646A9AC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions.net.core.tests", "Extensions.net.core.tests\Extensions.net.core.tests.csproj", "{A30DCF5F-6D03-4C04-B8DF-E82E58CD5FDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions.net.core.tests", "Extensions.net.core.tests\Extensions.net.core.tests.csproj", "{A30DCF5F-6D03-4C04-B8DF-E82E58CD5FDF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

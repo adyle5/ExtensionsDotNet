@@ -228,17 +228,25 @@ Array Extensions:
 IsNullOrEmptyExt
 ShuffleExt
 
-1.3.0
+2.0.0
+
+Moved projects into a src folder and added assest folder.
 
 Bug Fixes:
-ShuffleExt in Array Extensions.
+ShuffleExt, InsertDeepExt, InsertEx, CopyDeepExt in Array Extensions.
 
 Modified CapitalizeExt to handle in sentence periods.
+
+Renamed ToInt32Ext to ToIntExt. Marked ToInt32Ext as deprecated. ToInt32Ext will be deleted in a future release. Update your code to avoid future code breaks.
 
 New Extensions
 
 Number Extensions:
 ToInt64BitsExt
+IsGreaterThanExt
+IsGreaterThanEqualToExt
+IsLessThanExt
+IsLessThanEqualToExt
 
 String Extensions:
 TabExt
@@ -246,5 +254,13 @@ LineBreakExt
 IsNotNullOrWhiteSpaceExt
 IsNotNullOrEmptyExt
 
-EnumerationExtensions:
+Enumeration Extensions:
 ToStringExt
+
+Array Extensions:
+ToXmlSerialize
+ModeExt
+
+Generic Extensions:
+ToStringBuilderExt
+IsDBNullExt

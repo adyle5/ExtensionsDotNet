@@ -2,6 +2,7 @@
 // Refer to license.txt for usage and permission information 
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
@@ -46,6 +47,7 @@ namespace Extensions.net
 
         /// <summary>
         /// Performs a deep copy of an array containing reference types.
+        /// Complex classes must be marked as serializable.
         /// O(n) time complexity.
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -70,6 +72,7 @@ namespace Extensions.net
 
         /// <summary>
         /// Performs a deep copy of an array containing reference types.
+        /// Complex classes must be marked as serializable.
         /// O(n) time complexity.
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -84,7 +87,7 @@ namespace Extensions.net
 
             T[] arr2 = new T[length];
 
-            if (index <= length && index + length <= arr.Length)
+            if (index <= length && (index + length) <= arr.Length)
             {
                 for (int baseI = 0; baseI < length; baseI++)
                 {
@@ -102,7 +105,8 @@ namespace Extensions.net
 
         /// <summary>
         /// Copies an array of type T into a new array of type T and inserts a value into the position specified.
-        /// This performs a deep copy of the first of array and of the value being inserted.
+        /// This performs a deep copy of the first of array and of the value being inserted, so the new array and existing array will not point to the same location in memory.
+        /// Position is zero based, so to put an item between the send and third item, position should be set to 2.
         /// This extension method may have time complexities that make it costly to run on a large array.
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -115,13 +119,27 @@ namespace Extensions.net
             if (arr == null)
                 return arr;
 
-            if (position > arr.Length || position < 0)
+            if (position > arr.Length + 1 || position < 0)
                 throw new ArgumentOutOfRangeException("Insert position out of range");
 
-            T[] newArr1 = arr.CopyDeepExt(0, position);
-            T[] newArr2 = new T[1] { value.DeepCopyExt() };
-            T[] newArr3 = arr.CopyDeepExt(position, arr.Length - position);
-            return newArr1.ConcatenateDeepExt(newArr2).ConcatenateDeepExt(newArr3);
+            T[] newArr = new T[arr.Length + 1];
+            for (int i = 0; i < newArr.Length; i++)
+            {
+                if (i < position)
+                {
+                    newArr[i] = arr[i].DeepCopyExt();
+                }
+                else if (i > position)
+                {
+                    newArr[i] = arr[i -1].DeepCopyExt();
+                }
+                else if (i == position)
+                {
+                    newArr[i] = value.DeepCopyExt();
+                }
+            }
+
+            return newArr;
         }
 
         /// <summary>
@@ -139,15 +157,27 @@ namespace Extensions.net
             if (arr == null)
                 return arr;
 
-            if (position > arr.Length || position < 0)
+            if (position > arr.Length + 1 || position < 0)
                 throw new ArgumentOutOfRangeException("Insert position out of range");
 
-            T[] newArr1 = new T[position + 1];
-            Array.Copy(arr, 0, newArr1, 0, position);
-            newArr1[newArr1.Length - 1] = value;
-            T[] newArr2 = new T[arr.Length - position];
-            Array.Copy(arr, position, newArr2, 0, newArr2.Length);
-            return newArr1.ConcatenateExt(newArr2);
+            T[] newArr = new T[arr.Length + 1];
+            for (int i = 0; i < newArr.Length; i++)
+            {
+                if (i < position)
+                {
+                    newArr[i] = arr[i];
+                }
+                else if (i > position)
+                {
+                    newArr[i] = arr[i - 1];
+                }
+                else if (i == position)
+                {
+                    newArr[i] = value;
+                }
+            }
+
+            return newArr;
         }
 
         /// <summary>
@@ -319,7 +349,6 @@ namespace Extensions.net
                 return (arr[((arr.Length + 1) / 2) - 1]);
             }
         }
-
         /// <summary>
         /// Returns a decimal representing the median of a decimal array.
         /// </summary>
@@ -341,6 +370,92 @@ namespace Extensions.net
             }
         }
 
+        /// <summary>
+        /// Returns the mode or modes of an int array as a generic list of integers.
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public static List<int> ModeExt(this int[] arr)
+        {
+            var mode = new List<int>();
+            int count = 1;
+
+            int[] duplicates = arr.DuplicatesExt();
+            for (int i = 0; i < duplicates.Length; i++)
+            {
+                int c = arr.FindAllExt(x => x == duplicates[i]).Length;
+                if (c > 1 && c > count)
+                {
+                    mode.Clear();
+                    mode.Add(duplicates[i]);
+                    count = c;
+                }
+                else if (c > 1 && c == count)
+                {
+                    mode.Add(duplicates[i]);
+                }
+            }
+
+            return mode;
+        }
+
+        /// <summary>
+        /// Returns the mode or modes of a double array as a generic list of doubles.
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public static List<double> ModeExt(this double[] arr)
+        {
+            var mode = new List<double>();
+            int count = 1;
+
+            double[] duplicates = arr.DuplicatesExt();
+            for (int i = 0; i < duplicates.Length; i++)
+            {
+                int c = arr.FindAllExt(x => x == duplicates[i]).Length;
+                if (c > 1 && c > count)
+                {
+                    mode.Clear();
+                    mode.Add(duplicates[i]);
+                    count = c;
+                }
+                else if (c > 1 && c == count)
+                {
+                    mode.Add(duplicates[i]);
+                }
+            }
+
+            return mode;
+        }
+
+        /// <summary>
+        /// Returns the mode or modes of a decimal array as a generic list of decimals.
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public static List<decimal> ModeExt(this decimal[] arr)
+        {
+            var mode = new List<decimal>();
+            int count = 1;
+
+            decimal[] duplicates = arr.DuplicatesExt();
+            for (int i = 0; i < duplicates.Length; i++)
+            {
+                int c = arr.FindAllExt(x => x == duplicates[i]).Length;
+                if (c > 1 && c > count)
+                {
+                    mode.Clear();
+                    mode.Add(duplicates[i]);
+                    count = c;
+                }
+                else if (c > 1 && c == count)
+                {
+                    mode.Add(duplicates[i]);
+                }
+            }
+
+            return mode;
+        }
         /// <summary>
         /// Maps to Array.Exists
         /// Takes an arrow function as a parameter.
@@ -721,6 +836,20 @@ namespace Extensions.net
             {
                 throw new ArgumentNullException(nameof(arr));
             }
+        }
+
+        /// <summary>
+        /// Uses System.Xml.Serialization.XmlSerializer to serialize an array and return an xml string.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public static string ToXmlSerializeExt<T>(this T[] arr)
+        {
+            var ser = new System.Xml.Serialization.XmlSerializer(typeof(T[]));
+            using var tw = new System.IO.StringWriter();
+            ser.Serialize(tw, arr);
+            return tw.ToString();
         }
 
         /// <summary>

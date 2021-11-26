@@ -5,13 +5,10 @@ using System.Security.Cryptography;
 using System.Text;
 using Xunit;
 
-namespace Extensions.net.core.tests
+namespace Extensions.net.core.tests.UnitTests
 {
     public class CryptographyExtensionsTests
     {
-        /// <summary>
-        /// 
-        /// </summary>
         [Fact]
         public void ComputeHash256()
         {
@@ -27,9 +24,6 @@ namespace Extensions.net.core.tests
             Assert.Equal(expected, x.ComputeHash256Ext());
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         [Fact]
         public void ComputeHash512()
         {
@@ -47,9 +41,6 @@ namespace Extensions.net.core.tests
             Assert.NotEqual(expected, x.ComputeHash256Ext());
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         [Fact]
         public void ComputeHashMD5()
         {
