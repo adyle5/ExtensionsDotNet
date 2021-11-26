@@ -3,7 +3,7 @@
 
 using Xunit;
 
-namespace Extensions.net.core.tests
+namespace Extensions.net.core.tests.UnitTests
 {
     public class EnumerationExtensionsTests
     {
@@ -34,6 +34,15 @@ namespace Extensions.net.core.tests
 
             string[] expected = { "A", "B", "C" };
             string[] actual = abc.GetNamesExt();
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void ToStringExt()
+        {
+            ABC abc = new();
+            string expected = "A, B, C";
+            string actual = abc.ToStringExt();
             Assert.Equal(expected, actual);
         }
 

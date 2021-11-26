@@ -3,7 +3,7 @@
 
 using Xunit;
 
-namespace Extensions.net.core.tests
+namespace Extensions.net.core.tests.UnitTests
 {
     public class CharExtensionsTests
     {

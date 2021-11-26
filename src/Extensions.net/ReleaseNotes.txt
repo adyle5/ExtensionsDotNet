@@ -213,6 +213,8 @@ ScrubExt
 Number Extensions:
 ShuffleExt
 ToListExt
+
+Math Extensions:
 VolumeOfCylinderExt
 VolumeOfSphereExt
 VolumeOfConeExt
@@ -225,3 +227,40 @@ AreaOfCylinderExt
 Array Extensions:
 IsNullOrEmptyExt
 ShuffleExt
+
+2.0.0
+
+Moved projects into a src folder and added assest folder.
+
+Bug Fixes:
+ShuffleExt, InsertDeepExt, InsertEx, CopyDeepExt in Array Extensions.
+
+Modified CapitalizeExt to handle in sentence periods.
+
+Renamed ToInt32Ext to ToIntExt. Marked ToInt32Ext as deprecated. ToInt32Ext will be deleted in a future release. Update your code to avoid future code breaks.
+
+New Extensions
+
+Number Extensions:
+ToInt64BitsExt
+IsGreaterThanExt
+IsGreaterThanEqualToExt
+IsLessThanExt
+IsLessThanEqualToExt
+
+String Extensions:
+TabExt
+LineBreakExt
+IsNotNullOrWhiteSpaceExt
+IsNotNullOrEmptyExt
+
+Enumeration Extensions:
+ToStringExt
+
+Array Extensions:
+ToXmlSerialize
+ModeExt
+
+Generic Extensions:
+ToStringBuilderExt
+IsDBNullExt

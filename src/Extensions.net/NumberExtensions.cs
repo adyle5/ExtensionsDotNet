@@ -387,7 +387,7 @@ namespace Extensions.net
 
             string numString = number.ToString();
             string shuffledString = numString.ShuffleExt();
-            return shuffledString.ToInt32Ext();
+            return shuffledString.ToIntExt();
         }
 
         /// <summary>
@@ -400,10 +400,234 @@ namespace Extensions.net
             List<int> lsInt = new ();
             foreach (char cc in Math.Abs(number).ToString().ToCharArray())
             {
-                lsInt.Add(cc.ToString().ToInt32Ext());
+                lsInt.Add(cc.ToString().ToIntExt());
             }
 
             return lsInt;
+        }
+
+        /// <summary>
+        /// Maps to BitConverter.DoubleToInt64Bits
+        /// Converts the extended double to a 64 bit signed integer (lon).
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static long ToInt64BitsExt(this double value) => BitConverter.DoubleToInt64Bits(value);
+
+        /// <summary>
+        /// Compares the extended integer to an array of integers.
+        /// Returns true if the extended integer is greater than all the integers in the array and false if the extended integer is less than or equal to all the integers in the array.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="comparer"></param>
+        /// <returns></returns>
+        public static bool IsGreaterThanExt(this int value, int[] comparer)
+        {
+            for (int i = 0; i < comparer.Length; i++)
+            {
+                if (value <= comparer[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Compares the extended integer to an array of integers.
+        /// Returns true if the extended integer is greater than or equal to all the integers in the array and false if the extended integer is less than all the integers in the array.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="comparer"></param>
+        /// <returns></returns>
+        public static bool IsGreaterThanEqualToExt(this int value, int[] comparer)
+        {
+            for (int i = 0; i < comparer.Length; i++)
+            {
+                if (value < comparer[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Compares the extended integer to an array of integers.
+        /// Returns true if the extended integer is less than all the integers in the array and false if the extended integer is greater than or equal to all the integers in the array.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="comparer"></param>
+        /// <returns></returns>
+        public static bool IsLessThanExt(this int value, int[] comparer)
+        {
+            for (int i = 0; i < comparer.Length; i++)
+            {
+                if (value >= comparer[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Compares the extended integer to an array of integers.
+        /// Returns true if the extended integer is less than or equal to all the integers in the array and false if the extended integer is greater than all the integers in the array.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="comparer"></param>
+        /// <returns></returns>
+        public static bool IsLessThanEqualToExt(this int value, int[] comparer)
+        {
+            for (int i = 0; i < comparer.Length; i++)
+            {
+                if (value > comparer[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Compares the extended double to an array of doubles.
+        /// Returns true if the extended double is greater than all the doubles in the array and false if the extended double is less than or equal to all the doubles in the array.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="comparer"></param>
+        /// <returns></returns>
+        public static bool IsGreaterThanExt(this double value, double[] comparer)
+        {
+            for (int i = 0; i < comparer.Length; i++)
+            {
+                if (value <= comparer[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Compares the extended double to an array of doubles.
+        /// Returns true if the extended double is greater than or equal to all the doubles in the array and false if the extended double is less than all the doubles in the array.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="comparer"></param>
+        /// <returns></returns>
+        public static bool IsGreaterThanEqualToExt(this double value, double[] comparer)
+        {
+            for (int i = 0; i < comparer.Length; i++)
+            {
+                if (value < comparer[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Compares the extended double to an array of doubles.
+        /// Returns true if the extended double is less than all the doubles in the array and false if the extended double is greater than or equal to all the doubles in the array.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="comparer"></param>
+        /// <returns></returns>
+        public static bool IsLessThanExt(this double value, double[] comparer)
+        {
+            for (int i = 0; i < comparer.Length; i++)
+            {
+                if (value >= comparer[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Compares the extended double to an array of doubles.
+        /// Returns true if the extended double is less than or equal to all the doubles in the array and false if the extended double is less than all the doubles in the array.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="comparer"></param>
+        /// <returns></returns>
+        public static bool IsLessThanEqualToExt(this double value, double[] comparer)
+        {
+            for (int i = 0; i < comparer.Length; i++)
+            {
+                if (value > comparer[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Compares the extended decimal to an array of decimals.
+        /// Returns true if the extended decimal is greater than all the decimals in the array and false if the extended decimal is less than or equal to all the decimals in the array.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="comparer"></param>
+        /// <returns></returns>
+        public static bool IsGreaterThanExt(this decimal value, decimal[] comparer)
+        {
+            for (int i = 0; i < comparer.Length; i++)
+            {
+                if (value <= comparer[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Compares the extended decimal to an array of decimals.
+        /// Returns true if the extended decimal is greater than or equal to all the decimals in the array and false if the extended decimal is less than all the decimals in the array.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="comparer"></param>
+        /// <returns></returns>
+        public static bool IsGreaterThanEqualToExt(this decimal value, decimal[] comparer)
+        {
+            for (int i = 0; i < comparer.Length; i++)
+            {
+                if (value < comparer[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Compares the extended decimal to an array of decimals.
+        /// Returns true if the extended decimal is less than all the decimals in the array and false if the extended decimal is greater than or equal to all the decimals in the array.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="comparer"></param>
+        /// <returns></returns>
+        public static bool IsLessThanExt(this decimal value, decimal[] comparer)
+        {
+            for (int i = 0; i < comparer.Length; i++)
+            {
+                if (value >= comparer[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Compares the extended decimal to an array of decimals.
+        /// Returns true if the extended decimal is less than or equal to all the decimals in the array and false if the extended decimal is less than all the decimals in the array. 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="comparer"></param>
+        /// <returns></returns>
+        public static bool IsLessThanEqualToExt(this decimal value, decimal[] comparer)
+        {
+            for (int i = 0; i < comparer.Length; i++)
+            {
+                if (value > comparer[i])
+                    return false;
+            }
+
+            return true;
         }
     }
 }

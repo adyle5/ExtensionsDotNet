@@ -13,7 +13,7 @@ using System.Xml.Linq;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Extensions.net.core.tests
+namespace Extensions.net.core.tests.UnitTests
 {
     public class StringExtensionsTests
     {
@@ -38,7 +38,7 @@ namespace Extensions.net.core.tests
         }
 
         [Fact]
-        public void TestIsNullOrEmpty()
+        public void IsNullOrEmpty()
         {
             string str1 = "";
             Assert.Equal(string.IsNullOrEmpty(str1), str1.IsNullOrEmptyExt());
@@ -48,6 +48,32 @@ namespace Extensions.net.core.tests
 
             string str3 = "Not empty";
             Assert.Equal(string.IsNullOrEmpty(str3), str3.IsNullOrEmptyExt());
+        }
+
+        [Fact]
+        public void IsNotNullOrWhiteSpace()
+        {
+            string str1 = "";
+            Assert.Equal(!string.IsNullOrWhiteSpace(str1), str1.IsNotNullOrWhiteSpaceExt());
+
+            string str2 = "Not whitespace";
+            Assert.Equal(!string.IsNullOrWhiteSpace(str2), str2.IsNotNullOrWhiteSpaceExt());
+
+            string str3 = " ";
+            Assert.Equal(!string.IsNullOrWhiteSpace(str3), str3.IsNotNullOrWhiteSpaceExt());
+        }
+
+        [Fact]
+        public void IsNotNullOrEmpty()
+        {
+            string str1 = "";
+            Assert.Equal(!string.IsNullOrEmpty(str1), str1.IsNotNullOrEmptyExt());
+
+            string str2 = " ";
+            Assert.Equal(!string.IsNullOrEmpty(str2), str2.IsNotNullOrEmptyExt());
+
+            string str3 = "Not empty";
+            Assert.Equal(!string.IsNullOrEmpty(str3), str3.IsNotNullOrEmptyExt());
         }
 
         [Fact]
@@ -452,8 +478,8 @@ namespace Extensions.net.core.tests
         [Fact]
         public void Capitalize()
         {
-            string s = "this is a test string.";
-            string expected = "This is a test string.";
+            string s = "testing testing t.t testing testing. sentence 2.";
+            string expected = "Testing testing t.t testing testing. Sentence 2.";
 
             Assert.Equal(expected, s.CapitalizeExt());
 
@@ -876,6 +902,44 @@ namespace Extensions.net.core.tests
 
             expected = "P@ssw0rd#";
             Assert.Equal(expected, text.ScrubExt(length: 0));
+        }
+
+        [Fact]
+        public void Tab()
+        {
+            string test = "Test";
+            string expected = $"\t\t\t\t\t{test}";
+            string actual = test.TabExt(5);
+            Assert.Equal(expected, actual);
+
+            string testNull = null;
+            expected = "\t\t\t\t\t";
+            actual = testNull.TabExt(5);
+            Assert.Equal(expected, actual);
+
+            string testEmpty = null;
+            expected = "\t\t\t\t\t";
+            actual = testEmpty.TabExt(5);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Line()
+        {
+            string test = "Test";
+            string expected = "Test\r\n\r\n\r\n\r\n\r\n";
+            string actual = test.LineBreakExt(5);
+            Assert.Equal(expected,actual);
+
+            string testNull = null;
+            expected = "\r\n\r\n\r\n\r\n\r\n";
+            actual = testNull.LineBreakExt(5);
+            Assert.Equal(expected, actual);
+
+            string testEmpty = "";
+            expected = "\r\n\r\n\r\n\r\n\r\n";
+            actual = testEmpty.LineBreakExt(5);
+            Assert.Equal(expected, actual);
         }
 
         #region "Private Methods"

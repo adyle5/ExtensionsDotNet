@@ -1,15 +1,18 @@
 ﻿// Copyright © 2021 Adrian Gabor
 // Refer to license.txt for usage and permission information 
 
+using Extensions.net.core.tests.models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Extensions.net.core.tests
+namespace Extensions.net.core.tests.UnitTests
 {
     public class GenericExtensionsTests
     {
@@ -22,17 +25,17 @@ namespace Extensions.net.core.tests
 
 
         [Fact]
-        public void ToInt32()
+        public void ToInt()
         {
             string str1 = "1";
-            Assert.Equal(Convert.ToInt32(str1), str1.ToInt32Ext());
+            Assert.Equal(Convert.ToInt32(str1), str1.ToIntExt());
 
             string str2 = "two";
-            FormatException formatEx = Assert.Throws<FormatException>(() => str2.ToInt32Ext());
+            FormatException formatEx = Assert.Throws<FormatException>(() => str2.ToIntExt());
             Assert.Equal("Input string was not in a correct format.", formatEx.Message);
 
             string str3 = Int64.MaxValue.ToString();
-            Assert.Throws<OverflowException>(() => str3.ToInt32Ext());
+            Assert.Throws<OverflowException>(() => str3.ToIntExt());
 
             string strMax = int.MaxValue.ToString();
             //First call might skew results, so let's get it out of the way.
@@ -591,6 +594,89 @@ namespace Extensions.net.core.tests
             Assert.Null(ex2);
         }
 
+        //[Fact]
+        //public void ToConsole()
+        //{
+        //    string text = "Lorem ipsum";
+        //    var ex1 = Record.Exception(() => text.ToConsoleExt());
+        //    Assert.Null(ex1);
+
+        //    bool b = true;
+        //    ex1 = Record.Exception(() => b.ToConsoleExt());
+        //    Assert.Null(ex1);
+
+        //    int i = 5;
+        //    ex1 = Record.Exception(() => i.ToConsoleExt());
+        //    Assert.Null(ex1);
+        //}
+
+        //[Fact]
+        //public void ToConsoleLine()
+        //{
+        //    string text = "Lorem ipsum";
+        //    var ex1 = Record.Exception(() => text.ToConsoleLineExt());
+        //    Assert.Null(ex1);
+
+        //    bool b = true;
+        //    ex1 = Record.Exception(() => b.ToConsoleLineExt());
+        //    Assert.Null(ex1);
+
+        //    int i = 5;
+        //    ex1 = Record.Exception(() => i.ToConsoleLineExt());
+        //    Assert.Null(ex1);
+        //}
+
+        [Fact]
+        public void ToStringBuilder()
+        {
+            string hello = "Hello";
+            string world = "World";
+            string space = " ";
+            string exclaim = "!";
+
+            StringBuilder sb = hello.ToStringBuilderExt(space, world, exclaim);
+            string expected = "Hello World!";
+            string actual = sb.ToString();
+            Assert.Equal(expected, actual);
+
+            string t = "test";
+            int i = 5;
+            bool b = true;
+            char c = 'c';
+            long l = 35;
+
+            expected = "5testTruec35";
+            actual = i.ToStringBuilderExt(t, b, c, l).ToString();
+            Assert.Equal(expected , actual);
+        }
+
+        [Fact]
+        public void IsDBNull()
+        {
+            using var ctx = new TestModelContext();
+            ctx.Database.OpenConnection();
+
+            using var command = ctx.Database.GetDbConnection().CreateCommand();
+            command.CommandText = @"CREATE TABLE Test(Id INTEGER, Name Text, Description Text);";
+            command.ExecuteNonQuery();
+
+            using var command2 = ctx.Database.GetDbConnection().CreateCommand();
+            command2.CommandText = @"INSERT INTO Test (Id, Name) VALUES (1, 'Bob');";
+            command2.ExecuteNonQuery();
+
+            using var command3 = ctx.Database.GetDbConnection().CreateCommand();
+            command3.CommandText = @"SELECT Name FROM Test WHERE Id = 1;";
+            object name = command3.ExecuteScalar();
+            Assert.False(name.IsDBNullExt());
+
+            using var command4 = ctx.Database.GetDbConnection().CreateCommand();
+            command4.CommandText = @"SELECT Description FROM Test WHERE Id = 1;";
+            object description = command4.ExecuteScalar();
+            Assert.True(description.IsDBNullExt());
+
+            ctx.Database.CloseConnection();
+        }
+
         #region "Private Methods"
 
         private static long ConvertInt32DotNet(string str1)
@@ -605,7 +691,7 @@ namespace Extensions.net.core.tests
         {
             Stopwatch sw = Stopwatch.StartNew();
             sw.Start();
-            str1.ToInt32Ext();
+            str1.ToIntExt();
             sw.Stop();
             return sw.ElapsedTicks;
         }

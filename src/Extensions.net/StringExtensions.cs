@@ -31,6 +31,20 @@ namespace Extensions.net
         public static bool IsNullOrEmptyExt(this string text) => string.IsNullOrEmpty(text);
 
         /// <summary>
+        /// Uses string.IsNullOrWhiteSpace
+        /// </summary>
+        /// <returns><c>false</c>, if string null or white space, <c>true</c> otherwise.</returns>
+        /// <param name="text">Text.</param>
+        public static bool IsNotNullOrWhiteSpaceExt(this string text) => !string.IsNullOrWhiteSpace(text);
+
+        /// <summary>
+        /// Uses string.IsNullOrEmpty
+        /// </summary>
+        /// <returns><c>false</c>, if string null or empty, <c>true</c> otherwise.</returns>
+        /// <param name="text">Text.</param>
+        public static bool IsNotNullOrEmptyExt(this string text) => !string.IsNullOrEmpty(text);
+
+        /// <summary>
         /// Maps to string.<paramref name="compareTo"/>, sets the String comparison to Invariant Culture Ignore Case.
         /// </summary>
         /// <returns>The value that comes first alphabeltically. If the same returns an empty string. Ignores case.</returns>
@@ -417,9 +431,9 @@ namespace Extensions.net
         {
             if (!text.IsNullOrWhiteSpaceExt())
             {
-                if (text.Contains("."))
+                if (text.Contains(". "))
                 {
-                    string[] arrText = text.Split('.');
+                    string[] arrText = text.Split(new string[] { ". " }, StringSplitOptions.None);
                     string[] arrCap = new string[arrText.Length];
 
                     for (int i = 0; i < arrText.Length; i++)
@@ -564,7 +578,7 @@ namespace Extensions.net
 
             foreach (char c in text)
             {
-                if (c.ToInt32Ext() > 126)
+                if (c.ToIntExt() > 126)
                 {
                     return false;
                 }
@@ -587,7 +601,7 @@ namespace Extensions.net
 
             foreach (char c in text)
             {
-                if (c.ToInt32Ext() < 97 || c.ToInt32Ext() > 122)
+                if (c.ToIntExt() < 97 || c.ToIntExt() > 122)
                 {
                     return false;
                 }
@@ -610,7 +624,7 @@ namespace Extensions.net
 
             foreach (char c in text)
             {
-                if (c.ToInt32Ext() < 65 || c.ToInt32Ext() > 90)
+                if (c.ToIntExt() < 65 || c.ToIntExt() > 90)
                 {
                     return false;
                 }
@@ -824,6 +838,35 @@ namespace Extensions.net
 
             string scrub = new (character, (int)length);
             return string.Concat(text.Substring(0, text.Length - scrub.Length), scrub);
+        }
+
+        /// <summary>
+        /// Tabs the extended string the number of times specified in the numTabs parameter.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="numOfTabs"></param>
+        /// <returns></returns>
+        public static string TabExt(this string text, int numOfTabs) => new string('\t', numOfTabs).ConcatExt(text);
+
+        /// <summary>
+        /// Added the number of lines after the extended string.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="numOfLines"></param>
+        /// <returns></returns>
+        public static string LineBreakExt(this string text, int numOfLines)
+        {
+            char[] arr = new char[numOfLines];
+            arr.ResizeExt(ref arr, numOfLines * 2);
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (i == 0)
+                    arr[i] = '\r';
+                else
+                    arr[i] = arr[i-1] == '\r' ? '\n' : '\r';
+            }
+
+            return text.ConcatExt(new string(arr));
         }
     }
 }

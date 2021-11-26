@@ -4,9 +4,9 @@
 using System.Diagnostics;
 using Xunit;
 
-namespace Extensions.net.core.tests
+namespace Extensions.net.core.tests.UnitTests
 {
-    public class BooleanTests
+    public class BooleanExtensionsTests
     {
         [Fact]
         public void TryParse()

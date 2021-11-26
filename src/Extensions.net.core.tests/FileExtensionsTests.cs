@@ -4,7 +4,7 @@
 using System.IO;
 using Xunit;
 
-namespace Extensions.net.core.tests
+namespace Extensions.net.core.tests.UnitTests
 {
     public class FileExtensionsTests
     {
