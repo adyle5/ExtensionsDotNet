@@ -833,7 +833,7 @@ namespace Extensions.net
         /// <returns></returns>
         public static string ScrubExt(this string text, char character = '*', int? length = null)
         {
-            if (length == null || length < 0)
+            if (length == null || length < 0 || length > text.Length)
                 length = text.Length;
 
             string scrub = new (character, (int)length);
