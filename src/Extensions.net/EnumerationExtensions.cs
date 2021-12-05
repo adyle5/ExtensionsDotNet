@@ -42,7 +42,7 @@ namespace Extensions.net
         public static string[] GetNamesExt(this Enum @enum) => Enum.GetNames(@enum.GetType());
 
         /// <summary>
-        /// 
+        /// Joins all values in an enumeration into a comma delimited string.
         /// </summary>
         /// <param name="enum"></param>
         /// <returns></returns>

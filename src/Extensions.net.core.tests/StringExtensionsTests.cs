@@ -902,6 +902,9 @@ namespace Extensions.net.core.tests.UnitTests
 
             expected = "P@ssw0rd#";
             Assert.Equal(expected, text.ScrubExt(length: 0));
+
+            expected = "*********";
+            Assert.Equal(expected, text.ScrubExt(length: 1000));
         }
 
         [Fact]

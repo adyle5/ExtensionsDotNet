@@ -408,7 +408,7 @@ namespace Extensions.net
 
         /// <summary>
         /// Maps to BitConverter.DoubleToInt64Bits
-        /// Converts the extended double to a 64 bit signed integer (lon).
+        /// Converts the extended double to a 64 bit signed integer (long).
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
