@@ -4,7 +4,7 @@ ExtensionsDotNet is a .NET library written in C# and hosted on [NUGET](https://w
 
 ExtensionsDotNet is written against the .NET Standard 2.0 specifications and is supported in the following versions of .NET (and higher). To learn more about the .NET Standard, visit the [Microsoft Docs](https://docs.microsoft.com/en-us/dotnet/standard/net-standard).
 
-| Impelmentation | Version |
+| Impelmentation | Min Version Supported |
 | -------------- | ------- |
 | .NET | 5.0 |
 | .NET Core | 2.1 |
