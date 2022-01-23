@@ -4,7 +4,6 @@
 using System.Linq;
 using System.Collections.Generic;
 using System;
-using System.Text;
 
 namespace Extensions.net
 {
@@ -13,6 +12,7 @@ namespace Extensions.net
         /// <summary>
         /// Converts an instance of an enum into a List of strings.
         /// Uses Linq which may affect time complexity.
+        /// Parameter can be an instance of the enumeration or an enumeration value.
         /// </summary>
         /// <param name="enum"></param>
         /// <returns></returns>
@@ -26,6 +26,7 @@ namespace Extensions.net
         /// <summary>
         /// Gets the name of the enumeration constant with the value of the paramater.
         /// Maps to Enum.GetName
+        /// Parameter can be an instance of the enumeration or an enumeration value.
         /// </summary>
         /// <param name="enum"></param>
         /// <param name="value"></param>
@@ -36,6 +37,7 @@ namespace Extensions.net
         /// <summary>
         /// Returns a string array of the names of an enum that matches the type of the emumeration being extended.
         /// Maps to Enum.GetNames.
+        /// Parameter can be an instance of the enumeration or an enumeration value.
         /// </summary>
         /// <param name="enum"></param>
         /// <returns></returns>
@@ -43,6 +45,7 @@ namespace Extensions.net
 
         /// <summary>
         /// Joins all values in an enumeration into a comma delimited string.
+        /// Parameter can be an instance of the enumeration or an enumeration value.
         /// </summary>
         /// <param name="enum"></param>
         /// <returns></returns>
