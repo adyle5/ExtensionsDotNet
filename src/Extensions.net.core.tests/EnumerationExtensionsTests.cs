@@ -15,6 +15,9 @@ namespace Extensions.net.core.tests.UnitTests
             string expected = "A,B,C";
             string actual = string.Join(',', abc.ToListExt());
             Assert.Equal(expected, actual);
+
+            actual = string.Join(',', ABC.B.ToListExt());
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
@@ -24,6 +27,9 @@ namespace Extensions.net.core.tests.UnitTests
 
             string expected = "C";
             string actual = abc.GetNameExt(2);
+            Assert.Equal(expected, actual);
+
+            actual = ABC.C.GetNameExt(2);
             Assert.Equal(expected, actual);
         }
 
@@ -35,14 +41,20 @@ namespace Extensions.net.core.tests.UnitTests
             string[] expected = { "A", "B", "C" };
             string[] actual = abc.GetNamesExt();
             Assert.Equal(expected, actual);
+
+            actual = ABC.A.GetNamesExt();
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void ToStringExt()
         {
-            ABC abc = new();
+            ABC abc = new ();
             string expected = "A, B, C";
             string actual = abc.ToStringExt();
+            Assert.Equal(expected, actual);
+
+            actual = ABC.A.ToStringExt();
             Assert.Equal(expected, actual);
         }
 

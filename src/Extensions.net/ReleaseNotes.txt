@@ -269,3 +269,12 @@ IsDBNullExt
 
 Bug Fixes:
 Add upper bound length constraint to SrubExt.
+
+2.1.0
+
+New Extensions
+
+Generic Extensions:
+GetDescriptionExt
+ToStringExt
+IsExt

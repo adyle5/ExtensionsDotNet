@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Reflection;
+using System.ComponentModel;
 
 namespace Extensions.net
 {
@@ -368,5 +370,51 @@ namespace Extensions.net
         /// <param name="obj"></param>
         /// <returns></returns>
         public static bool IsDBNullExt(this object obj) => Convert.IsDBNull(obj);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string GetDescriptionExt<T>(this T value)
+        {
+            FieldInfo fi = value.GetType().GetField(value.ToString());
+            if (fi != null)
+            {
+                DescriptionAttribute[] attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+                if (attributes != null)
+                {
+                    return attributes[0].Description;
+                }
+            }
+
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Returns a string representation of the values in a generic list that implements IConvertible separated by a comma.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public static string ToStringExt<T>(this List<T> list) where T : IConvertible => string.Join(",", list);
+
+        /// <summary>
+        /// Returns a string representation of the values in a generic list that implements IConvertible separated by a provided string.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <param name="separator"></param>
+        /// <returns></returns>
+        public static string ToStringExt<T>(this List<T> list, string separator) where T : IConvertible => string.Join(separator, list);
+
+        /// <summary>
+        /// Returns a bool if the extended object is of type T.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="o"></param>
+        /// <returns></returns>
+        public static bool IsExt<T>(this object o) => o is T;
     }
 }

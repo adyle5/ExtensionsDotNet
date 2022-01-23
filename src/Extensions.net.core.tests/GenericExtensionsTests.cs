@@ -5,6 +5,7 @@ using Extensions.net.core.tests.models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -676,6 +677,60 @@ namespace Extensions.net.core.tests.UnitTests
 
             ctx.Database.CloseConnection();
         }
+
+        [Fact]
+        public void GetDescription()
+        {
+            string expected = "The letter a.";
+            string actual = ABC.A.GetDescriptionExt();
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void ToStringTest()
+        {
+            var list = new List<string>() { "one", "two", "three" };
+            var expected = "one,two,three";
+            var actual = list.ToStringExt();
+            Assert.Equal(expected, actual);
+
+            expected = "one;two;three";
+            actual = list.ToStringExt(";");
+            Assert.Equal(expected, actual);
+
+            actual = list.ToStringExt(":");
+            Assert.NotEqual(expected, actual);
+        }
+
+        [Fact]
+        public void Is()
+        {
+            object o = "test";
+            Assert.True(o.IsExt<string>());
+
+            o = new ABC();
+            Assert.True(o.IsExt<ABC>());
+
+            using var ctx = new TestModelContext();
+            ctx.Database.OpenConnection();
+
+            using var command = ctx.Database.GetDbConnection().CreateCommand();
+            command.CommandText = @"CREATE TABLE Test(Id INTEGER, Name Text, Description Text);";
+            command.ExecuteNonQuery();
+
+            using var command2 = ctx.Database.GetDbConnection().CreateCommand();
+            command2.CommandText = @"INSERT INTO Test (Id, Name) VALUES (1, 'Bob');";
+            command2.ExecuteNonQuery();
+
+            using var command3 = ctx.Database.GetDbConnection().CreateCommand();
+            command3.CommandText = @"SELECT Name FROM Test WHERE Id = 1;";
+            object name = command3.ExecuteScalar();
+            Assert.True(name.IsExt<string>());
+
+            ctx.Database.CloseConnection();
+        }
+
+        private enum ABC {[Description("The letter a.")] A = 0, B = 1, C = 2 }
 
         #region "Private Methods"
 
