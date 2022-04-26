@@ -54,6 +54,7 @@ namespace Extensions.net
         /// </summary>
         /// <param name="chars"></param>
         /// <returns></returns>
+        [Obsolete(message: "Not recommended for use. Use UTF8 instead.")]
         public static byte[] GetBytesUtf7Ext(this char[] chars) => Encoding.UTF7.GetBytes(chars);
 
         /// <summary>
@@ -164,6 +165,7 @@ namespace Extensions.net
         /// </summary>
         /// <param name="bytes"></param>
         /// <returns></returns>
+        [Obsolete(message: "Not recommended for use. Use UTF8 instead.")]
         public static string GetStringUTF7Ext(this byte[] bytes) => Encoding.UTF7.GetString(bytes);
 
         /// <summary>

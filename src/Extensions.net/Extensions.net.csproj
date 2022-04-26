@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
-    <Version>2.1.0</Version>
+    <Version>2.2.0</Version>
     <Authors>adyle5</Authors>
     <Copyright>Adrian Gabor</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -18,19 +18,20 @@ Visit our wiki at https://github.com/adyle5/ExtensionsDotNet/wiki for a list of 
 
 To send feedback, suggestions, or report an issue, please visit https://www.nuget.org/packages/ExtensionsDotNet/ and click on "Contact owner."</Description>
     <PackageReleaseNotes>
-		Release 2.1.0
+		Release 2.2.0
 
 		New Extensions
 
-		Generic Extensions:
-		GetDescriptionExt
-		ToStringExt
-		IsExt
+		Array Extensions:
+		ToConsoleExt
+
+		MathExtensions:
+		DivRemExt (int, long, byte)
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/adyle5/ExtensionsDotNet</RepositoryUrl>
     <PackageProjectUrl>https://github.com/adyle5/ExtensionsDotNet/wiki</PackageProjectUrl>
-    <AssemblyVersion>2.1.0</AssemblyVersion>
-    <FileVersion>2.1.0</FileVersion>
+    <AssemblyVersion>2.2.0</AssemblyVersion>
+    <FileVersion>2.2.0</FileVersion>
     <Product>ExtensionsDotNet</Product>
   </PropertyGroup>
 	

@@ -1199,5 +1199,35 @@ namespace Extensions.net
 
             return (2 * Math.PI * radius * height) + (2 * Math.PI * Math.Pow(radius, 2));
         }
+
+        /// <summary>
+        /// Maps to Math.DivRem
+        /// Returns the quotient as a long and also returns the remainder as an out parameter of two integers, a dividend and a divisor.
+        /// </summary>
+        /// <param name="dividend"></param>
+        /// <param name="divisor"></param>
+        /// <param name="remainder"></param>
+        /// <returns></returns>
+        public static int DivRemExt(this int dividend, int divisor, out int remainder) => Math.DivRem(dividend, divisor, out remainder);
+
+        /// <summary>
+        /// Maps to Math.DivRem
+        /// Returns the quotient as an int and also returns the remainder as an out parameter of two longs, a dividend and a divisor.
+        /// </summary>
+        /// <param name="dividend"></param>
+        /// <param name="divisor"></param>
+        /// <param name="remainder"></param>
+        /// <returns></returns>
+        public static long DivRemExt(this long dividend, long divisor, out long remainder) => Math.DivRem(dividend, divisor, out remainder);
+
+        /// <summary>
+        /// Maps to Math.DivRem
+        /// Returns the quotient as an intand also returns the remainder as an integer out parameter of two bytes, a dividend and a divisor.
+        /// </summary>
+        /// <param name="dividend"></param>
+        /// <param name="divisor"></param>
+        /// <param name="remainder"></param>
+        /// <returns></returns>
+        public static int DivRemExt(this byte dividend, byte divisor, out int remainder) => Math.DivRem(dividend, divisor, out remainder);
     }
 }
