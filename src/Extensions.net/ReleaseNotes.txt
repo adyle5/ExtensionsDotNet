@@ -278,3 +278,13 @@ Generic Extensions:
 GetDescriptionExt
 ToStringExt
 IsExt
+
+2.2.0
+
+New Extensions
+
+Array Extensions:
+ToConsoleExt
+
+MathExtensions:
+DivRemExt (int, long, byte)

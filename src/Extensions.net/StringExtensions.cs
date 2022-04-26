@@ -256,12 +256,14 @@ namespace Extensions.net
         }
 
         /// <summary>
+        /// [deprecated] Use ToConsoleExt.
         /// Maps to Console.Write
         /// </summary>
         /// <param name="text"></param>
         public static void WriteToConsoleExt(this string text) => Console.Write(text);
 
         /// <summary>
+        /// [deprecated] Use ToConsoleLineExt.
         /// Maps to Console.WriteLine
         /// </summary>
         /// <param name="text"></param>

@@ -988,5 +988,29 @@ namespace Extensions.net
 
             return list.ToArray<T>();
         }
+
+        /// <summary>
+        /// Outputs all strings in a string array to the console with each string in a new line.
+        /// </summary>
+        /// <param name="arr"></param>
+        public static void ToConsoleExt(this string[] arr)
+        {
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Console.WriteLine(arr[i]);
+            }
+        }
+
+        /// <summary>
+        /// Outputs all strings in a generic list of strings to the console with each string in a new line.
+        /// </summary>
+        /// <param name="lst"></param>
+        public static void ToConsoleExt(this List<string> lst)
+        {
+            for (int i = 0; i < lst.Count; i++)
+            {
+                Console.WriteLine(lst[i]);
+            }
+        }
     }
 }

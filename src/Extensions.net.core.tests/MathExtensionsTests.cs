@@ -687,5 +687,48 @@ namespace Extensions.net.core.tests.UnitTests
             height2 = -1;
             Assert.Throws<ArgumentOutOfRangeException>(() => radius2.AreaOfCylinderExt(height2));
         }
+
+        [Fact]
+        public void DivRem()
+        {
+            int dividend = 10;
+            int divisor = 2;
+            int remainder1;
+
+            int expected = Math.DivRem(dividend, divisor, out remainder1);
+
+            int remainder2;
+
+            int actual = dividend.DivRemExt(divisor, out remainder2);
+
+            Assert.Equal(expected, actual);
+            Assert.Equal(remainder1, remainder2);
+
+            long ldividend = 10;
+            long ldivisor = 2;
+            long lremainder1;
+
+            long lexpected = Math.DivRem(ldividend, ldivisor, out lremainder1);
+
+            long lremainder2;
+
+            long lactual = ldividend.DivRemExt(ldivisor, out lremainder2);
+
+            Assert.Equal(lexpected, lactual);
+            Assert.Equal(lremainder1, lremainder2);
+
+            byte bdividend = 10;
+            byte bdivisor = 2;
+            int bremainder1;
+
+            int bexpected = Math.DivRem(bdividend, bdivisor, out bremainder1);
+
+            int bremainder2;
+
+            int bactual = bdividend.DivRemExt(bdivisor, out bremainder2);
+
+            Assert.Equal(bexpected, bactual);
+            Assert.Equal(bremainder1, bremainder2);
+        }
     }
 }

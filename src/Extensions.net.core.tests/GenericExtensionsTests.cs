@@ -711,6 +711,8 @@ namespace Extensions.net.core.tests.UnitTests
             o = new ABC();
             Assert.True(o.IsExt<ABC>());
 
+            Assert.True(o.IsExt<Enum>());
+
             using var ctx = new TestModelContext();
             ctx.Database.OpenConnection();
 
@@ -728,6 +730,17 @@ namespace Extensions.net.core.tests.UnitTests
             Assert.True(name.IsExt<string>());
 
             ctx.Database.CloseConnection();
+
+            IAnimal animal = Animal.GetRandomAnimal();
+            if (animal.IsExt<Dog>())
+                Assert.Equal("Sparky is a dog. He says woof.", $"{animal.Name} is a dog. He says {animal.MakeNoise()}.");
+            else if (animal.IsExt<Cat>())
+                Assert.Equal("Whiskers is a cat. She says meow.", $"{animal.Name} is a cat. She says {animal.MakeNoise()}.");
+            else
+                Assert.Null(animal);
+
+            Dog dog = new Dog("Sparky");
+            Assert.True(dog.IsExt<IAnimal>());
         }
 
         private enum ABC {[Description("The letter a.")] A = 0, B = 1, C = 2 }
@@ -956,5 +969,50 @@ namespace Extensions.net.core.tests.UnitTests
         }
 
         #endregion
+    }
+
+    interface IAnimal
+    {
+        string Name { get; init; }
+        string MakeNoise();
+    }
+
+    public abstract class Animal : IAnimal
+    {
+        protected Animal(string name)
+        {
+            Name = name;
+        }
+
+        public string Name { get; init; }
+
+        public abstract string MakeNoise();
+
+        public static Animal GetRandomAnimal()
+        {
+            Random random = new Random();
+            int i = random.Next(1, 10);
+
+            return i switch
+            {
+                < 5 => new Dog("Sparky"),
+                (> 5) and (< 10) => new Cat("Whiskers"),
+                _ => null
+            };
+        }
+    }
+
+    public class Dog : Animal
+    {
+        public Dog(string name) : base(name) {}
+
+        public override string MakeNoise() => "woof";
+    }
+
+    public class Cat : Animal
+    {
+        public Cat(string name) : base(name) { }
+
+        public override string MakeNoise() => "meow";
     }
 }
