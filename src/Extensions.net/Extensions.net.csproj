@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
-    <Version>2.2.0</Version>
+    <Version>2.3.0</Version>
     <Authors>adyle5</Authors>
     <Copyright>Adrian Gabor</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -18,12 +18,12 @@ Visit our wiki at https://github.com/adyle5/ExtensionsDotNet/wiki for a list of 
 
 To send feedback, suggestions, or report an issue, please visit https://www.nuget.org/packages/ExtensionsDotNet/ and click on "Contact owner."</Description>
     <PackageReleaseNotes>
-		Release 2.2.0
+		Release 2.3.0
 
 		New Extensions
 
 		Array Extensions:
-		ToConsoleExt
+		EveryExt
 
 		MathExtensions:
 		DivRemExt (int, long, byte)

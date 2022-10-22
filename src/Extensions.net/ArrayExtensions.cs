@@ -1012,5 +1012,19 @@ namespace Extensions.net
                 Console.WriteLine(lst[i]);
             }
         }
+
+        /// <summary>
+        /// Returns every nth value of an array in a new IEnumberable collection. 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <param name="occurence"></param>
+        public static IEnumerable<T> EveryExt<T>(this T[] arr, int occurence)
+        {
+            for(int i = occurence - 1; i < arr.Length; i += occurence)
+            {
+                yield return arr[i];
+            }
+        }
     }
 }
