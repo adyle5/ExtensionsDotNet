@@ -22,16 +22,6 @@ namespace Extensions.net
         public static int ToIntExt<T>(this T obj) where T : IConvertible => Convert.ToInt32(obj);
 
         /// <summary>
-        /// [Deprecated]
-        /// DO NOT USE!
-        /// This extensions has been replaced with ToIntExt and will be removed inn a future release.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public static int ToInt32Ext<T>(this T obj) where T : IConvertible => obj.ToIntExt();
-
-        /// <summary>
         /// Maps to Covert.ToUInt32
         /// </summary>
         /// <returns>The user interface nt32 ext.</returns>
@@ -181,11 +171,13 @@ namespace Extensions.net
 
             if (obj.GetType().IsSerializable)
             {
-                using MemoryStream ms = new ();
-                BinaryFormatter f = new ();
-                f.Serialize(ms, obj);
+                using MemoryStream ms = new();
+
+                var xmlSerializer = new System.Xml.Serialization.XmlSerializer(obj.GetType());
+                xmlSerializer.Serialize(ms, obj);
+
                 ms.Position = 0;
-                newObj = (T)f.Deserialize(ms);
+                newObj = (T)xmlSerializer.Deserialize(ms);
             }
 
             return newObj;

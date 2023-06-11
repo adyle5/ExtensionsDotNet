@@ -63,18 +63,6 @@ namespace Extensions.net.core.tests.UnitTests
         }
 
         [Fact]
-        [Obsolete(message: "Not recommended for use. Use UTF8 instead.")]
-        public void GetBytesUtf7()
-        {
-            char[] arr = { 'a', 'b', 'c', 'd', 'e' };
-            byte[] expected = Encoding.UTF7.GetBytes(arr);
-            Assert.Equal(expected, arr.GetBytesUtf7Ext());
-
-            byte[] expected2 = Encoding.UTF7.GetBytes(arr, 0, 5);
-            Assert.Equal(expected2, arr.GetBytesUtf7Ext(0, 5));
-        }
-
-        [Fact]
         public void GetBytesUtf32()
         {
             char[] arr = { 'a', 'b', 'c', 'd', 'e' };
@@ -132,15 +120,6 @@ namespace Extensions.net.core.tests.UnitTests
             byte[] bytes = new byte[] { 100, 52, 3, 65, 76, 12 };
             string expected = System.Text.Encoding.ASCII.GetString(bytes);
             Assert.Equal(expected, bytes.GetStringASCIIExt());
-        }
-
-        [Fact]
-        [Obsolete(message: "Not recommended for use. Use UTF8 instead.")]
-        public void GetStringUTF7()
-        {
-            byte[] bytes = new byte[] { 100, 52, 3, 65, 76, 12 };
-            string expected = Encoding.UTF7.GetString(bytes);
-            Assert.Equal(expected, bytes.GetStringUTF7Ext());
         }
 
         [Fact]

@@ -288,3 +288,29 @@ ToConsoleExt
 
 MathExtensions:
 DivRemExt (int, long, byte)
+
+3.0
+		
+Extensions.net now supports .NET STANDARD 2.0 and >NET 6.0
+
+New Extensions
+		
+String Extensions:
+IsJsonExt (.NET 6 only)
+
+Array Extensions:
+EveryExt
+
+Removed Extensions:
+GetBytesUtf7Ext
+GetStringUTF7Ext
+ToAesCAPIEncryptedBytesExt
+ToAesCAPIDecryptedStringExt
+ToAesManagedEncryptedBytesExt
+ToAesManagedDecryptedStringExt
+ToInt32Ext
+               
+Notes:
+Changed the DeepCopyExt method to use an XMLSerializer instead of a BinaryFormatter since the BinaryFormatter is deprecated because of security vulnerabilities.
+
+Deprecated method ToHttpWebRequestExt.

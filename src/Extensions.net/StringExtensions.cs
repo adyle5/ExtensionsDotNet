@@ -9,6 +9,10 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
+#if NET6_0
+using System.Text.Json.Nodes;
+#endif
+
 namespace Extensions.net
 {
     /// <summary>
@@ -110,15 +114,6 @@ namespace Extensions.net
                 return text;
             }
         }
-
-        /// <summary>
-        /// [deprecated] This method is now deprecated and may be removed in future versions. Do not use.
-        /// Maps to string.Copy.
-        /// Deep copy.
-        /// </summary>
-        /// <returns>The copy.</returns>
-        /// <param name="text">Text.</param>
-        public static string CopyExt(this string text) => string.Copy(text);
 
         /// <summary>
         /// Maps to string.Format
@@ -256,20 +251,6 @@ namespace Extensions.net
         }
 
         /// <summary>
-        /// [deprecated] Use ToConsoleExt.
-        /// Maps to Console.Write
-        /// </summary>
-        /// <param name="text"></param>
-        public static void WriteToConsoleExt(this string text) => Console.Write(text);
-
-        /// <summary>
-        /// [deprecated] Use ToConsoleLineExt.
-        /// Maps to Console.WriteLine
-        /// </summary>
-        /// <param name="text"></param>
-        public static void WriteLineToConsoleExt(this string text) => Console.WriteLine(text);
-
-        /// <summary>
         /// Maps Debug.Write
         /// Writes to the debug window
         /// </summary>
@@ -313,13 +294,6 @@ namespace Extensions.net
         /// <returns></returns>
         public static byte[] GetBytesUtf8Ext(this string s) => Encoding.UTF8.GetBytes(s);
 
-        /// <summary>
-        /// [deprecated] This method is now deprecated and may be removed in future versions. Use GetBytesUtf8Ext instead.
-        /// Maps to Encoding.UTF7.GetBytes
-        /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        public static byte[] GetBytesUtf7Ext(this string s) => Encoding.UTF7.GetBytes(s);
 
         /// <summary>
         /// Maps to Encoding.UTF32.GetBytes
@@ -689,6 +663,7 @@ namespace Extensions.net
         /// <param name="userAgent"></param>
         /// <param name="headers"></param>
         /// <returns></returns>
+        [Obsolete(message: "Do not use. This method will be deprecated in future releases.")]
         public static HttpWebRequest ToHttpWebRequestExt(this string url, string method = null, string contentType = null, string accept = null, string host = null, int timeout = -1, string mediaType = null, string userAgent = null, Tuple<string, string>[] headers = null)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
@@ -870,5 +845,21 @@ namespace Extensions.net
 
             return text.ConcatExt(new string(arr));
         }
+
+#if NET6_0
+        public static bool IsJsonExt(this string text)
+        {
+            try
+            {
+                _ = JsonObject.Parse(text);
+            }
+            catch
+            {
+                return false;
+            }
+            
+            return true;
+        }
+#endif
     }
 }

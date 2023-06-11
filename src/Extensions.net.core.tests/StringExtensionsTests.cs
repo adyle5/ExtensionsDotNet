@@ -130,30 +130,6 @@ namespace Extensions.net.core.tests.UnitTests
         }
 
         [Fact]
-        public void Concatenate()
-        {
-            string str1 = "fu";
-            string str2 = "bar";
-            string str3 = "star";
-            Assert.Equal(string.Concat(str1, str2, str3), str1.ConcatExt(str2, str3));
-
-            string[] arr1 = { str2, str3 };
-            Assert.Equal(string.Concat(str1, str2, str3), str1.ConcatExt(arr1));
-
-            string[] arr2 = null;
-            Assert.Equal(string.Concat(str1, arr2), str1.ConcatExt(arr2));
-        }
-
-        [Fact]
-        [Obsolete(message: "String.Copy no longer recommended by Microsoft.")]
-        public void Copy()
-        {
-            string str1 = "fubar";           
-            Assert.Equal(string.Copy(str1), str1.CopyExt());
-            Assert.Equal(string.Copy(str1), str1.CopyExt());
-        }
-
-        [Fact]
         public void Format()
         {
             string str1 = "fu{0}{1}";
@@ -321,34 +297,6 @@ namespace Extensions.net.core.tests.UnitTests
         }
 
         [Fact]
-        public void WriteToConsole()
-        {
-            using StringWriter stringWriter = new ();
-            Console.SetOut(stringWriter);
-
-            string str1 = "fubar";
-            str1.WriteToConsoleExt();
-
-            string consoleOutput = stringWriter.ToString();
-
-            Assert.Equal(str1, consoleOutput);
-        }
-
-        [Fact]
-        public void WriteLineToConsole()
-        {
-            using StringWriter stringWriter = new ();
-            Console.SetOut(stringWriter);
-
-            string str1 = "fubar";
-            str1.WriteLineToConsoleExt();
-
-            string consoleOutput = stringWriter.ToString();
-
-            Assert.Equal(str1 + Environment.NewLine, consoleOutput);
-        }
-
-        [Fact]
         public void GetBytes()
         {
             string s = "test";
@@ -362,15 +310,6 @@ namespace Extensions.net.core.tests.UnitTests
             string s = "test";
             byte[] expected = Encoding.UTF8.GetBytes(s);
             Assert.Equal(expected, s.GetBytesUtf8Ext());
-        }
-
-        [Fact]
-        [Obsolete (message: "Not recommended for use. Use UTF8 instead.")]
-        public void GetBytesUtf7()
-        {
-            string s = "test";
-            byte[] expected = Encoding.UTF7.GetBytes(s);
-            Assert.Equal(expected, s.GetBytesUtf7Ext());
         }
 
         [Fact]
@@ -759,6 +698,7 @@ namespace Extensions.net.core.tests.UnitTests
         }
 
         [Fact]
+        [Obsolete("This test uses an obsolete extension and will be removed in a future release.", false)]
         public void ToHttpWebRequest()
         {
             string url = "https://www.example.com";
@@ -943,6 +883,16 @@ namespace Extensions.net.core.tests.UnitTests
             expected = "\r\n\r\n\r\n\r\n\r\n";
             actual = testEmpty.LineBreakExt(5);
             Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void IsJson()
+        {
+            string test = "{\"name\": \"Bob\"}";
+            Assert.True(test.IsJsonExt());
+
+            test = "\"name\": \"Bob\"}";
+            Assert.False(test.IsJsonExt());
         }
 
         #region "Private Methods"

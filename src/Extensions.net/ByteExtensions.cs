@@ -49,25 +49,6 @@ namespace Extensions.net
         public static byte[] GetBytesUtf8Ext(this char[] chars, int index, int count) => Encoding.UTF8.GetBytes(chars, index, count);
 
         /// <summary>
-        /// [deprecated] This method is now deprecated and may be removed in future versions. Use GetBytesUtf8Ext instead.
-        /// Maps to Encoding.UTF7.GetBytes
-        /// </summary>
-        /// <param name="chars"></param>
-        /// <returns></returns>
-        [Obsolete(message: "Not recommended for use. Use UTF8 instead.")]
-        public static byte[] GetBytesUtf7Ext(this char[] chars) => Encoding.UTF7.GetBytes(chars);
-
-        /// <summary>
-        /// [deprecated] This method is now deprecated and may be removed in future versions. Use GetBytesUtf8Ext instead.
-        /// Maps to Encoding.UTF7.GetBytes
-        /// </summary>
-        /// <param name="chars"></param>
-        /// <param name="index"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
-        public static byte[] GetBytesUtf7Ext(this char[] chars, int index, int count) => Encoding.UTF7.GetBytes(chars, index, count);
-
-        /// <summary>
         /// Maps to Encoding.UTF32.GetBytes
         /// </summary>
         /// <param name="chars"></param>
@@ -158,15 +139,6 @@ namespace Extensions.net
         /// <param name="bytes"></param>
         /// <returns></returns>
         public static string GetStringASCIIExt(this byte[] bytes) => Encoding.ASCII.GetString(bytes);
-
-        /// <summary>
-        /// [deprecated] This method is now deprecated and may be removed in future versions. Use GetStringUTF8Ext instead.
-        /// Maps to System.Text.Encoding.UTF7.GetString
-        /// </summary>
-        /// <param name="bytes"></param>
-        /// <returns></returns>
-        [Obsolete(message: "Not recommended for use. Use UTF8 instead.")]
-        public static string GetStringUTF7Ext(this byte[] bytes) => Encoding.UTF7.GetString(bytes);
 
         /// <summary>
         /// Maps to System.Text.Encoding.UTF8.GetString
