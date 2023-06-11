@@ -1,4 +1,4 @@
-﻿// Copyright © 2022 Adrian Gabor
+﻿// Copyright © 2023 Adrian Gabor
 // Refer to license.txt for usage and permission information 
 
 using System.Linq;

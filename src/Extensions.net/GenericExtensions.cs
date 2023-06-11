@@ -1,4 +1,4 @@
-﻿// Copyright © 2022 Adrian Gabor
+﻿// Copyright © 2023 Adrian Gabor
 // Refer to license.txt for usage and permission information 
 
 using System;
@@ -158,7 +158,7 @@ namespace Extensions.net
 
         /// <summary>
         /// Performs a deep copy of an object.
-        /// Object must be a class and must be serializable.
+        /// Object must be a class, must be serializable, must be accessible, and must have a parameterless constructor.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>

@@ -314,3 +314,5 @@ Notes:
 Changed the DeepCopyExt method to use an XMLSerializer instead of a BinaryFormatter since the BinaryFormatter is deprecated because of security vulnerabilities.
 
 Deprecated method ToHttpWebRequestExt.
+
+3.1
