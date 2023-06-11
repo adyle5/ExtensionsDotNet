@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
-    <Version>2.2.0</Version>
+    <Version>3.0</Version>
     <Authors>adyle5</Authors>
     <Copyright>Adrian Gabor</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -18,20 +18,32 @@ Visit our wiki at https://github.com/adyle5/ExtensionsDotNet/wiki for a list of 
 
 To send feedback, suggestions, or report an issue, please visit https://www.nuget.org/packages/ExtensionsDotNet/ and click on "Contact owner."</Description>
     <PackageReleaseNotes>
-		Release 2.2.0
+		Release 3.0
+		
+Extensions.net now supports .NET STANDARD 2.0 and &gt;NET 6.0
 
-		New Extensions
+New Extensions
+		
+String Extensions:
+IsJsonExt (.NET 6 only)
 
-		Array Extensions:
-		ToConsoleExt
+Array Extensions:
+EveryExt
 
-		MathExtensions:
-		DivRemExt (int, long, byte)
-	</PackageReleaseNotes>
+Removed Extensions:
+GetBytesUtf7Ext
+GetStringUTF7Ext
+ToAesCAPIEncryptedBytesExt
+ToAesCAPIDecryptedStringExt
+ToAesManagedEncryptedBytesExt
+ToAesManagedDecryptedStringExt
+ToInt32Ext
+                         
+Changed the DeepCopyExt method to use an XMLSerializer instead of a BinaryFormatter since the BinaryFormatter is deprecated because of security vulnerabilities.</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/adyle5/ExtensionsDotNet</RepositoryUrl>
     <PackageProjectUrl>https://github.com/adyle5/ExtensionsDotNet/wiki</PackageProjectUrl>
-    <AssemblyVersion>2.2.0</AssemblyVersion>
-    <FileVersion>2.2.0</FileVersion>
+    <AssemblyVersion>3.0</AssemblyVersion>
+    <FileVersion>3.0</FileVersion>
     <Product>ExtensionsDotNet</Product>
   </PropertyGroup>
 	

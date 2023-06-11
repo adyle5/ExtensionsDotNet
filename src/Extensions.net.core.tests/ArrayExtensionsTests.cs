@@ -797,6 +797,16 @@ namespace Extensions.net.core.tests.UnitTests
             Assert.True(match);
         }
 
+        [Fact]
+        public void Every()
+        {
+             int[] arr1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+             int[] arrExpected = { 3, 6, 9 };
+             int[] arrActual = arr1.EveryExt(3).ToArray();
+
+             Assert.Equal(arrExpected, arrActual);
+        }
+
         #region "Private Methods"
         private static long BinarySearchDotNet(int[] arr1, int target)
         {

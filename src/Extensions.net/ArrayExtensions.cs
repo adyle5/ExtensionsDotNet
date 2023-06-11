@@ -120,7 +120,7 @@ namespace Extensions.net
                 return arr;
 
             if (position > arr.Length + 1 || position < 0)
-                throw new ArgumentOutOfRangeException("Insert position out of range");
+                throw new ArgumentOutOfRangeException(nameof(position));
 
             T[] newArr = new T[arr.Length + 1];
             for (int i = 0; i < newArr.Length; i++)
@@ -158,7 +158,7 @@ namespace Extensions.net
                 return arr;
 
             if (position > arr.Length + 1 || position < 0)
-                throw new ArgumentOutOfRangeException("Insert position out of range");
+                throw new ArgumentOutOfRangeException(nameof(position));
 
             T[] newArr = new T[arr.Length + 1];
             for (int i = 0; i < newArr.Length; i++)
@@ -938,11 +938,11 @@ namespace Extensions.net
             if (arr != null)
             {
                 StringBuilder sb = new ();
-                sb.Append("{");
+                sb.Append('{');
                 sb.Append($"\"{propertyName}\":[\"");
                 sb.Append(string.Join("\",\"", arr));
                 sb.Append("\"]");
-                sb.Append("}");
+                sb.Append('}');
 
                 return sb.ToString();
             }
@@ -1010,6 +1010,20 @@ namespace Extensions.net
             for (int i = 0; i < lst.Count; i++)
             {
                 Console.WriteLine(lst[i]);
+            }
+        }
+
+        /// <summary>
+        /// Returns every nth value of an array in a new IEnumberable collection. 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arr"></param>
+        /// <param name="occurence"></param>
+        public static IEnumerable<T> EveryExt<T>(this T[] arr, int occurence)
+        {
+            for(int i = occurence - 1; i < arr.Length; i += occurence)
+            {
+                yield return arr[i];
             }
         }
     }

@@ -81,54 +81,6 @@ namespace Extensions.net.core.tests.UnitTests
         }
 
         [Fact]
-        public void ToAesCAPIEncryptedBytesExt()
-        {
-            string text = "This is a test";
-
-            var (EncryptedBytes, Key, IV) = text.ToAesCAPIEncryptedBytesExt();
-            string decrypted = EncryptedBytes.ToAesCAPIDecryptedStringExt(Key, IV);
-            string expected = text;
-
-            Assert.Equal(expected, decrypted);
-        }
-
-        [Fact]
-        public void ToAesCAPIDecryptedString()
-        {
-            string text = "This is a test";
-
-            var (EncryptedBytes, Key, IV) = text.ToAesCAPIEncryptedBytesExt();
-            string decrypted = EncryptedBytes.ToAesCAPIDecryptedStringExt(Key, IV);
-            string expected = text;
-
-            Assert.Equal(expected, decrypted);
-        }
-
-        [Fact]
-        public void ToAesManagedEncryptedBytes()
-        {
-            string text = "This is a test";
-
-            var (EncryptedBytes, Key, IV) = text.ToAesManagedEncryptedBytesExt();
-            string decrypted = EncryptedBytes.ToAesManagedDecryptedStringExt(Key, IV);
-            string expected = text;
-
-            Assert.Equal(expected, decrypted);
-        }
-
-        [Fact]
-        public void ToAesManagedDecryptedString()
-        {
-            string text = "This is a test";
-
-            var (EncryptedBytes, Key, IV) = text.ToAesManagedEncryptedBytesExt();
-            string decrypted = EncryptedBytes.ToAesManagedDecryptedStringExt(Key, IV);
-            string expected = text;
-
-            Assert.Equal(expected, decrypted);
-        }
-
-        [Fact]
         public void ToTripleDesEncryptedBytes()
         {
             string text = "This is a test";
