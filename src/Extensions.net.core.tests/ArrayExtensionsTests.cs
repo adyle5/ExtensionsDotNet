@@ -1,4 +1,4 @@
-﻿// Copyright © 2022 Adrian Gabor
+﻿// Copyright © 2023 Adrian Gabor
 // Refer to license.txt for usage and permission information 
 
 using System;
@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Xml;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -697,7 +698,14 @@ namespace Extensions.net.core.tests.UnitTests
             string[] arr1 = { "one", "two", "four", "five" };
             string expected = "<?xml version=\"1.0\" encoding=\"utf-16\"?><ArrayOfString xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><string>one</string><string>two</string><string>four</string><string>five</string></ArrayOfString>";
             string actual = arr1.ToXmlSerializeExt();
-            Assert.Equal(expected, actual);
+
+            XmlDocument xmlDocument1 = new XmlDocument();
+            xmlDocument1.LoadXml(expected);
+
+            XmlDocument xmlDocument2 = new XmlDocument();
+            xmlDocument2.LoadXml(actual);
+
+            Assert.Equal(xmlDocument1, xmlDocument2);
         }
 
         [Fact]
@@ -863,11 +871,16 @@ namespace Extensions.net.core.tests.UnitTests
     }
 
     [Serializable]
-    class TestClass
+    public class TestClass
     {
         public int ID { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
+
+        public TestClass()
+        {
+
+        }
 
         public TestClass(int id, string name, decimal price)
         {

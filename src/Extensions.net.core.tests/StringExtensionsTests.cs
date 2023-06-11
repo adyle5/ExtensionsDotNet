@@ -1,10 +1,9 @@
-﻿// Copyright © 2022 Adrian Gabor
+﻿// Copyright © 2023 Adrian Gabor
 // Refer to license.txt for usage and permission information 
 
 using System;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
