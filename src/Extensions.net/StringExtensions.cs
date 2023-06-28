@@ -51,7 +51,7 @@ namespace Extensions.net
         /// <summary>
         /// Maps to string.<paramref name="compareTo"/>, sets the String comparison to Invariant Culture Ignore Case.
         /// </summary>
-        /// <returns>The value that comes first alphabeltically. If the same returns an empty string. Ignores case.</returns>
+        /// <returns>The value that comes first alphabetically. If the same returns an empty string. Ignores case.</returns>
         /// <param name="text">Text.</param>
         /// <param name="compareTo">Compare to.</param>
         public static int CompareExt(this string text, string compareTo) => string.Compare(text, compareTo, StringComparison.InvariantCultureIgnoreCase);
@@ -99,20 +99,18 @@ namespace Extensions.net
         /// <param name="toAdd">To add.</param>
         public static string ConcatExt(this string text, params string[] toAdd)
         {
-            if (toAdd != null)
-            {
-                StringBuilder sb = new(text);
-                for (int i = 0; i < toAdd.Length; i++)
-                {
-                    sb.Append(toAdd[i]);
-                }
-
-                return sb.ToString();
-            }
-            else
+            if (toAdd is null)
             {
                 return text;
             }
+
+            StringBuilder sb = new(text);
+            for (int i = 0; i < toAdd.Length; i++)
+            {
+                sb.Append(toAdd[i]);
+            }
+
+            return sb.ToString();
         }
 
         /// <summary>
@@ -123,14 +121,12 @@ namespace Extensions.net
         /// <param name="values">Values.</param>
         public static string FormatExt(this string text, params object[] values)
         {
-            if (values != null)
-            {
-                return string.Format(text, values);
-            }
-            else
+            if (values is null)
             {
                 return text;
             }
+
+            return string.Format(text, values);
         }
 
         /// <summary>
@@ -239,7 +235,7 @@ namespace Extensions.net
         }
 
         /// <summary>
-        /// Retruns a bool indicating if the text is a palindrome
+        /// Returns a bool indicating if the text is a palindrome
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -405,35 +401,33 @@ namespace Extensions.net
         /// <returns></returns>
         public static string CapitalizeExt(this string text)
         {
-            if (!text.IsNullOrWhiteSpaceExt())
+            if (text.IsNullOrWhiteSpaceExt())
             {
-                if (text.Contains(". "))
-                {
-                    string[] arrText = text.Split(new string[] { ". " }, StringSplitOptions.None);
-                    string[] arrCap = new string[arrText.Length];
-
-                    for (int i = 0; i < arrText.Length; i++)
-                    {
-                        if (!arrText[i].IsNullOrWhiteSpaceExt())
-                        {
-                            string currText = arrText[i].Trim();
-                            arrCap[i] = currText.Substring(0, 1).ToUpperInvariant().ConcatExt(currText.Substring(1, currText.Length - 1));
-                        }
-                        else
-                        {
-                            arrCap[i] = arrText[i];
-                        }
-                    }
-
-                    return arrCap.JoinExt(". ").Trim();
-                }
-                else
-                {
-                    return text.Substring(0, 1).ToUpperInvariant().ConcatExt(text.Substring(1, text.Length - 1));
-                }
+                return text;
             }
 
-            return text;
+            if (text.Contains(". "))
+            {
+                string[] arrText = text.Split(new string[] { ". " }, StringSplitOptions.None);
+                string[] arrCap = new string[arrText.Length];
+
+                for (int i = 0; i < arrText.Length; i++)
+                {
+                    if (!arrText[i].IsNullOrWhiteSpaceExt())
+                    {
+                        string currText = arrText[i].Trim();
+                        arrCap[i] = currText.Substring(0, 1).ToUpperInvariant().ConcatExt(currText.Substring(1, currText.Length - 1));
+                    }
+                    else
+                    {
+                        arrCap[i] = arrText[i];
+                    }
+                }
+
+                return arrCap.JoinExt(". ").Trim();
+            }
+
+            return text.Substring(0, 1).ToUpperInvariant().ConcatExt(text.Substring(1, text.Length - 1));
         }
 
         /// <summary>
@@ -490,54 +484,6 @@ namespace Extensions.net
             }
 
             return text;
-        }
-
-        /// <summary>
-        /// Returns true if all characters inside the string are either numbers or letters, otherwise returns false. All characters evaluated including blank spaces.
-        /// </summary>
-        /// <param name="text"></param>
-        /// <returns></returns>
-        public static bool IsAlphaNumericExt(this string text)
-        {
-            if (text == null)
-            {
-                return false;
-            }
-
-            string regex = "^[a-zA-Z0-9]+$";
-            return System.Text.RegularExpressions.Regex.IsMatch(text, regex);
-        }
-
-        /// <summary>
-        /// Returns true if all characters inside the string are letters, otherwise returns false. All characters evaluated including blank spaces.
-        /// </summary>
-        /// <param name="text"></param>
-        /// <returns></returns>
-        public static bool IsAlphaExt(this string text)
-        {
-            if (text == null)
-            {
-                return false;
-            }
-
-            string regex = "^[a-zA-Z]+$";
-            return System.Text.RegularExpressions.Regex.IsMatch(text, regex);
-        }
-
-        /// <summary>
-        /// Returns true if all characters inside the string are numeric, otherwise returns false. All characters evaluated including blank spaces. A decimal number returns false since it contains a non-numeric character (period).
-        /// </summary>
-        /// <param name="text"></param>
-        /// <returns></returns>
-        public static bool IsNumericExt(this string text)
-        {
-            if (text == null)
-            {
-                return false;
-            }
-
-            string regex = "^[0-9]+$";
-            return System.Text.RegularExpressions.Regex.IsMatch(text, regex);
         }
 
         /// <summary>

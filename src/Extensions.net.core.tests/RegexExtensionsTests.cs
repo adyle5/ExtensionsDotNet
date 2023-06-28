@@ -1,9 +1,9 @@
 ﻿// Copyright © 2023 Adrian Gabor
 // Refer to license.txt for usage and permission information 
 
-using NuGet.Frameworks;
-using System.Diagnostics.Contracts;
+using System;
 using Xunit;
+using Extensions.net.RegularExpressions;
 
 namespace Extensions.net.core.tests.UnitTests
 {
@@ -23,10 +23,10 @@ namespace Extensions.net.core.tests.UnitTests
             Assert.False(target.StartsWithExt(antipattern).ProcessRegexExt());
 
             string nullpattern = null;
-            Assert.True(target.StartsWithExt(nullpattern).ProcessRegexExt());
+            Assert.False(target.StartsWithExt(nullpattern).ProcessRegexExt());
 
             string emptypattern = "";
-            Assert.True(target.StartsWithExt(emptypattern).ProcessRegexExt());
+            Assert.False(target.StartsWithExt(emptypattern).ProcessRegexExt());
         }
 
         [Fact]
@@ -46,10 +46,10 @@ namespace Extensions.net.core.tests.UnitTests
             Assert.False(target.StartsWithExt(antipattern).ProcessRegexExt());
 
             string nullpattern = null;
-            Assert.True(target.StartsWithExt(nullpattern).ProcessRegexExt());
+            Assert.False(target.StartsWithExt(nullpattern).ProcessRegexExt());
 
             string emptypattern = "";
-            Assert.True(target.StartsWithExt(emptypattern).ProcessRegexExt());
+            Assert.False(target.StartsWithExt(emptypattern).ProcessRegexExt());
         }
 
         [Fact]
@@ -66,10 +66,10 @@ namespace Extensions.net.core.tests.UnitTests
             Assert.False(target.EndsWithExt(antipattern).ProcessRegexExt());
 
             string nullpattern = null;
-            Assert.True(target.EndsWithExt(nullpattern).ProcessRegexExt());
+            Assert.False(target.EndsWithExt(nullpattern).ProcessRegexExt());
 
             string emptypattern = "";
-            Assert.True(target.EndsWithExt(emptypattern).ProcessRegexExt());
+            Assert.False(target.EndsWithExt(emptypattern).ProcessRegexExt());
         }
 
         [Fact]
@@ -89,10 +89,10 @@ namespace Extensions.net.core.tests.UnitTests
             Assert.False(target.EndsWithCaseInsensitiveExt(antipattern).ProcessRegexExt());
 
             string nullpattern = null;
-            Assert.True(target.EndsWithCaseInsensitiveExt(nullpattern).ProcessRegexExt());
+            Assert.False(target.EndsWithCaseInsensitiveExt(nullpattern).ProcessRegexExt());
 
             string emptypattern = "";
-            Assert.True(target.EndsWithCaseInsensitiveExt(emptypattern).ProcessRegexExt());
+            Assert.False(target.EndsWithCaseInsensitiveExt(emptypattern).ProcessRegexExt());
         }
 
         [Fact]
@@ -164,6 +164,174 @@ namespace Extensions.net.core.tests.UnitTests
             Assert.True(target.ExcludesExt("!").ProcessRegexExt());
             Assert.True(target.ExcludesExt('\b').ProcessRegexExt());
             Assert.False(target.ExcludesExt("err").ProcessRegexExt());
+        }
+
+        [Fact]
+        public void IsValidPhoneNumber()
+        {
+            string number = "5555555555";
+            Assert.True(number.IsValidPhoneNumberExt().ProcessRegexExt());
+
+            number = "555555555";
+            Assert.False(number.IsValidPhoneNumberExt().ProcessRegexExt());
+
+            number = "555555555X";
+            Assert.False(number.IsValidPhoneNumberExt().ProcessRegexExt());
+
+            number = "";
+            Assert.False(number.IsValidPhoneNumberExt().ProcessRegexExt());
+
+            number = null;
+            Assert.False(number.IsValidPhoneNumberExt().ProcessRegexExt());
+        }
+
+        [Fact]
+        public void IsValidEmail()
+        {
+            string email = "test@test.com";
+            Assert.True(email.IsValidEmailExt().ProcessRegexExt());
+
+            email = "Test@TEST.org";
+            Assert.True(email.IsValidEmailExt().ProcessRegexExt());
+
+            email = "test1@test.com";
+            Assert.True(email.IsValidEmailExt().ProcessRegexExt());
+
+            email = "test-1@test.com";
+            Assert.True(email.IsValidEmailExt().ProcessRegexExt());
+
+            email = "test.1@test.com";
+            Assert.True(email.IsValidEmailExt().ProcessRegexExt());
+
+            email = "test_1@test.com";
+            Assert.True(email.IsValidEmailExt().ProcessRegexExt());
+
+            email = "test@test.1";
+            Assert.True(email.IsValidEmailExt().ProcessRegexExt());
+
+            email = "test@test@test.com";
+            Assert.False(email.IsValidEmailExt().ProcessRegexExt());
+
+            email = "test";
+            Assert.False(email.IsValidEmailExt().ProcessRegexExt());
+
+            email = "";
+            Assert.False(email.IsValidEmailExt().ProcessRegexExt());
+
+            email = null;
+            Assert.False(email.IsValidEmailExt().ProcessRegexExt());
+        }
+
+        [Fact]
+        public void IsValidIPAddress()
+        {
+            string ip = "255.255.255.255";
+            Assert.True(ip.IsValidIPAddressExt().ProcessRegexExt());
+
+            ip = "0.0.0.0";
+            Assert.True(ip.IsValidIPAddressExt().ProcessRegexExt());
+
+            ip = "000.000.000.000";
+            Assert.False(ip.IsValidIPAddressExt().ProcessRegexExt());
+
+            ip = "255.255.255.255.355";
+            Assert.False(ip.IsValidIPAddressExt().ProcessRegexExt());
+
+            ip = "255.255";
+            Assert.False(ip.IsValidIPAddressExt().ProcessRegexExt());
+
+            ip = "256.256.256.256";
+            Assert.False(ip.IsValidIPAddressExt().ProcessRegexExt());
+
+            ip = "-255.255.255.255";
+            Assert.False(ip.IsValidIPAddressExt().ProcessRegexExt());
+        }
+
+        [Fact]
+        public void FormatPhoneNumber()
+        {
+            string number = "5555555555";
+            string expected = "(555) 555-5555";
+            string actual = number.FormatPhoneNumberExt();
+            Assert.Equal(expected, actual);
+
+            number = "555555555";
+            Assert.Throws<ArgumentNullException>(number.FormatPhoneNumberExt);
+
+            number = "555555555X";
+            Assert.Throws<ArgumentNullException>(number.FormatPhoneNumberExt);
+
+            number = "";
+            Assert.Throws<ArgumentNullException>(number.FormatPhoneNumberExt);
+
+            number = null;
+            Assert.Throws<ArgumentNullException>(number.FormatPhoneNumberExt);
+        }
+
+        [Fact]
+        public void IsAlphaNumeric()
+        {
+            string text = "abc123";
+            Assert.True(text.IsAlphaNumericExt().ProcessRegexExt());
+
+            text = "123";
+            Assert.True(text.IsAlphaNumericExt().ProcessRegexExt());
+
+            text = "abc";
+            Assert.True(text.IsAlphaNumericExt().ProcessRegexExt());
+
+            text = "abc.123";
+            Assert.False(text.IsAlphaNumericExt().ProcessRegexExt());
+
+            text = "abc 123";
+            Assert.False(text.IsAlphaNumericExt().ProcessRegexExt());
+
+            text = null;
+            Assert.False(text.IsAlphaNumericExt().ProcessRegexExt());
+        }
+
+        [Fact]
+        public void IsAlpha()
+        {
+            string text = "abc123";
+            Assert.False(text.IsAlphaExt().ProcessRegexExt());
+
+            text = "123";
+            Assert.False(text.IsAlphaExt().ProcessRegexExt());
+
+            text = "abc";
+            Assert.True(text.IsAlphaExt().ProcessRegexExt());
+
+            text = "abc.123";
+            Assert.False(text.IsAlphaExt().ProcessRegexExt());
+
+            text = "abc 123";
+            Assert.False(text.IsAlphaExt().ProcessRegexExt());
+
+            text = null;
+            Assert.False(text.IsAlphaExt().ProcessRegexExt());
+        }
+
+        [Fact]
+        public void IsNumeric()
+        {
+            string text = "abc123";
+            Assert.False(text.IsNumericExt().ProcessRegexExt());
+
+            text = "123";
+            Assert.True(text.IsNumericExt().ProcessRegexExt());
+
+            text = "abc";
+            Assert.False(text.IsNumericExt().ProcessRegexExt());
+
+            text = "abc.123";
+            Assert.False(text.IsNumericExt().ProcessRegexExt());
+
+            text = "abc 123";
+            Assert.False(text.IsNumericExt().ProcessRegexExt());
+
+            text = null;
+            Assert.False(text.IsNumericExt().ProcessRegexExt());
         }
 
         [Fact]

@@ -316,3 +316,7 @@ Changed the DeepCopyExt method to use an XMLSerializer instead of a BinaryFormat
 Deprecated method ToHttpWebRequestExt.
 
 3.1
+Add Regex extensions.
+
+3.2
+Move IsAlphaExt, IsAlphaNumericExt, and IsNumericExt extensions from StringExtensions to RegexExtensions.

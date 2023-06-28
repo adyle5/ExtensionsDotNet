@@ -51,6 +51,8 @@ Changed the DeepCopyExt method to use an XMLSerializer instead of a BinaryFormat
 	<!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+  	<EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
 
   <ItemGroup>
@@ -67,5 +69,9 @@ Changed the DeepCopyExt method to use an XMLSerializer instead of a BinaryFormat
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+	
+<ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+</ItemGroup>
 
 </Project>
